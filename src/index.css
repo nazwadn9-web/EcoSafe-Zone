@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50;
+  }
+}
+
+@layer components {
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .btn-primary {
+    @apply bg-green-600 text-white px-6 py-3 rounded-full font-semibold 
+           hover:bg-green-700 transform hover:scale-105 transition-all duration-300
+           shadow-lg hover:shadow-xl;
+  }
+  
+  .btn-secondary {
+    @apply bg-white text-green-700 px-6 py-3 rounded-full font-semibold 
+           border-2 border-green-600 hover:bg-green-50 
+           transform hover:scale-105 transition-all duration-300;
+  }
+  
+  .card {
+    @apply bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl 
+           hover:shadow-2xl transition-all duration-300
+           border border-white/20;
+  }
+  
+  .section-title {
+    @apply text-4xl md:text-5xl font-bold text-gray-800 mb-4;
+  }
+  
+  .section-subtitle {
+    @apply text-xl text-gray-600 mb-12;
+  }
+}
