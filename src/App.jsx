@@ -1,12 +1,60 @@
 import React from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import Navbar from './components/Navbar'
 import Beranda from './pages/Beranda'
 import Tentang from './pages/Tentang'
 import Layanan from './pages/Layanan'
 import Artikel from './pages/Artikel'
+import Games from './pages/Games'
+import Login from './pages/Login'
+import SignUp from './pages/SignUp'
 import Footer from './components/Footer'
+
+// Game Pages
+import PilahSampah from './pages/games/PilahSampah'
+import TebakSampah from './pages/games/TebakSampah'
+// import DaurUlang from './pages/games/DaurUlang'
+
+// Layanan Sub-pages
+import Edukasi from './pages/layanan/Edukasi'
+import BankSampah from './pages/layanan/BankSampah'
+// import Komunitas from './pages/layanan/Komunitas'
+// import Pelatihan from './pages/layanan/Pelatihan'
+
+const AnimatedRoutes = () => {
+  const location = useLocation()
+  
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        {/* Main Pages */}
+        <Route path="/" element={<Beranda />} />
+        <Route path="/tentang" element={<Tentang />} />
+        <Route path="/layanan" element={<Layanan />} />
+        <Route path="/artikel" element={<Artikel />} />
+        
+        {/* Auth Pages */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        
+        {/* Games Hub Page */}
+        <Route path="/games" element={<Games />} />
+        
+        {/* Layanan Sub-pages */}
+        <Route path="/layanan/edukasi" element={<Edukasi />} />
+        <Route path="/layanan/bank-sampah" element={<BankSampah />} />
+        {/* <Route path="/layanan/komunitas" element={<Komunitas />} />
+        <Route path="/layanan/pelatihan" element={<Pelatihan />} />
+         */}
+        {/* Individual Game Pages */}
+        <Route path="/games/pilah-sampah" element={<PilahSampah />} />
+        <Route path="/games/tebak-sampah" element={<TebakSampah />} />
+        {/* <Route path="/games/daur-ulang" element={<DaurUlang />} /> */}
+      </Routes>
+    </AnimatePresence>
+  )
+}
 
 function App() {
   return (
@@ -20,18 +68,9 @@ function App() {
         </div>
 
         <Navbar />
-        
         <main className="flex-grow">
-          <AnimatePresence mode="wait">
-            <Routes>
-              <Route path="/" element={<Beranda />} />
-              <Route path="/tentang" element={<Tentang />} />
-              <Route path="/layanan" element={<Layanan />} />
-              <Route path="/artikel" element={<Artikel />} />
-            </Routes>
-          </AnimatePresence>
+          <AnimatedRoutes />
         </main>
-
         <Footer />
       </div>
     </Router>
