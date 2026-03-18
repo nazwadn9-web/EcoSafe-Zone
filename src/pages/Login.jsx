@@ -99,7 +99,7 @@ const Login = () => {
               </div>
 
               {/* Testimonial */}
-              <div className="mt-8 bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-lg">
+              {/* <div className="mt-8 bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-lg">
                 <p className="text-sm text-gray-600 italic">
                   "Platform yang luar biasa! Saya jadi lebih paham tentang cara memilah sampah dan berkontribusi untuk lingkungan."
                 </p>
@@ -114,7 +114,7 @@ const Login = () => {
                     <p className="text-xs text-gray-500">Nasabah Bank Sampah</p>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </motion.div>
 
