@@ -59,7 +59,7 @@ const Navbar = () => {
       dropdownItems: [
         { path: '/layanan/edukasi', label: 'Edukasi', icon: FaBrain },
         { path: '/layanan/bank-sampah', label: 'Bank Sampah', icon: FaRecycle },
-        { path: '/layanan/komunitas', label: 'Komunitas', icon: FaLeaf },
+        { path: '/layanan/form-pengajuan', label: 'Form Pengajuan', icon: FaLeaf },
         { path: '/layanan/pelatihan', label: 'Pelatihan', icon: FaPuzzlePiece },
         { 
           path: '/games', 
@@ -310,7 +310,7 @@ const Navbar = () => {
                             <span>Masuk</span>
                           </motion.div>
                         </Link> */}
-                        <Link to="/login">
+                        {/* <Link to="/login">
                           <motion.div
                             whileHover={{ scale: 1.05, y: -2 }}
                             whileTap={{ scale: 0.95 }}
@@ -322,7 +322,7 @@ const Navbar = () => {
                             <FaUserPlus />
                             <span>Masuk</span>
                           </motion.div>
-                        </Link>
+                        </Link> */}
                       </>
                     )}
                   </div>

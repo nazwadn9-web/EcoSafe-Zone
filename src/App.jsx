@@ -19,7 +19,7 @@ import TebakSampah from './pages/games/TebakSampah'
 // Layanan Sub-pages
 import Edukasi from './pages/layanan/Edukasi'
 import BankSampah from './pages/layanan/BankSampah'
-// import Komunitas from './pages/layanan/Komunitas'
+import ReportForm from './pages/layanan/ReportForm'
 // import Pelatihan from './pages/layanan/Pelatihan'
 
 const AnimatedRoutes = () => {
@@ -44,8 +44,8 @@ const AnimatedRoutes = () => {
         {/* Layanan Sub-pages */}
         <Route path="/layanan/edukasi" element={<Edukasi />} />
         <Route path="/layanan/bank-sampah" element={<BankSampah />} />
-        {/* <Route path="/layanan/komunitas" element={<Komunitas />} />
-        <Route path="/layanan/pelatihan" element={<Pelatihan />} />
+        <Route path="/layanan/form-pengajuan" element={<ReportForm />} />
+        {/* <Route path="/layanan/pelatihan" element={<Pelatihan />} />
          */}
         {/* Individual Game Pages */}
         <Route path="/games/pilah-sampah" element={<PilahSampah />} />

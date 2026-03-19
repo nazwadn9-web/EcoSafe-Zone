@@ -1,20 +1,32 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   FaCalendar, FaUser, FaArrowRight, FaTimes, FaShare, 
-  FaBookmark, FaHeart, FaRegHeart, FaFacebook, FaTwitter, 
-  FaWhatsapp, FaTelegram, FaLink, FaCheckCircle,
-  FaEnvelope, FaCopy, FaShareAlt
+  FaFacebook, FaTwitter, FaWhatsapp, FaTelegram, 
+  FaEnvelope, FaCopy, FaShareAlt, FaCheckCircle,
+  FaClock, FaLeaf,
+  FaRecycle, FaSeedling, FaGlobeAsia,
+  FaBookOpen, FaTree, FaHeart, FaStar,
+  FaSprout, FaTint, FaSun, FaBug,
+  FaApple, FaCarrot, FaSeedling as FaSproutIcon,
+  FaArrowLeft
 } from 'react-icons/fa'
+import { GiPlantRoots, GiEarthAmerica, GiFruitTree } from 'react-icons/gi'
+import { Link } from 'react-router-dom'
 
 const Artikel = () => {
   const [selectedArticle, setSelectedArticle] = useState(null)
   const [showModal, setShowModal] = useState(false)
   const [showShareModal, setShowShareModal] = useState(false)
-  const [likedArticles, setLikedArticles] = useState({})
-  const [bookmarkedArticles, setBookmarkedArticles] = useState({})
   const [copied, setCopied] = useState(false)
   const [shareSuccess, setShareSuccess] = useState(false)
+  const [activeTab, setActiveTab] = useState('semua')
+  const [searchQuery, setSearchQuery] = useState('')
+  const [hoveredShare, setHoveredShare] = useState(null)
+  const [activeInfoTab, setActiveInfoTab] = useState('manfaat')
+  const [likes, setLikes] = useState(0)
+  const [isLiked, setIsLiked] = useState(false)
+  
   const [articles, setArticles] = useState([
     {
       id: 1,
@@ -39,12 +51,14 @@ Tips praktis:
       
 Dengan memilah sampah dari rumah, Anda telah berkontribusi besar dalam menjaga lingkungan!`,
       author: 'Tim EcoCare',
+      authorRole: 'Environmental Specialist',
+      authorImage: 'https://randomuser.me/api/portraits/men/32.jpg',
       date: '15 Mar 2024',
       image: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b',
       category: 'Edukasi',
       readTime: '5 menit',
-      likes: 234,
       shares: 45,
+      relatedArticles: [2, 3, 4]
     },
     {
       id: 2,
@@ -73,12 +87,14 @@ Mengurangi ketergantungan pada pupuk kimia yang dapat merusak lingkungan dalam j
 
 Kompos siap digunakan ketika berwarna hitam kecoklatan, tidak berbau, dan teksturnya remah.`,
       author: 'Dr. Green',
+      authorRole: 'Agricultural Expert',
+      authorImage: 'https://randomuser.me/api/portraits/women/44.jpg',
       date: '10 Mar 2024',
       image: 'https://images.unsplash.com/photo-1516257984-b1b4d707412e',
       category: 'Tips',
       readTime: '7 menit',
-      likes: 156,
       shares: 32,
+      relatedArticles: [1, 3, 5]
     },
     {
       id: 3,
@@ -115,12 +131,14 @@ Kompos siap digunakan ketika berwarna hitam kecoklatan, tidak berbau, dan tekstu
 
 Ingat! Jangan pernah membakar sampah B3 karena dapat menghasilkan gas beracun.`,
       author: 'Eco Expert',
+      authorRole: 'Environmental Consultant',
+      authorImage: 'https://randomuser.me/api/portraits/men/46.jpg',
       date: '5 Mar 2024',
       image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778bdf',
       category: 'Edukasi',
       readTime: '8 menit',
-      likes: 312,
       shares: 78,
+      relatedArticles: [1, 2, 6]
     },
     {
       id: 4,
@@ -152,12 +170,14 @@ Ingat! Jangan pernah membakar sampah B3 karena dapat menghasilkan gas beracun.`,
 
 Mulailah dengan langkah kecil dan konsisten. Jangan sempurna dari awal, yang penting konsisten!`,
       author: 'Green Living',
+      authorRole: 'Lifestyle Blogger',
+      authorImage: 'https://randomuser.me/api/portraits/women/65.jpg',
       date: '28 Feb 2024',
       image: 'https://images.unsplash.com/photo-1545161296-3c0c1ebfccb8',
       category: 'Gaya Hidup',
       readTime: '6 menit',
-      likes: 189,
       shares: 56,
+      relatedArticles: [2, 5, 6]
     },
     {
       id: 5,
@@ -191,12 +211,14 @@ Mulailah dengan langkah kecil dan konsisten. Jangan sempurna dari awal, yang pen
 
 Dengan kreativitas, sampah plastik bisa jadi cuan!`,
       author: 'Recycle Team',
+      authorRole: 'Creative Recycler',
+      authorImage: 'https://randomuser.me/api/portraits/men/52.jpg',
       date: '20 Feb 2024',
       image: 'https://images.unsplash.com/photo-1528323273322-d81458248d40',
       category: 'Kreatif',
       readTime: '7 menit',
-      likes: 267,
       shares: 89,
+      relatedArticles: [1, 3, 4]
     },
     {
       id: 6,
@@ -230,37 +252,25 @@ Dengan kreativitas, sampah plastik bisa jadi cuan!`,
 
 Hutan kota adalah paru-paru kota yang harus kita jaga bersama!`,
       author: 'Forest Keeper',
+      authorRole: 'Environmental Activist',
+      authorImage: 'https://randomuser.me/api/portraits/women/68.jpg',
       date: '15 Feb 2024',
       image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e',
       category: 'Lingkungan',
       readTime: '6 menit',
-      likes: 145,
       shares: 34,
+      relatedArticles: [2, 3, 5]
     },
   ])
 
-  const handleLike = (articleId, e) => {
-    e.stopPropagation()
-    setLikedArticles(prev => {
-      const isLiked = prev[articleId]
-      setArticles(prevArticles =>
-        prevArticles.map(article =>
-          article.id === articleId
-            ? { ...article, likes: article.likes + (isLiked ? -1 : 1) }
-            : article
-        )
-      )
-      return { ...prev, [articleId]: !isLiked }
-    })
-  }
-
-  const handleBookmark = (articleId, e) => {
-    e.stopPropagation()
-    setBookmarkedArticles(prev => ({
-      ...prev,
-      [articleId]: !prev[articleId]
-    }))
-  }
+  const categories = [
+    { name: 'Semua', icon: FaGlobeAsia, value: 'semua' },
+    { name: 'Edukasi', icon: FaBookOpen, value: 'Edukasi' },
+    { name: 'Tips', icon: FaLeaf, value: 'Tips' },
+    { name: 'Gaya Hidup', icon: FaSeedling, value: 'Gaya Hidup' },
+    { name: 'Kreatif', icon: FaRecycle, value: 'Kreatif' },
+    { name: 'Lingkungan', icon: FaTree, value: 'Lingkungan' },
+  ]
 
   const handleShare = (platform, article) => {
     const url = window.location.href
@@ -290,7 +300,6 @@ Hutan kota adalah paru-paru kota yang harus kita jaga bersama!`,
     
     if (shareUrl) {
       window.open(shareUrl, '_blank')
-      // Update share count
       setArticles(prevArticles =>
         prevArticles.map(a =>
           a.id === article.id
@@ -331,6 +340,287 @@ Hutan kota adalah paru-paru kota yang harus kita jaga bersama!`,
     setShowShareModal(false)
   }
 
+  const handleLike = () => {
+    if (isLiked) {
+      setLikes(likes - 1)
+    } else {
+      setLikes(likes + 1)
+    }
+    setIsLiked(!isLiked)
+  }
+
+  const filteredArticles = articles.filter(article => {
+    if (activeTab === 'semua') return true
+    return article.category === activeTab
+  }).filter(article =>
+    article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    article.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+
+  const getCategoryIcon = (category) => {
+    switch(category) {
+      case 'Edukasi': return FaBookOpen
+      case 'Tips': return FaLeaf
+      case 'Gaya Hidup': return FaSeedling
+      case 'Kreatif': return FaRecycle
+      case 'Lingkungan': return FaTree
+      default: return FaGlobeAsia
+    }
+  }
+
+  // Komponen untuk menampilkan artikel "Manfaat Kompos" dengan desain khusus
+  const KomposDetail = ({ article }) => {
+    return (
+      <div className="space-y-8">
+        {/* Hero Section dengan tanaman animasi */}
+        <div className="relative bg-gradient-to-br from-green-600 to-emerald-700 rounded-3xl p-8 text-white overflow-hidden">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 opacity-10">
+            {[...Array(20)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                }}
+                animate={{
+                  scale: [1, 1.2, 1],
+                  rotate: [0, 360],
+                }}
+                transition={{
+                  duration: Math.random() * 5 + 3,
+                  repeat: Infinity,
+                }}
+              >
+                <FaLeaf className="text-white text-2xl" />
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
+            {/* Left: Icon & Title */}
+            <div className="flex-1 text-center md:text-left">
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 0.2 }}
+                className="w-24 h-24 bg-white/20 backdrop-blur-sm rounded-full 
+                         flex items-center justify-center mx-auto md:mx-0 mb-4"
+              >
+                <GiPlantRoots className="text-white text-5xl" />
+              </motion.div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-2">
+                {article.title}
+              </h2>
+              <p className="text-white/80 text-lg">{article.excerpt}</p>
+            </div>
+
+            {/* Right: Stats */}
+            <div className="flex-1 grid grid-cols-2 gap-4">
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
+                <FaSprout className="text-3xl mx-auto mb-2 text-yellow-300" />
+                <div className="text-2xl font-bold">100%</div>
+                <div className="text-xs opacity-80">Organik</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
+                <FaTint className="text-3xl mx-auto mb-2 text-blue-300" />
+                <div className="text-2xl font-bold">70%</div>
+                <div className="text-xs opacity-80">Retensi Air</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
+                <FaSun className="text-3xl mx-auto mb-2 text-yellow-300" />
+                <div className="text-2xl font-bold">+50%</div>
+                <div className="text-xs opacity-80">Nutrisi</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
+                <FaBug className="text-3xl mx-auto mb-2 text-green-300" />
+                <div className="text-2xl font-bold">+80%</div>
+                <div className="text-xs opacity-80">Bioaktivitas</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Tab Navigation */}
+        <div className="flex flex-wrap gap-2 border-b border-gray-200 pb-4">
+          {[
+            { id: 'manfaat', label: '🌱 Manfaat', icon: FaLeaf },
+            { id: 'cara', label: '📝 Cara Membuat', icon: FaSeedling },
+            { id: 'tips', label: '💡 Tips', icon: FaStar },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveInfoTab(tab.id)}
+              className={`px-6 py-3 rounded-full font-semibold transition-all flex items-center gap-2
+                        ${activeInfoTab === tab.id 
+                          ? 'bg-green-600 text-white shadow-lg' 
+                          : 'bg-gray-100 text-gray-600 hover:bg-green-50'}`}
+            >
+              <tab.icon />
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Content berdasarkan tab */}
+        <AnimatePresence mode="wait">
+          {activeInfoTab === 'manfaat' && (
+            <motion.div
+              key="manfaat"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="grid md:grid-cols-2 gap-6"
+            >
+              <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-100">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center">
+                    <FaLeaf className="text-white text-2xl" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-800">Menyuburkan Tanah</h3>
+                </div>
+                <p className="text-gray-600 leading-relaxed">
+                  Kompos meningkatkan kandungan bahan organik tanah, memperbaiki struktur tanah, 
+                  dan meningkatkan kemampuan tanah menyimpan air hingga 70%.
+                </p>
+              </div>
+
+              <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-6 border border-blue-100">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center">
+                    <GiEarthAmerica className="text-white text-2xl" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-800">Nutrisi Lengkap</h3>
+                </div>
+                <p className="text-gray-600 leading-relaxed">
+                  Mengandung unsur hara makro (N, P, K) dan mikro yang dibutuhkan tanaman 
+                  secara lengkap dan seimbang.
+                </p>
+              </div>
+
+              <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl p-6 border border-yellow-100">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 bg-yellow-500 rounded-xl flex items-center justify-center">
+                    <FaBug className="text-white text-2xl" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-800">Aktivitas Mikroorganisme</h3>
+                </div>
+                <p className="text-gray-600 leading-relaxed">
+                  Menjadi makanan bagi mikroorganisme tanah yang membantu proses dekomposisi 
+                  dan menyuburkan tanah.
+                </p>
+              </div>
+
+              <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6 border border-purple-100">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center">
+                    <FaRecycle className="text-white text-2xl" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-800">Ramah Lingkungan</h3>
+                </div>
+                <p className="text-gray-600 leading-relaxed">
+                  Mengurangi ketergantungan pada pupuk kimia yang dapat merusak lingkungan 
+                  dalam jangka panjang.
+                </p>
+              </div>
+            </motion.div>
+          )}
+
+          {activeInfoTab === 'cara' && (
+            <motion.div
+              key="cara"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="space-y-4"
+            >
+              {[
+                { step: 1, title: 'Siapkan Wadah', desc: 'Siapkan wadah atau lubang di tanah dengan ukuran yang sesuai', icon: FaBoxOpen },
+                { step: 2, title: 'Masukkan Bahan', desc: 'Masukkan sampah organik bergantian dengan tanah', icon: FaLeaf },
+                { step: 3, title: 'Siram', desc: 'Siram dengan air secukupnya agar lembab', icon: FaTint },
+                { step: 4, title: 'Aduk', desc: 'Aduk setiap 1 minggu sekali untuk aerasi', icon: FaRecycle },
+                { step: 5, title: 'Tunggu', desc: 'Tunggu 1-2 bulan hingga kompos matang', icon: FaClock },
+              ].map((step) => (
+                <motion.div
+                  key={step.step}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: step.step * 0.1 }}
+                  className="flex items-center gap-4 p-4 bg-white rounded-xl shadow-md hover:shadow-lg transition-all"
+                >
+                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center font-bold text-green-600 text-xl">
+                    {step.step}
+                  </div>
+                  <step.icon className="text-3xl text-green-600" />
+                  <div>
+                    <h4 className="font-semibold text-gray-800">{step.title}</h4>
+                    <p className="text-sm text-gray-600">{step.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
+
+          {activeInfoTab === 'tips' && (
+            <motion.div
+              key="tips"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="grid md:grid-cols-2 gap-4"
+            >
+              {[
+                { tip: 'Jangan gunakan daging atau tulang', icon: '🚫' },
+                { tip: 'Pastikan kelembaban terjaga', icon: '💧' },
+                { tip: 'Potong bahan menjadi kecil-kecil', icon: '✂️' },
+                { tip: 'Campur bahan coklat (kering) dan hijau (basah)', icon: '🟤🟢' },
+                { tip: 'Tutup wadah untuk menghindari hama', icon: '🔒' },
+                { tip: 'Aduk secara teratur', icon: '🔄' },
+              ].map((item, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: idx * 0.1 }}
+                  className="bg-gradient-to-br from-yellow-50 to-orange-50 p-4 rounded-xl border border-yellow-200"
+                >
+                  <span className="text-2xl mb-2 block">{item.icon}</span>
+                  <p className="text-gray-700">{item.tip}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Visual Progression */}
+        <div className="bg-gradient-to-r from-green-100 to-emerald-100 rounded-2xl p-6">
+          <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">
+            🌱 Proses Pembuatan Kompos
+          </h3>
+          <div className="flex justify-between items-center">
+            {['Minggu 1', 'Minggu 2', 'Minggu 4', 'Minggu 8'].map((week, idx) => (
+              <div key={idx} className="text-center">
+                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-2 shadow-md">
+                  <FaSprout className={`text-${idx === 3 ? 'green' : 'gray'}-500`} />
+                </div>
+                <div className="text-xs font-semibold text-gray-600">{week}</div>
+              </div>
+            ))}
+          </div>
+          <div className="relative mt-4 h-2 bg-gray-200 rounded-full overflow-hidden">
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: '100%' }}
+              transition={{ duration: 2, delay: 0.5 }}
+              className="absolute h-full bg-gradient-to-r from-green-400 to-green-600 rounded-full"
+            />
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <>
       <motion.div
@@ -340,8 +630,18 @@ Hutan kota adalah paru-paru kota yang harus kita jaga bersama!`,
         className="pt-24 pb-16"
       >
         <div className="container-custom">
+          {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-5xl font-bold text-gray-800 mb-4">
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              className="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 
+                       rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl"
+            >
+              <FaBookOpen className="text-4xl text-white" />
+            </motion.div>
+            
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
               Artikel & <span className="text-green-600">Berita</span>
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -349,94 +649,235 @@ Hutan kota adalah paru-paru kota yang harus kita jaga bersama!`,
             </p>
           </div>
 
+          {/* Search Bar */}
+          <div className="max-w-2xl mx-auto mb-8">
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Cari artikel..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-6 py-4 pr-12 rounded-full border-2 border-gray-200 
+                         focus:border-green-500 focus:outline-none transition-colors
+                         bg-white/80 backdrop-blur-sm shadow-lg"
+              />
+              <FaLeaf className="absolute right-4 top-1/2 transform -translate-y-1/2 text-green-500 text-xl" />
+            </div>
+          </div>
+
+          {/* Category Tabs */}
+          <div className="flex flex-wrap justify-center gap-2 mb-12">
+            {categories.map((category) => {
+              const Icon = category.icon
+              const isActive = activeTab === category.value
+              return (
+                <motion.button
+                  key={category.value}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setActiveTab(category.value)}
+                  className={`px-6 py-3 rounded-full font-semibold flex items-center gap-2
+                           transition-all duration-300 ${
+                    isActive 
+                      ? 'bg-green-600 text-white shadow-lg' 
+                      : 'bg-white text-gray-600 hover:bg-green-50'
+                  }`}
+                >
+                  <Icon />
+                  {category.name}
+                </motion.button>
+              )
+            })}
+          </div>
+
+          {/* Articles Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {articles.map((article, index) => (
-              <motion.article
-                key={article.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -5 }}
-                className="card overflow-hidden group cursor-pointer"
-                onClick={() => openArticle(article)}
-              >
-                <div className="relative h-48 overflow-hidden">
-                  <img
-                    src={article.image}
-                    alt={article.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute top-4 left-4 bg-green-600 text-white px-3 py-1 rounded-full text-sm">
-                    {article.category}
-                  </div>
-                  
-                  {/* Action Buttons */}
-                  <div className="absolute top-4 right-4 flex gap-2">
-                    <div 
-                      className="bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full text-sm font-semibold flex items-center gap-1.5 cursor-pointer hover:bg-white transition-colors"
-                      onClick={(e) => handleLike(article.id, e)}
-                    >
-                      {likedArticles[article.id] ? (
-                        <FaHeart className="text-red-500 text-base animate-pingOnce" />
-                      ) : (
-                        <FaRegHeart className="text-red-500 text-base" />
-                      )}
-                      <span className="text-gray-700">{article.likes}</span>
+            {filteredArticles.map((article, index) => {
+              const CategoryIcon = getCategoryIcon(article.category)
+              return (
+                <motion.article
+                  key={article.id}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ y: -10 }}
+                  className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl 
+                           overflow-hidden cursor-pointer transition-all duration-300"
+                  onClick={() => openArticle(article)}
+                >
+                  {/* Image Container */}
+                  <div className="relative h-56 overflow-hidden">
+                    <img
+                      src={article.image}
+                      alt={article.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    
+                    {/* Overlay Gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                    
+                    {/* Category Badge */}
+                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm 
+                                  px-4 py-2 rounded-full text-sm font-semibold flex items-center gap-2">
+                      <CategoryIcon className="text-green-600" />
+                      <span className="text-gray-700">{article.category}</span>
                     </div>
                     
-                    <div 
-                      className="bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full text-sm font-semibold flex items-center gap-1.5 cursor-pointer hover:bg-white transition-colors"
-                      onClick={(e) => openShareModal(e, article)}
+                    {/* Enhanced Share Button */}
+                    <motion.div 
+                      className="absolute top-4 right-4"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ delay: 0.3 }}
+                      whileHover={{ scale: 1.1 }}
+                      onHoverStart={() => setHoveredShare(article.id)}
+                      onHoverEnd={() => setHoveredShare(null)}
                     >
-                      <FaShare className="text-blue-500 text-base" />
-                      <span className="text-gray-700">{article.shares}</span>
+                      <div 
+                        className="relative"
+                        onClick={(e) => openShareModal(e, article)}
+                      >
+                        {/* Pulse Animation */}
+                        <motion.div
+                          className="absolute inset-0 rounded-full bg-blue-400"
+                          animate={{
+                            scale: [1, 1.3, 1],
+                            opacity: [0.5, 0, 0.5]
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                          }}
+                        />
+                        
+                        {/* Main Button */}
+                        <motion.div
+                          className="relative w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 
+                                   rounded-full flex items-center justify-center cursor-pointer
+                                   shadow-lg hover:shadow-xl transition-all z-10"
+                          animate={{
+                            rotate: hoveredShare === article.id ? [0, 15, -15, 0] : 0
+                          }}
+                          transition={{ duration: 0.5 }}
+                        >
+                          <FaShare className="text-white text-lg" />
+                          
+                          {/* Sparkle Effect on Hover */}
+                          {hoveredShare === article.id && (
+                            <>
+                              <motion.div
+                                className="absolute -top-1 -right-1 text-yellow-300"
+                                initial={{ scale: 0, rotate: 0 }}
+                                animate={{ scale: 1, rotate: 360 }}
+                                transition={{ duration: 0.3 }}
+                              >
+                                <FaStar className="text-xs" />
+                              </motion.div>
+                              <motion.div
+                                className="absolute -bottom-1 -left-1 text-yellow-300"
+                                initial={{ scale: 0, rotate: 0 }}
+                                animate={{ scale: 1, rotate: -360 }}
+                                transition={{ duration: 0.3, delay: 0.1 }}
+                              >
+                                <FaStar className="text-xs" />
+                              </motion.div>
+                            </>
+                          )}
+                        </motion.div>
+
+                        {/* Tooltip */}
+                        <AnimatePresence>
+                          {hoveredShare === article.id && (
+                            <motion.div
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: 10 }}
+                              className="absolute -bottom-8 right-0 bg-gray-800 text-white 
+                                       text-xs px-2 py-1 rounded whitespace-nowrap"
+                            >
+                              Bagikan Artikel
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    </motion.div>
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="p-6">
+                    {/* Author Info */}
+                    <div className="flex items-center gap-3 mb-4">
+                      <img
+                        src={article.authorImage}
+                        alt={article.author}
+                        className="w-10 h-10 rounded-full object-cover"
+                      />
+                      <div>
+                        <h4 className="font-semibold text-gray-800">{article.author}</h4>
+                        <p className="text-xs text-gray-500">{article.authorRole}</p>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-800 mb-2 group-hover:text-green-600 transition-colors line-clamp-2">
-                    {article.title}
-                  </h3>
-                  <p className="text-gray-600 mb-4 line-clamp-2">{article.excerpt}</p>
-                  
-                  <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                    <span className="flex items-center gap-1">
-                      <FaUser /> {article.author}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <FaCalendar /> {article.date}
-                    </span>
-                  </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <button className="text-green-600 font-semibold flex items-center gap-2 group/btn">
+                    
+                    {/* Title */}
+                    <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-green-600 
+                                 transition-colors line-clamp-2">
+                      {article.title}
+                    </h3>
+                    
+                    {/* Excerpt */}
+                    <p className="text-gray-600 mb-4 line-clamp-2">{article.excerpt}</p>
+                    
+                    {/* Meta Info */}
+                    <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+                      <span className="flex items-center gap-1">
+                        <FaCalendar /> {article.date}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <FaClock /> {article.readTime}
+                      </span>
+                    </div>
+                    
+                    {/* Read More Button */}
+                    <button className="text-green-600 font-semibold flex items-center gap-2 
+                                     group/btn hover:gap-3 transition-all">
                       Baca Selengkapnya
                       <FaArrowRight className="group-hover/btn:translate-x-2 transition-transform" />
                     </button>
-                    
-                    <div 
-                      className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-                      onClick={(e) => handleBookmark(article.id, e)}
-                    >
-                      <FaBookmark className={`text-lg ${bookmarkedArticles[article.id] ? 'text-green-600' : 'text-gray-400'}`} />
-                    </div>
                   </div>
-                </div>
-              </motion.article>
-            ))}
+                </motion.article>
+              )
+            })}
           </div>
 
           {/* Load More Button */}
-          <div className="text-center mt-12">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="btn-secondary"
+          {filteredArticles.length > 0 && (
+            <div className="text-center mt-12">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-600 
+                         text-white rounded-full font-bold text-lg shadow-xl
+                         hover:shadow-2xl transition-all flex items-center gap-2 mx-auto"
+              >
+                <FaRecycle className="animate-spin-slow" />
+                Muat Artikel Lainnya
+              </motion.button>
+            </div>
+          )}
+
+          {/* No Results */}
+          {filteredArticles.length === 0 && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-center py-12"
             >
-              Muat Artikel Lainnya
-            </motion.button>
-          </div>
+              <FaLeaf className="text-6xl text-gray-300 mx-auto mb-4" />
+              <h3 className="text-2xl font-bold text-gray-600 mb-2">Tidak Ada Artikel</h3>
+              <p className="text-gray-500">Coba kata kunci atau kategori lain</p>
+            </motion.div>
+          )}
         </div>
       </motion.div>
 
@@ -456,9 +897,11 @@ Hutan kota adalah paru-paru kota yang harus kita jaga bersama!`,
               initial={{ opacity: 0, scale: 0.9, y: 50 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 50 }}
-              className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-lg w-full z-50"
+              className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 
+                       md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-lg w-full z-50"
             >
               <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
+                {/* Header */}
                 <div className="bg-gradient-to-r from-green-600 to-emerald-600 p-6 text-white">
                   <div className="flex justify-between items-center">
                     <h2 className="text-2xl font-bold flex items-center gap-2">
@@ -466,7 +909,8 @@ Hutan kota adalah paru-paru kota yang harus kita jaga bersama!`,
                     </h2>
                     <button
                       onClick={closeShareModal}
-                      className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
+                      className="w-10 h-10 bg-white/20 rounded-full flex items-center 
+                               justify-center hover:bg-white/30 transition-colors"
                     >
                       <FaTimes />
                     </button>
@@ -474,28 +918,14 @@ Hutan kota adalah paru-paru kota yang harus kita jaga bersama!`,
                   <p className="text-sm opacity-90 mt-2 line-clamp-1">{selectedArticle.title}</p>
                 </div>
 
+                {/* Content */}
                 <div className="p-6">
-                  {/* Share Stats */}
-                  <div className="flex items-center justify-between mb-6 bg-gray-50 p-4 rounded-xl">
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-gray-800">{selectedArticle.shares}</div>
-                      <div className="text-xs text-gray-500">Dibagikan</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-gray-800">{selectedArticle.likes}</div>
-                      <div className="text-xs text-gray-500">Disukai</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-gray-800">1.2k</div>
-                      <div className="text-xs text-gray-500">Dilihat</div>
-                    </div>
-                  </div>
-
                   {/* Share Buttons */}
                   <div className="grid grid-cols-2 gap-3 mb-6">
                     <button
                       onClick={() => handleShare('facebook', selectedArticle)}
-                      className="flex items-center gap-3 p-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors"
+                      className="flex items-center gap-3 p-4 bg-blue-600 text-white 
+                               rounded-xl hover:bg-blue-700 transition-all hover:scale-105"
                     >
                       <FaFacebook className="text-xl" />
                       <span className="font-semibold">Facebook</span>
@@ -503,7 +933,8 @@ Hutan kota adalah paru-paru kota yang harus kita jaga bersama!`,
                     
                     <button
                       onClick={() => handleShare('twitter', selectedArticle)}
-                      className="flex items-center gap-3 p-4 bg-blue-400 text-white rounded-xl hover:bg-blue-500 transition-colors"
+                      className="flex items-center gap-3 p-4 bg-blue-400 text-white 
+                               rounded-xl hover:bg-blue-500 transition-all hover:scale-105"
                     >
                       <FaTwitter className="text-xl" />
                       <span className="font-semibold">Twitter</span>
@@ -511,7 +942,8 @@ Hutan kota adalah paru-paru kota yang harus kita jaga bersama!`,
                     
                     <button
                       onClick={() => handleShare('whatsapp', selectedArticle)}
-                      className="flex items-center gap-3 p-4 bg-green-500 text-white rounded-xl hover:bg-green-600 transition-colors"
+                      className="flex items-center gap-3 p-4 bg-green-500 text-white 
+                               rounded-xl hover:bg-green-600 transition-all hover:scale-105"
                     >
                       <FaWhatsapp className="text-xl" />
                       <span className="font-semibold">WhatsApp</span>
@@ -519,7 +951,8 @@ Hutan kota adalah paru-paru kota yang harus kita jaga bersama!`,
                     
                     <button
                       onClick={() => handleShare('telegram', selectedArticle)}
-                      className="flex items-center gap-3 p-4 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition-colors"
+                      className="flex items-center gap-3 p-4 bg-blue-500 text-white 
+                               rounded-xl hover:bg-blue-600 transition-all hover:scale-105"
                     >
                       <FaTelegram className="text-xl" />
                       <span className="font-semibold">Telegram</span>
@@ -527,7 +960,9 @@ Hutan kota adalah paru-paru kota yang harus kita jaga bersama!`,
                     
                     <button
                       onClick={() => handleShare('email', selectedArticle)}
-                      className="flex items-center gap-3 p-4 bg-gray-600 text-white rounded-xl hover:bg-gray-700 transition-colors col-span-2"
+                      className="col-span-2 flex items-center justify-center gap-3 p-4 
+                               bg-gray-600 text-white rounded-xl hover:bg-gray-700 
+                               transition-all hover:scale-105"
                     >
                       <FaEnvelope className="text-xl" />
                       <span className="font-semibold">Email</span>
@@ -538,12 +973,14 @@ Hutan kota adalah paru-paru kota yang harus kita jaga bersama!`,
                   <div className="border-t border-gray-200 pt-4">
                     <p className="text-sm text-gray-600 mb-2">Atau salin link artikel:</p>
                     <div className="flex gap-2">
-                      <div className="flex-1 bg-gray-100 rounded-xl px-4 py-3 text-sm text-gray-600 truncate">
+                      <div className="flex-1 bg-gray-100 rounded-xl px-4 py-3 text-sm 
+                                    text-gray-600 truncate">
                         https://ecocare.id/artikel/{selectedArticle.id}
                       </div>
                       <button
                         onClick={() => copyToClipboard(`https://ecocare.id/artikel/${selectedArticle.id}`)}
-                        className="px-4 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 transition-colors flex items-center gap-2"
+                        className="px-4 py-3 bg-green-600 text-white rounded-xl 
+                                 hover:bg-green-700 transition-colors flex items-center gap-2"
                       >
                         {copied ? <FaCheckCircle /> : <FaCopy />}
                         <span className="hidden md:inline">{copied ? 'Tersalin!' : 'Salin'}</span>
@@ -573,7 +1010,8 @@ Hutan kota adalah paru-paru kota yang harus kita jaga bersama!`,
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
-            className="fixed bottom-4 right-4 bg-green-600 text-white px-6 py-3 rounded-full shadow-lg z-50 flex items-center gap-2"
+            className="fixed bottom-4 right-4 bg-gradient-to-r from-green-600 to-emerald-600 
+                     text-white px-6 py-3 rounded-full shadow-xl z-50 flex items-center gap-2"
           >
             <FaCheckCircle />
             <span>Artikel berhasil dibagikan! 🎉</span>
@@ -581,20 +1019,18 @@ Hutan kota adalah paru-paru kota yang harus kita jaga bersama!`,
         )}
       </AnimatePresence>
 
-      {/* Article Modal (existing code) */}
+      {/* Article Detail Modal */}
       <AnimatePresence>
         {showModal && selectedArticle && !showShareModal && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={closeModal}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50"
             />
 
-            {/* Modal */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 50 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -603,145 +1039,215 @@ Hutan kota adalah paru-paru kota yang harus kita jaga bersama!`,
               className="fixed inset-4 md:inset-10 z-50 overflow-hidden"
             >
               <div className="bg-white rounded-3xl shadow-2xl w-full h-full flex flex-col overflow-hidden">
-                {/* Header Image */}
-                <div className="relative h-64 md:h-80 overflow-hidden flex-shrink-0">
-                  <img
-                    src={selectedArticle.image}
-                    alt={selectedArticle.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                  
-                  {/* Close Button */}
-                  <button
-                    onClick={closeModal}
-                    className="absolute top-4 right-4 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-700 hover:bg-white transition-colors shadow-lg z-10"
-                  >
-                    <FaTimes size={20} />
-                  </button>
-
-                  {/* Category Badge */}
-                  <div className="absolute top-4 left-4 bg-green-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg z-10">
-                    {selectedArticle.category}
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div className="absolute top-20 right-4 flex flex-col gap-2 z-10">
-                    <div 
-                      className="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold flex items-center gap-2 cursor-pointer hover:bg-white transition-colors shadow-lg"
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        handleLike(selectedArticle.id, e)
-                        setSelectedArticle(prev => ({
-                          ...prev,
-                          likes: prev.likes + (likedArticles[selectedArticle.id] ? -1 : 1)
-                        }))
-                      }}
-                    >
-                      {likedArticles[selectedArticle.id] ? (
-                        <FaHeart className="text-red-500 text-lg animate-pingOnce" />
-                      ) : (
-                        <FaRegHeart className="text-red-500 text-lg" />
-                      )}
-                      <span className="text-gray-700">{selectedArticle.likes}</span>
-                    </div>
-                    
-                    <div 
-                      className="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold flex items-center gap-2 cursor-pointer hover:bg-white transition-colors shadow-lg"
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        openShareModal(e, selectedArticle)
-                      }}
-                    >
-                      <FaShare className="text-blue-500 text-lg" />
-                      <span className="text-gray-700">Bagikan</span>
-                    </div>
-                  </div>
-
-                  {/* Title Overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-                    <h2 className="text-3xl md:text-4xl font-bold mb-2 drop-shadow-lg">
-                      {selectedArticle.title}
-                    </h2>
-                    <div className="flex flex-wrap items-center gap-4 text-sm md:text-base drop-shadow">
-                      <span className="flex items-center gap-1">
-                        <FaUser /> {selectedArticle.author}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <FaCalendar /> {selectedArticle.date}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <FaHeart className="text-red-400" /> {selectedArticle.likes} suka
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Content - Scrollable */}
+                {/* Scrollable Content */}
                 <div className="flex-1 overflow-y-auto">
-                  <div className="p-8">
-                    <div className="max-w-3xl mx-auto">
-                      {/* Read Time & Actions */}
-                      <div className="flex items-center justify-between mb-8">
-                        <span className="bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-semibold">
-                          Waktu baca: {selectedArticle.readTime}
-                        </span>
-                        <div className="flex gap-2">
-                          <motion.button 
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              handleBookmark(selectedArticle.id, e)
+                  {/* Hero Image - Hanya tampil untuk artikel selain Kompos */}
+                  {selectedArticle.id !== 2 && (
+                    <div className="relative h-96 overflow-hidden">
+                      <img
+                        src={selectedArticle.image}
+                        alt={selectedArticle.title}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+                      
+                      {/* Close Button */}
+                      <button
+                        onClick={closeModal}
+                        className="absolute top-6 right-6 w-12 h-12 bg-white/90 backdrop-blur-sm 
+                                 rounded-full flex items-center justify-center text-gray-700 
+                                 hover:bg-white transition-colors shadow-lg z-20"
+                      >
+                        <FaTimes size={20} />
+                      </button>
+
+                      {/* Category Badge */}
+                      <div className="absolute top-6 left-6 bg-green-600 text-white 
+                                    px-6 py-3 rounded-full text-sm font-semibold shadow-lg z-20
+                                    flex items-center gap-2">
+                        {React.createElement(getCategoryIcon(selectedArticle.category), { className: "text-lg" })}
+                        {selectedArticle.category}
+                      </div>
+
+                      {/* Share Button in Modal */}
+                      <motion.div 
+                        className="absolute top-6 right-24 z-20"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <button
+                          onClick={(e) => openShareModal(e, selectedArticle)}
+                          className="relative group"
+                        >
+                          <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 
+                                       rounded-full flex items-center justify-center
+                                       shadow-lg group-hover:shadow-xl transition-all
+                                       group-hover:rotate-12"
+                          >
+                            <FaShare className="text-white text-lg" />
+                          </div>
+                          <motion.div
+                            className="absolute -inset-1 rounded-full bg-blue-400/30 -z-10"
+                            animate={{
+                              scale: [1, 1.2, 1],
                             }}
-                            className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors
-                                      ${bookmarkedArticles[selectedArticle.id] 
-                                        ? 'bg-green-100 text-green-600' 
-                                        : 'bg-gray-100 text-gray-600 hover:bg-green-100 hover:text-green-600'}`}
-                          >
-                            <FaBookmark />
-                          </motion.button>
-                          <motion.button 
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                            onClick={(e) => openShareModal(e, selectedArticle)}
-                            className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 hover:bg-green-100 hover:text-green-600 transition-colors"
-                          >
-                            <FaShare />
-                          </motion.button>
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                            }}
+                          />
+                        </button>
+                      </motion.div>
+
+                      {/* Title Overlay */}
+                      <div className="absolute bottom-0 left-0 right-0 p-12 text-white">
+                        <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+                          {selectedArticle.title}
+                        </h1>
+                        
+                        {/* Author & Meta */}
+                        <div className="flex flex-wrap items-center gap-6">
+                          <div className="flex items-center gap-3">
+                            <img
+                              src={selectedArticle.authorImage}
+                              alt={selectedArticle.author}
+                              className="w-12 h-12 rounded-full border-2 border-white"
+                            />
+                            <div>
+                              <p className="font-semibold">{selectedArticle.author}</p>
+                              <p className="text-sm text-white/80">{selectedArticle.authorRole}</p>
+                            </div>
+                          </div>
+                          
+                          <div className="flex items-center gap-4 text-white/80">
+                            <span className="flex items-center gap-1">
+                              <FaCalendar /> {selectedArticle.date}
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <FaClock /> {selectedArticle.readTime}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Article Content */}
+                  <div className="p-12">
+                    <div className="max-w-4xl mx-auto">
+                      {/* Jika artikel adalah Kompos (id=2), tampilkan desain khusus */}
+                      {selectedArticle.id === 2 ? (
+                        <KomposDetail article={selectedArticle} />
+                      ) : (
+                        <>
+                          {/* Full Description untuk artikel lain */}
+                          <div className="prose prose-lg max-w-none">
+                            {selectedArticle.fullDescription.split('\n').map((paragraph, idx) => {
+                              if (paragraph.trim().startsWith('**') && paragraph.trim().endsWith('**')) {
+                                return (
+                                  <h2 key={idx} className="text-2xl font-bold text-green-700 mt-8 mb-4">
+                                    {paragraph.replace(/\*\*/g, '')}
+                                  </h2>
+                                )
+                              } else if (paragraph.trim().startsWith('-')) {
+                                return (
+                                  <li key={idx} className="ml-6 text-gray-700 list-disc">
+                                    {paragraph.replace('-', '')}
+                                  </li>
+                                )
+                              } else if (paragraph.trim().match(/^\d+\./)) {
+                                return (
+                                  <li key={idx} className="ml-6 text-gray-700 list-decimal">
+                                    {paragraph.replace(/^\d+\./, '')}
+                                  </li>
+                                )
+                              } else if (paragraph.trim()) {
+                                return (
+                                  <p key={idx} className="text-gray-700 mb-4 leading-relaxed text-lg">
+                                    {paragraph}
+                                  </p>
+                                )
+                              }
+                              return null
+                            })}
+                          </div>
+
+                          {/* Tags */}
+                          <div className="mt-12 pt-8 border-t border-gray-200">
+                            <h3 className="text-lg font-semibold text-gray-800 mb-4">Topik Terkait:</h3>
+                            <div className="flex flex-wrap gap-2">
+                              <span className="px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm">
+                                #Lingkungan
+                              </span>
+                              <span className="px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm">
+                                #DaurUlang
+                              </span>
+                              <span className="px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm">
+                                #Sampah
+                              </span>
+                              <span className="px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm">
+                                #EcoCare
+                              </span>
+                            </div>
+                          </div>
+                        </>
+                      )}
+
+                      {/* Related Articles (untuk semua artikel) */}
+                      <div className="mt-12">
+                        <h3 className="text-2xl font-bold text-gray-800 mb-6">Artikel Terkait</h3>
+                        <div className="grid md:grid-cols-3 gap-4">
+                          {selectedArticle.relatedArticles.map((id) => {
+                            const related = articles.find(a => a.id === id)
+                            if (!related) return null
+                            return (
+                              <motion.div
+                                key={id}
+                                whileHover={{ y: -5 }}
+                                onClick={() => openArticle(related)}
+                                className="bg-gray-50 rounded-xl p-4 cursor-pointer group"
+                              >
+                                <img
+                                  src={related.image}
+                                  alt={related.title}
+                                  className="w-full h-32 object-cover rounded-lg mb-3"
+                                />
+                                <h4 className="font-semibold text-gray-800 group-hover:text-green-600 
+                                           transition-colors line-clamp-2">
+                                  {related.title}
+                                </h4>
+                                <p className="text-xs text-gray-500 mt-1">{related.date}</p>
+                              </motion.div>
+                            )
+                          })}
                         </div>
                       </div>
 
-                      {/* Full Description */}
-                      <div className="prose prose-lg max-w-none">
-                        {selectedArticle.fullDescription.split('\n').map((paragraph, idx) => {
-                          if (paragraph.trim().startsWith('**') && paragraph.trim().endsWith('**')) {
-                            return (
-                              <h3 key={idx} className="text-xl font-bold text-green-700 mt-6 mb-3">
-                                {paragraph.replace(/\*\*/g, '')}
-                              </h3>
-                            )
-                          } else if (paragraph.trim().startsWith('-')) {
-                            return (
-                              <li key={idx} className="ml-6 text-gray-700 list-disc">
-                                {paragraph.replace('-', '')}
-                              </li>
-                            )
-                          } else if (paragraph.trim().match(/^\d+\./)) {
-                            return (
-                              <li key={idx} className="ml-6 text-gray-700 list-decimal">
-                                {paragraph.replace(/^\d+\./, '')}
-                              </li>
-                            )
-                          } else if (paragraph.trim()) {
-                            return (
-                              <p key={idx} className="text-gray-700 mb-4 leading-relaxed">
-                                {paragraph}
-                              </p>
-                            )
-                          }
-                          return null
-                        })}
+                      {/* Like & Share Buttons */}
+                      <div className="mt-12 flex items-center justify-center gap-4">
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          onClick={handleLike}
+                          className={`px-6 py-3 rounded-full font-semibold transition-all
+                                   flex items-center gap-2 ${
+                            isLiked 
+                              ? 'bg-red-500 text-white shadow-lg' 
+                              : 'bg-gray-100 text-gray-600 hover:bg-red-50'
+                          }`}
+                        >
+                          <FaHeart className={isLiked ? 'text-white' : 'text-red-500'} />
+                          Suka ({likes})
+                        </motion.button>
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          onClick={(e) => openShareModal(e, selectedArticle)}
+                          className="px-6 py-3 bg-green-600 text-white rounded-full font-semibold
+                                   hover:bg-green-700 transition-all flex items-center gap-2"
+                        >
+                          <FaShare /> Bagikan ({selectedArticle.shares})
+                        </motion.button>
                       </div>
                     </div>
                   </div>
