@@ -8,12 +8,8 @@ import {
   FaHandsHelping, 
   FaNewspaper,
   FaGamepad, 
-  FaChevronDown, 
-  FaTrash, 
-  FaPuzzlePiece, 
-  FaBrain,
+  FaChevronDown,
   FaUser,
-  FaUserPlus,
   FaSignInAlt,
   FaUserCircle
 } from 'react-icons/fa'
@@ -36,18 +32,18 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Check login status from localStorage
   useEffect(() => {
     const authStatus = localStorage.getItem('isAuthenticated')
     setIsLoggedIn(authStatus === 'true')
   }, [location])
 
-  // Close dropdown when route changes
   useEffect(() => {
+    setIsOpen(false)
     setDropdownOpen(false)
     setAuthDropdownOpen(false)
   }, [location])
 
+  // Simplified nav items
   const navItems = [
     { path: '/', label: 'Beranda', icon: FaHome },
     { path: '/tentang', label: 'Tentang', icon: FaLeaf },
@@ -57,29 +53,18 @@ const Navbar = () => {
       icon: FaHandsHelping,
       hasDropdown: true,
       dropdownItems: [
-        { path: '/layanan/edukasi', label: 'Edukasi', icon: FaBrain },
-        { path: '/layanan/bank-sampah', label: 'Bank Sampah', icon: FaRecycle },
-        { path: '/layanan/form-pengajuan', label: 'Form Pengajuan', icon: FaLeaf },
-        { path: '/layanan/pelatihan', label: 'Pelatihan', icon: FaPuzzlePiece },
-        { 
-          path: '/games', 
-          label: 'Games', 
-          icon: FaGamepad,
-          subItems: [
-            { path: '/games/pilah-sampah', label: 'Pilah Sampah', icon: FaTrash },
-            { path: '/games/tebak-sampah', label: 'Tebak Sampah', icon: FaBrain },
-            { path: '/games/daur-ulang', label: 'Daur Ulang', icon: FaRecycle },
-          ]
-        }
+        { path: '/layanan/edukasi', label: 'Edukasi' },
+        { path: '/layanan/bank-sampah', label: 'Bank Sampah' },
+        { path: '/layanan/form-pengajuan', label: 'Form Pengajuan' },
+        { path: '/layanan/pelatihan', label: 'Pelatihan' },
+        { path: '/games', label: 'Games', icon: FaGamepad },
       ]
     },
     { path: '/artikel', label: 'Artikel', icon: FaNewspaper },
   ]
 
   const isActivePath = (path) => {
-    if (path === '/') {
-      return location.pathname === '/'
-    }
+    if (path === '/') return location.pathname === '/'
     return location.pathname.startsWith(path)
   }
 
@@ -93,425 +78,288 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Fixed Navbar Container */}
       <motion.nav
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
-        className="fixed top-0 left-0 right-0 z-50 pt-3"
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="fixed top-0 left-0 right-0 z-50 px-3 sm:px-4 lg:px-8 pt-2 sm:pt-3"
       >
-        {/* Navbar Content */}
-        <div className="mx-4 md:mx-8 lg:mx-16 transition-all duration-500">
-          <div
-            className={`
-              rounded-[80px] 
-              backdrop-blur-[15px] 
-              border-3 border-white/90 
-              shadow-[0_20px_30px_-8px_rgba(40,100,60,0.3)]
-              transition-all duration-500
-              w-full
-              ${scrolled ? 'bg-white/70 py-1' : 'bg-white/60 py-3'}
-            `}
-          >
-            <div className="px-6 md:px-8">
-              <div className="flex justify-between items-center">
-                {/* Logo */}
-                <Link to="/" className="flex items-center gap-2 group">
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-                    className="text-[#3f9e64] text-3xl md:text-4xl"
-                  >
-                    <FaRecycle />
-                  </motion.div>
-                  <span className="text-2xl md:text-3xl font-extrabold text-[#1f6e43]">
-                    PilahPintar
-                  </span>
-                </Link>
+        <div className={`
+          rounded-full backdrop-blur-md border transition-all duration-300
+          ${scrolled 
+            ? 'bg-white/90 border-green-200 shadow-lg' 
+            : 'bg-white/70 border-green-100/50 shadow-md'
+          }
+        `}>
+          <div className="px-3 sm:px-4 md:px-6">
+            <div className="flex justify-between items-center h-12 sm:h-14 md:h-16">
+              {/* Logo - Ukuran tetap proporsional */}
+              <Link to="/" className="flex items-center gap-1 sm:gap-2 group">
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                  className="text-green-600 text-xl sm:text-2xl md:text-3xl"
+                >
+                  <FaRecycle />
+                </motion.div>
+                <span className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-green-700">
+                  PilahPintar
+                </span>
+              </Link>
 
-                {/* Desktop Menu */}
-                <div className="hidden md:flex items-center gap-1">
-                  {navItems.map((item) => {
-                    const Icon = item.icon
-                    const isActive = isActivePath(item.path)
-                    
-                    // If item has dropdown
-                    if (item.hasDropdown) {
-                      return (
-                        <div key={item.path} className="relative">
-                          <motion.div
-                            whileHover={{ y: -3 }}
-                            className={`
-                              px-5 py-2.5 rounded-[60px] 
-                              flex items-center gap-2 
-                              font-bold text-base cursor-pointer
-                              transition-all duration-300
-                              border-2 
-                              ${isActive 
-                                ? 'bg-white/95 text-[#166b3b] border-[#6fcf97] shadow-[0_4px_0_#9fccaf]' 
-                                : 'text-[#1e4f33] border-transparent hover:bg-white/90 hover:border-[#a1dbb4]'
-                              }
-                            `}
-                            onClick={() => setDropdownOpen(!dropdownOpen)}
-                          >
-                            <Icon className="text-lg" />
-                            <span>{item.label}</span>
-                            <FaChevronDown className={`text-sm transition-transform duration-300 ${dropdownOpen ? 'rotate-180' : ''}`} />
-                          </motion.div>
-
-                          {/* Dropdown Menu */}
-                          <AnimatePresence>
-                            {dropdownOpen && (
-                              <motion.div
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -10 }}
-                                transition={{ duration: 0.2 }}
-                                className="absolute top-full left-0 mt-2 w-64 bg-white/95 backdrop-blur-lg rounded-2xl shadow-xl border-2 border-green-100 overflow-hidden z-50"
-                              >
-                                {item.dropdownItems.map((dropdownItem, index) => {
-                                  const DropdownIcon = dropdownItem.icon
-                                  
-                                  // If dropdown item has subItems (like Games)
-                                  if (dropdownItem.subItems) {
-                                    return (
-                                      <div key={dropdownItem.path} className="relative group">
-                                        <Link
-                                          to={dropdownItem.path}
-                                          className="flex items-center justify-between px-4 py-3 text-gray-700 hover:bg-green-50 transition-colors"
-                                        >
-                                          <span className="flex items-center gap-3">
-                                            <DropdownIcon className="text-green-600" />
-                                            <span className="font-medium">{dropdownItem.label}</span>
-                                          </span>
-                                          <FaChevronDown className="text-sm text-gray-400 -rotate-90 group-hover:rotate-0 transition-transform" />
-                                        </Link>
-                                        
-                                        {/* Sub Dropdown for Games */}
-                                        <div className="absolute left-full top-0 ml-2 w-56 bg-white/95 backdrop-blur-lg rounded-2xl shadow-xl border-2 border-green-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                          {dropdownItem.subItems.map((subItem, subIndex) => {
-                                            const SubIcon = subItem.icon
-                                            return (
-                                              <Link
-                                                key={subItem.path}
-                                                to={subItem.path}
-                                                className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-green-50 transition-colors"
-                                              >
-                                                <SubIcon className="text-green-600" />
-                                                <span className="font-medium">{subItem.label}</span>
-                                              </Link>
-                                            )
-                                          })}
-                                        </div>
-                                      </div>
-                                    )
-                                  }
-                                  
-                                  // Regular dropdown item
-                                  return (
-                                    <Link
-                                      key={dropdownItem.path}
-                                      to={dropdownItem.path}
-                                      className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-green-50 transition-colors"
-                                    >
-                                      <DropdownIcon className="text-green-600" />
-                                      <span className="font-medium">{dropdownItem.label}</span>
-                                    </Link>
-                                  )
-                                })}
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
-                        </div>
-                      )
-                    }
-                    
-                    // Regular menu item without dropdown
+              {/* Desktop Menu - Muncul di md ke atas */}
+              <div className="hidden md:flex items-center gap-1 lg:gap-2">
+                {navItems.map((item) => {
+                  const Icon = item.icon
+                  const isActive = isActivePath(item.path)
+                  
+                  if (item.hasDropdown) {
                     return (
-                      <Link key={item.path} to={item.path}>
-                        <motion.div
-                          whileHover={{ y: -3 }}
-                          whileTap={{ scale: 0.95 }}
+                      <div key={item.path} className="relative">
+                        <button
+                          onClick={() => setDropdownOpen(!dropdownOpen)}
                           className={`
-                            px-5 py-2.5 rounded-[60px] 
-                            flex items-center gap-2 
-                            font-bold text-base
-                            transition-all duration-300
-                            border-2 
+                            px-3 lg:px-4 py-1.5 lg:py-2 rounded-full 
+                            flex items-center gap-1 lg:gap-2 
+                            text-xs lg:text-sm font-medium
+                            transition-all duration-300 border
                             ${isActive 
-                              ? 'bg-white/95 text-[#166b3b] border-[#6fcf97] shadow-[0_4px_0_#9fccaf]' 
-                              : 'text-[#1e4f33] border-transparent hover:bg-white/90 hover:border-[#a1dbb4]'
+                              ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white border-green-400 shadow-md' 
+                              : 'text-gray-700 border-transparent hover:bg-white hover:border-green-300 hover:shadow-sm'
                             }
                           `}
                         >
-                          <Icon className="text-lg" />
+                          <Icon className={`text-xs lg:text-sm ${isActive ? 'text-white' : 'text-green-600'}`} />
                           <span>{item.label}</span>
-                        </motion.div>
-                      </Link>
-                    )
-                  })}
-
-                  {/* Auth Buttons - Desktop */}
-                  <div className="ml-4 flex items-center gap-2">
-                    {isLoggedIn ? (
-                      // User Profile Dropdown when logged in
-                      <div className="relative">
-                        <motion.div
-                          whileHover={{ y: -3 }}
-                          className="px-4 py-2.5 rounded-[60px] bg-gradient-to-r from-green-600 to-emerald-600 
-                                   text-white font-bold flex items-center gap-2 cursor-pointer
-                                   shadow-lg hover:shadow-xl transition-all"
-                          onClick={() => setAuthDropdownOpen(!authDropdownOpen)}
-                        >
-                          <FaUserCircle className="text-xl" />
-                          <span>Akun</span>
-                          <FaChevronDown className={`text-sm transition-transform duration-300 ${authDropdownOpen ? 'rotate-180' : ''}`} />
-                        </motion.div>
+                          <FaChevronDown className={`text-[10px] lg:text-xs transition-transform duration-300 ${dropdownOpen ? 'rotate-180' : ''}`} />
+                        </button>
 
                         <AnimatePresence>
-                          {authDropdownOpen && (
+                          {dropdownOpen && (
                             <motion.div
-                              initial={{ opacity: 0, y: -10 }}
+                              initial={{ opacity: 0, y: -5 }}
                               animate={{ opacity: 1, y: 0 }}
-                              exit={{ opacity: 0, y: -10 }}
-                              className="absolute right-0 mt-2 w-48 bg-white rounded-2xl shadow-xl border-2 border-green-100 overflow-hidden"
+                              exit={{ opacity: 0, y: -5 }}
+                              transition={{ duration: 0.2 }}
+                              className="absolute top-full left-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-green-100 overflow-hidden"
                             >
-                              <Link
-                                to="/profile"
-                                className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-green-50 transition-colors"
-                                onClick={() => setAuthDropdownOpen(false)}
-                              >
-                                <FaUser className="text-green-600" />
-                                <span>Profil Saya</span>
-                              </Link>
-                              <button
-                                onClick={handleLogout}
-                                className="w-full flex items-center gap-3 px-4 py-3 text-red-600 hover:bg-red-50 transition-colors text-left"
-                              >
-                                <FaSignInAlt className="rotate-180" />
-                                <span>Logout</span>
-                              </button>
+                              {item.dropdownItems.map((dropdownItem, index) => (
+                                <Link
+                                  key={index}
+                                  to={dropdownItem.path}
+                                  className="flex items-center gap-2 px-4 py-2.5 text-xs text-gray-700 hover:bg-green-50 transition-colors"
+                                  onClick={() => setDropdownOpen(false)}
+                                >
+                                  {dropdownItem.icon && <dropdownItem.icon className="text-green-600 text-xs" />}
+                                  <span>{dropdownItem.label}</span>
+                                </Link>
+                              ))}
                             </motion.div>
                           )}
                         </AnimatePresence>
                       </div>
-                    ) : (
-                      // Login & Signup Buttons
-                      <>
-                        {/* <Link to="/login">
-                          <motion.div
-                            whileHover={{ scale: 1.05, y: -2 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="px-5 py-2.5 rounded-[60px] bg-white text-green-700 
-                                     font-bold border-2 border-green-600 shadow-lg
-                                     hover:bg-green-50 transition-all flex items-center gap-2"
-                          >
-                            <FaSignInAlt />
-                            <span>Masuk</span>
-                          </motion.div>
-                        </Link> */}
-                        {/* <Link to="/login">
-                          <motion.div
-                            whileHover={{ scale: 1.05, y: -2 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="px-5 py-2.5 rounded-[60px] bg-gradient-to-r from-green-600 to-emerald-600 
-                                     text-white font-bold shadow-lg
-                                     hover:from-green-700 hover:to-emerald-700 transition-all
-                                     flex items-center gap-2"
-                          >
-                            <FaUserPlus />
-                            <span>Masuk</span>
-                          </motion.div>
-                        </Link> */}
-                      </>
-                    )}
-                  </div>
-                </div>
+                    )
+                  }
+                  
+                  return (
+                    <Link key={item.path} to={item.path}>
+                      <button
+                        className={`
+                          px-3 lg:px-4 py-1.5 lg:py-2 rounded-full 
+                          flex items-center gap-1 lg:gap-2 
+                          text-xs lg:text-sm font-medium
+                          transition-all duration-300 border
+                          ${isActive 
+                            ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white border-green-400 shadow-md' 
+                            : 'text-gray-700 border-transparent hover:bg-white hover:border-green-300 hover:shadow-sm'
+                          }
+                        `}
+                      >
+                        <Icon className={`text-xs lg:text-sm ${isActive ? 'text-white' : 'text-green-600'}`} />
+                        <span>{item.label}</span>
+                      </button>
+                    </Link>
+                  )
+                })}
 
-                {/* Mobile Menu Button */}
-                <button
-                  onClick={() => setIsOpen(!isOpen)}
-                  className="md:hidden w-12 h-12 rounded-full bg-[#2d874a] text-white flex items-center justify-center shadow-lg hover:bg-[#236b3a] transition-colors"
-                >
-                  {isOpen ? <IoClose size={24} /> : <GiHamburgerMenu size={20} />}
-                </button>
+                {/* Auth Button Desktop - Sederhana */}
+                <div className="ml-2 lg:ml-4">
+                  {isLoggedIn ? (
+                    <div className="relative">
+                      <button
+                        onClick={() => setAuthDropdownOpen(!authDropdownOpen)}
+                        className="px-3 lg:px-4 py-1.5 lg:py-2 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 text-white flex items-center gap-1 lg:gap-2 text-xs lg:text-sm font-medium shadow-md hover:shadow-lg transition-all"
+                      >
+                        <FaUserCircle className="text-sm lg:text-base" />
+                        <span>Akun</span>
+                        <FaChevronDown className={`text-[10px] lg:text-xs transition-transform ${authDropdownOpen ? 'rotate-180' : ''}`} />
+                      </button>
+
+                      <AnimatePresence>
+                        {authDropdownOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -5 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -5 }}
+                            className="absolute right-0 mt-2 w-40 bg-white rounded-xl shadow-xl border border-green-100 overflow-hidden"
+                          >
+                            <Link
+                              to="/profile"
+                              className="block px-4 py-2 text-xs text-gray-700 hover:bg-green-50"
+                              onClick={() => setAuthDropdownOpen(false)}
+                            >
+                              Profil Saya
+                            </Link>
+                            <button
+                              onClick={handleLogout}
+                              className="w-full text-left px-4 py-2 text-xs text-red-600 hover:bg-red-50"
+                            >
+                              Logout
+                            </button>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  ) : (
+                    <Link to="/login">
+                      <button className="px-3 lg:px-4 py-1.5 lg:py-2 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs lg:text-sm font-medium shadow-md hover:shadow-lg transition-all">
+                        Masuk
+                      </button>
+                    </Link>
+                  )}
+                </div>
               </div>
 
-              {/* Mobile Menu */}
-              <motion.div
-                initial={false}
-                animate={isOpen ? { height: 'auto', opacity: 1 } : { height: 0, opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="md:hidden overflow-hidden"
+              {/* Mobile Menu Button - Hanya di mobile */}
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="md:hidden w-8 h-8 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 text-white flex items-center justify-center shadow-md hover:shadow-lg transition-all"
               >
-                <div className="pt-4 pb-2 space-y-2">
-                  {/* Mobile Auth Buttons */}
-                  <div className="px-4 py-3 space-y-2">
-                    {isLoggedIn ? (
-                      <>
-                        <div className="bg-green-50 rounded-xl p-3">
-                          <p className="text-sm text-gray-600 mb-2">Selamat datang,</p>
-                          <p className="font-bold text-green-700">{localStorage.getItem('userName') || 'Pengguna'}</p>
+                {isOpen ? <IoClose size={16} /> : <GiHamburgerMenu size={14} />}
+              </button>
+            </div>
+
+            {/* Mobile Menu */}
+            <AnimatePresence>
+              {isOpen && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="md:hidden overflow-hidden"
+                >
+                  <div className="pt-2 pb-3 space-y-1">
+                    {/* Mobile Auth - Sederhana */}
+                    <div className="px-2 py-2">
+                      {isLoggedIn ? (
+                        <div className="space-y-2">
+                          <div className="bg-green-50 rounded-lg p-2">
+                            <p className="text-xs text-gray-600">Selamat datang,</p>
+                            <p className="text-sm font-bold text-green-700">{localStorage.getItem('userName') || 'Pengguna'}</p>
+                          </div>
+                          <Link
+                            to="/profile"
+                            className="block px-3 py-2 text-xs bg-white/50 rounded-lg text-gray-700 hover:bg-white/80"
+                            onClick={() => setIsOpen(false)}
+                          >
+                            Profil Saya
+                          </Link>
+                          <button
+                            onClick={handleLogout}
+                            className="w-full text-left px-3 py-2 text-xs bg-red-50 rounded-lg text-red-600 hover:bg-red-100"
+                          >
+                            Logout
+                          </button>
                         </div>
-                        <Link
-                          to="/profile"
-                          onClick={() => setIsOpen(false)}
-                          className="flex items-center gap-3 px-4 py-3 bg-white/50 rounded-xl text-gray-700 hover:bg-white/80"
-                        >
-                          <FaUser className="text-green-600" />
-                          <span>Profil Saya</span>
-                        </Link>
-                        <button
-                          onClick={handleLogout}
-                          className="w-full flex items-center gap-3 px-4 py-3 bg-red-50 rounded-xl text-red-600 hover:bg-red-100"
-                        >
-                          <FaSignInAlt className="rotate-180" />
-                          <span>Logout</span>
-                        </button>
-                      </>
-                    ) : (
-                      <div className="grid grid-cols-2 gap-2">
+                      ) : (
                         <Link
                           to="/login"
+                          className="block w-full text-center px-3 py-2 text-xs bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg font-medium"
                           onClick={() => setIsOpen(false)}
-                          className="flex items-center justify-center gap-2 px-4 py-3 bg-white/50 rounded-xl text-green-700 font-semibold border-2 border-green-600"
                         >
-                          <FaSignInAlt />
-                          <span>Masuk</span>
+                          Masuk / Daftar
                         </Link>
-                        <Link
-                          to="/signup"
-                          onClick={() => setIsOpen(false)}
-                          className="flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-green-600 to-emerald-600 rounded-xl text-white font-semibold"
-                        >
-                          <FaUserPlus />
-                          <span>Daftar</span>
-                        </Link>
-                      </div>
-                    )}
-                  </div>
+                      )}
+                    </div>
 
-                  {/* Mobile Navigation Items */}
-                  {navItems.map((item) => {
-                    const Icon = item.icon
-                    const isActive = isActivePath(item.path)
-                    
-                    // Mobile menu with nested items
-                    if (item.hasDropdown) {
-                      return (
-                        <div key={item.path} className="space-y-1">
-                          <div
-                            className={`
-                              px-4 py-3 rounded-xl flex items-center justify-between
-                              font-semibold transition-all
-                              ${isActive 
-                                ? 'bg-white/95 text-[#166b3b] border-2 border-[#6fcf97]' 
-                                : 'bg-white/50 text-[#1e4f33]'
-                              }
-                            `}
-                            onClick={() => setDropdownOpen(!dropdownOpen)}
-                          >
-                            <span className="flex items-center gap-3">
-                              <Icon className="text-xl" />
-                              <span>{item.label}</span>
-                            </span>
-                            <FaChevronDown className={`transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
-                          </div>
-                          
-                          <AnimatePresence>
-                            {dropdownOpen && (
-                              <motion.div
-                                initial={{ opacity: 0, height: 0 }}
-                                animate={{ opacity: 1, height: 'auto' }}
-                                exit={{ opacity: 0, height: 0 }}
-                                className="pl-8 space-y-1"
-                              >
-                                {item.dropdownItems.map((dropdownItem) => {
-                                  const DropdownIcon = dropdownItem.icon
-                                  
-                                  if (dropdownItem.subItems) {
-                                    return (
-                                      <div key={dropdownItem.path} className="space-y-1">
-                                        <Link
-                                          to={dropdownItem.path}
-                                          className="flex items-center gap-3 px-4 py-2 text-gray-600 hover:text-green-600"
-                                          onClick={() => setIsOpen(false)}
-                                        >
-                                          <DropdownIcon />
-                                          <span>{dropdownItem.label}</span>
-                                        </Link>
-                                        <div className="pl-6 space-y-1 border-l-2 border-green-200 ml-2">
-                                          {dropdownItem.subItems.map((subItem) => {
-                                            const SubIcon = subItem.icon
-                                            return (
-                                              <Link
-                                                key={subItem.path}
-                                                to={subItem.path}
-                                                className="flex items-center gap-3 px-4 py-2 text-sm text-gray-500 hover:text-green-600"
-                                                onClick={() => setIsOpen(false)}
-                                              >
-                                                <SubIcon />
-                                                <span>{subItem.label}</span>
-                                              </Link>
-                                            )
-                                          })}
-                                        </div>
-                                      </div>
-                                    )
-                                  }
-                                  
-                                  return (
+                    {/* Mobile Navigation - Teks kecil */}
+                    {navItems.map((item) => {
+                      const Icon = item.icon
+                      const isActive = isActivePath(item.path)
+                      
+                      if (item.hasDropdown) {
+                        return (
+                          <div key={item.path}>
+                            <button
+                              onClick={() => setDropdownOpen(!dropdownOpen)}
+                              className={`
+                                w-full px-3 py-2 rounded-lg flex items-center justify-between
+                                text-xs font-medium transition-all
+                                ${isActive ? 'bg-green-50 text-green-700' : 'text-gray-700 hover:bg-white/50'}
+                              `}
+                            >
+                              <span className="flex items-center gap-2">
+                                <Icon className="text-green-600 text-xs" />
+                                <span>{item.label}</span>
+                              </span>
+                              <FaChevronDown className={`text-[10px] transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
+                            </button>
+                            
+                            <AnimatePresence>
+                              {dropdownOpen && (
+                                <motion.div
+                                  initial={{ height: 0 }}
+                                  animate={{ height: 'auto' }}
+                                  exit={{ height: 0 }}
+                                  className="pl-6 pr-2 space-y-1 mt-1"
+                                >
+                                  {item.dropdownItems.map((dropdownItem, index) => (
                                     <Link
-                                      key={dropdownItem.path}
+                                      key={index}
                                       to={dropdownItem.path}
-                                      className="flex items-center gap-3 px-4 py-2 text-gray-600 hover:text-green-600"
+                                      className="block px-3 py-1.5 text-[11px] text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-lg"
                                       onClick={() => setIsOpen(false)}
                                     >
-                                      <DropdownIcon />
-                                      <span>{dropdownItem.label}</span>
+                                      {dropdownItem.label}
                                     </Link>
-                                  )
-                                })}
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
-                        </div>
-                      )
-                    }
-                    
-                    // Regular mobile menu item
-                    return (
-                      <Link
-                        key={item.path}
-                        to={item.path}
-                        onClick={() => setIsOpen(false)}
-                      >
-                        <motion.div
-                          whileTap={{ scale: 0.98 }}
+                                  ))}
+                                </motion.div>
+                              )}
+                            </AnimatePresence>
+                          </div>
+                        )
+                      }
+                      
+                      return (
+                        <Link
+                          key={item.path}
+                          to={item.path}
                           className={`
-                            px-4 py-3 rounded-xl flex items-center gap-3 
-                            font-semibold transition-all
+                            w-full px-3 py-2 rounded-lg flex items-center gap-2
+                            text-xs font-medium transition-all
                             ${isActive 
-                              ? 'bg-white/95 text-[#166b3b] border-2 border-[#6fcf97]' 
-                              : 'bg-white/50 text-[#1e4f33] hover:bg-white/80'
+                              ? 'bg-green-50 text-green-700' 
+                              : 'text-gray-700 hover:bg-white/50'
                             }
                           `}
+                          onClick={() => setIsOpen(false)}
                         >
-                          <Icon className="text-xl" />
+                          <Icon className="text-green-600 text-xs" />
                           <span>{item.label}</span>
-                        </motion.div>
-                      </Link>
-                    )
-                  })}
-                </div>
-              </motion.div>
-            </div>
+                        </Link>
+                      )
+                    })}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </motion.nav>
 
       {/* Spacer */}
-      <div className="h-16"></div>
+      <div className="h-14 sm:h-16 md:h-20"></div>
     </>
   )
 }

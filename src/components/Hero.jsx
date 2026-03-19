@@ -7,7 +7,7 @@ import { GiPlantSeed, GiEarthAfricaEurope, GiFlowerPot, GiWaterDrop } from 'reac
 const Hero = () => {
   const navigate = useNavigate()
 
-  // Eco Dots
+  // Eco Dots (tetap sama)
   const ecoDots = [
     { size: 6, color: 'bg-green-300', duration: 3, delay: 0, x: '10%', y: '15%' },
     { size: 8, color: 'bg-green-400', duration: 3.5, delay: 0.2, x: '25%', y: '40%' },
@@ -31,7 +31,7 @@ const Hero = () => {
     { size: 9, color: 'bg-emerald-200', duration: 3.8, delay: 3.8, x: '75%', y: '70%' },
   ]
 
-  // Sparkles
+  // Sparkles (tetap sama)
   const sparkles = [
     { size: 3, x: '30%', y: '40%', delay: 0 },
     { size: 4, x: '60%', y: '55%', delay: 0.5 },
@@ -46,21 +46,18 @@ const Hero = () => {
   }
 
   return (
-    <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
-      {/* Background Premium - Campuran Putih dan Hijau yang Elegan */}
+    <section className="relative min-h-screen sm:min-h-[90vh] lg:min-h-[85vh] flex items-center justify-center overflow-hidden pt-16 sm:pt-20 lg:pt-24">
+      {/* Background - Hijau Lembut (BUKAN PUTIH) */}
       <div className="absolute inset-0 -z-10">
-        {/* Base putih bersih */}
-        <div className="absolute inset-0 bg-white" />
-        
-        {/* Gradient hijau yang lembut dan organik */}
-        <div className="absolute inset-0 bg-gradient-to-br from-green-50/80 via-white to-emerald-50/60" />
+        {/* Base gradient hijau lembut - SESUAI DENGAN ARTIKEL */}
+        <div className="absolute inset-0 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50" />
         
         {/* Organic shapes dengan opacity rendah */}
         <div className="absolute top-0 left-0 w-full h-full">
-          <div className="absolute top-10 left-[5%] w-96 h-96 bg-green-100/30 rounded-full blur-3xl" />
-          <div className="absolute bottom-20 right-[10%] w-[500px] h-[500px] bg-emerald-100/30 rounded-full blur-3xl" />
-          <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-teal-100/20 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-lime-100/20 rounded-full blur-3xl" />
+          <div className="absolute top-10 left-[5%] w-48 sm:w-64 lg:w-96 h-48 sm:h-64 lg:h-96 bg-green-200/30 rounded-full blur-3xl" />
+          <div className="absolute bottom-20 right-[5%] lg:right-[10%] w-64 sm:w-80 lg:w-[500px] h-64 sm:h-80 lg:h-[500px] bg-emerald-200/30 rounded-full blur-3xl" />
+          <div className="absolute top-1/3 right-1/4 w-40 sm:w-60 lg:w-80 h-40 sm:h-60 lg:h-80 bg-teal-200/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 left-1/3 w-36 sm:w-56 lg:w-72 h-36 sm:h-56 lg:h-72 bg-lime-200/20 rounded-full blur-3xl" />
         </div>
 
         {/* Pattern daun yang sangat halus */}
@@ -85,8 +82,8 @@ const Hero = () => {
             key={`orb-${i}`}
             className="absolute rounded-full"
             style={{
-              width: Math.random() * 180 + 100,
-              height: Math.random() * 180 + 100,
+              width: `clamp(100px, ${Math.random() * 180 + 100}px, 280px)`,
+              height: `clamp(100px, ${Math.random() * 180 + 100}px, 280px)`,
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               background: `radial-gradient(circle, ${
@@ -108,14 +105,14 @@ const Hero = () => {
           />
         ))}
 
-        {/* Eco Dots */}
+        {/* Eco Dots - Responsif ukuran */}
         {ecoDots.map((dot, i) => (
           <motion.div
             key={`dot-${i}`}
             className={`absolute rounded-full ${dot.color} shadow-lg`}
             style={{
-              width: dot.size,
-              height: dot.size,
+              width: `clamp(${dot.size * 0.5}px, ${dot.size}px, ${dot.size * 1.2}px)`,
+              height: `clamp(${dot.size * 0.5}px, ${dot.size}px, ${dot.size * 1.2}px)`,
               left: dot.x,
               top: dot.y,
               filter: `blur(${Math.random() * 2}px)`,
@@ -136,14 +133,14 @@ const Hero = () => {
           />
         ))}
 
-        {/* Sparkles */}
+        {/* Sparkles - Responsif ukuran */}
         {sparkles.map((sparkle, i) => (
           <motion.div
             key={`sparkle-${i}`}
             className="absolute bg-white rounded-full"
             style={{
-              width: sparkle.size,
-              height: sparkle.size,
+              width: `clamp(${sparkle.size * 0.7}px, ${sparkle.size}px, ${sparkle.size * 1.3}px)`,
+              height: `clamp(${sparkle.size * 0.7}px, ${sparkle.size}px, ${sparkle.size * 1.3}px)`,
               left: sparkle.x,
               top: sparkle.y,
               boxShadow: '0 0 15px rgba(255,255,255,0.9)',
@@ -162,38 +159,39 @@ const Hero = () => {
         ))}
       </div>
 
-      <div className="container-custom max-w-6xl mx-auto px-4 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-8 items-center">
+      <div className="container-custom max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-center">
 
           {/* LEFT CONTENT */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
+            className="order-2 lg:order-1 text-center lg:text-left"
           >
-            {/* Badge - HANYA SATU ICON TANPA ANIMASI */}
-            <div className="inline-flex items-center gap-2 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-md mb-3 border border-green-200">
-              <FaLeaf className="text-green-600 text-xs" />
-              <span className="text-xs font-semibold text-green-700">
+            {/* Badge - Responsif */}
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 bg-white/90 backdrop-blur-sm px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full shadow-md mb-2 sm:mb-3 border border-green-200">
+              <FaLeaf className="text-green-600 text-[10px] sm:text-xs" />
+              <span className="text-[10px] sm:text-xs font-semibold text-green-700">
                 Platform Peduli Lingkungan
               </span>
             </div>
 
-            {/* Heading - TANPA GARIS BAWAH */}
+            {/* Heading - Responsif */}
             <motion.h1 
-              className="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-800 leading-snug mb-3"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 leading-snug mb-2 sm:mb-3"
             >
               Peduli{' '}
               <span className="text-green-600">
                 Lingkungan
               </span>
-              <br />
+              <br className="hidden sm:block" />
               untuk Masa Depan
             </motion.h1>
 
-            {/* Deskripsi */}
+            {/* Deskripsi - Responsif */}
             <motion.p 
-              className="text-sm md:text-base text-gray-600 mb-5 max-w-xl"
+              className="text-xs sm:text-sm md:text-base text-gray-600 mb-4 sm:mb-5 max-w-xl mx-auto lg:mx-0 px-2 sm:px-0"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
@@ -201,39 +199,37 @@ const Hero = () => {
               Ayo mulai perubahan dari hal kecil. Bersama kita bisa menciptakan bumi yang lebih hijau dan sehat.
             </motion.p>
 
-            {/* Buttons - Semua Wilayah (kiri) dan Tentang Kami (kanan) */}
+            {/* Buttons - Responsif */}
             <motion.div 
-              className="flex flex-wrap gap-3"
+              className="flex flex-wrap gap-2 sm:gap-3 justify-center lg:justify-start"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
-              {/* BUTTON SEMUA WILAYAH - Posisi Kiri (MENGGANTIKAN SEARCH) */}
               <motion.button
                 onClick={handleSemuaWilayah}
                 whileHover={{ scale: 1.05, boxShadow: '0 10px 25px -5px rgba(34, 197, 94, 0.4)' }}
                 whileTap={{ scale: 0.95 }}
-                className="px-5 py-2.5 bg-white border-2 border-green-600 text-green-600 rounded-lg font-semibold shadow-md flex items-center gap-2 text-sm hover:bg-green-50 transition-colors"
+                className="px-3 sm:px-5 py-1.5 sm:py-2.5 bg-white border-2 border-green-600 text-green-600 rounded-lg font-semibold shadow-md flex items-center gap-1 sm:gap-2 text-xs sm:text-sm hover:bg-green-50 transition-colors"
               >
-                <FaMapMarkerAlt className="text-green-500 text-sm" />
-                Semua Wilayah
+                <FaMapMarkerAlt className="text-green-500 text-[10px] sm:text-sm" />
+                <span>Semua Wilayah</span>
               </motion.button>
 
-              {/* TENTANG KAMI - Posisi Kanan (TANPA ICON) */}
               <Link to="/tentang">
                 <motion.button
                   whileHover={{ scale: 1.05, boxShadow: '0 10px 25px -5px rgba(34, 197, 94, 0.4)' }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-5 py-2.5 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg font-semibold shadow-md text-sm"
+                  className="px-3 sm:px-5 py-1.5 sm:py-2.5 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg font-semibold shadow-md text-xs sm:text-sm hover:from-green-600 hover:to-emerald-600 transition-colors"
                 >
                   Tentang Kami
                 </motion.button>
               </Link>
             </motion.div>
 
-            {/* Stats */}
+            {/* Stats - Responsif */}
             <motion.div 
-              className="grid grid-cols-3 gap-3 mt-6"
+              className="grid grid-cols-3 gap-2 sm:gap-3 mt-4 sm:mt-6 max-w-sm mx-auto lg:mx-0"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
@@ -248,11 +244,11 @@ const Hero = () => {
                   <motion.div
                     key={i}
                     whileHover={{ y: -3 }}
-                    className="relative group"
+                    className="relative group bg-white/30 backdrop-blur-sm rounded-lg p-1.5 sm:p-2"
                   >
                     {/* Eco dot kecil */}
                     <motion.div
-                      className="absolute -top-1 -right-1 w-1.5 h-1.5 bg-green-400 rounded-full"
+                      className="absolute -top-1 -right-1 w-1 sm:w-1.5 h-1 sm:h-1.5 bg-green-400 rounded-full"
                       animate={{
                         scale: [1, 1.5, 1],
                         opacity: [0.5, 1, 0.5],
@@ -264,21 +260,21 @@ const Hero = () => {
                       }}
                     />
                     
-                    <div className="flex items-center gap-1.5 mb-0.5">
-                      <Icon className="text-green-500 text-xs" />
+                    <div className="flex items-center justify-center lg:justify-start gap-1 sm:gap-1.5 mb-0.5">
+                      <Icon className="text-green-500 text-[10px] sm:text-xs" />
                       <motion.div 
-                        className="text-xl md:text-2xl font-bold text-green-600"
+                        className="text-sm sm:text-xl md:text-2xl font-bold text-green-600"
                         whileHover={{ scale: 1.1 }}
                       >
                         {item.value}
                       </motion.div>
                     </div>
-                    <div className="text-xs font-semibold text-gray-700">{item.label}</div>
-                    <div className="text-[10px] text-gray-500">{item.sub}</div>
+                    <div className="text-[8px] sm:text-xs font-semibold text-gray-700">{item.label}</div>
+                    <div className="text-[6px] sm:text-[10px] text-gray-500 hidden sm:block">{item.sub}</div>
                     
                     {/* Progress bar mini */}
                     <motion.div
-                      className="h-0.5 bg-green-100 rounded-full mt-1.5 overflow-hidden"
+                      className="h-0.5 bg-green-100 rounded-full mt-1 overflow-hidden"
                       initial={{ width: 0 }}
                       animate={{ width: '100%' }}
                       transition={{ delay: 0.5 + i * 0.1, duration: 0.8 }}
@@ -301,27 +297,27 @@ const Hero = () => {
             </motion.div>
           </motion.div>
 
-          {/* RIGHT CONTENT - ORBITING RINGS */}
+          {/* RIGHT CONTENT - ORBITING RINGS (Tetap dengan animasi, responsif ukuran) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
-            className="hidden lg:flex justify-center items-center"
+            className="hidden lg:flex justify-center items-center order-1 lg:order-2"
           >
-            <div className="relative w-[350px] h-[350px] flex items-center justify-center scale-90">
+            <div className="relative w-[250px] xl:w-[350px] h-[250px] xl:h-[350px] flex items-center justify-center scale-90 lg:scale-100">
 
               {/* Orbit Ring 1 */}
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                className="absolute w-[330px] h-[330px] border-2 border-green-200/50 rounded-full"
+                className="absolute w-[230px] xl:w-[330px] h-[230px] xl:h-[330px] border-2 border-green-200/50 rounded-full"
               >
                 <motion.div
-                  className="absolute -top-2.5 left-1/2 w-7 h-7 bg-gradient-to-br from-green-400 to-emerald-400 rounded-full shadow-lg flex items-center justify-center"
+                  className="absolute -top-2 left-1/2 w-5 xl:w-7 h-5 xl:h-7 bg-gradient-to-br from-green-400 to-emerald-400 rounded-full shadow-lg flex items-center justify-center"
                   style={{ x: '-50%' }}
                   whileHover={{ scale: 1.2 }}
                 >
-                  <FaLeaf className="text-white text-xs" />
+                  <FaLeaf className="text-white text-[8px] xl:text-xs" />
                 </motion.div>
               </motion.div>
 
@@ -329,21 +325,21 @@ const Hero = () => {
               <motion.div
                 animate={{ rotate: -360 }}
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="absolute w-[260px] h-[260px] border-2 border-emerald-200/60 rounded-full"
+                className="absolute w-[180px] xl:w-[260px] h-[180px] xl:h-[260px] border-2 border-emerald-200/60 rounded-full"
               >
                 <motion.div
-                  className="absolute top-1/2 -right-3 w-6 h-6 bg-gradient-to-br from-emerald-400 to-teal-400 rounded-full shadow-lg flex items-center justify-center"
+                  className="absolute top-1/2 -right-2 xl:-right-3 w-5 xl:w-6 h-5 xl:h-6 bg-gradient-to-br from-emerald-400 to-teal-400 rounded-full shadow-lg flex items-center justify-center"
                   style={{ y: '-50%' }}
                   whileHover={{ scale: 1.2 }}
                 >
-                  <FaRecycle className="text-white text-[10px]" />
+                  <FaRecycle className="text-white text-[6px] xl:text-[10px]" />
                 </motion.div>
                 <motion.div
-                  className="absolute -left-3 top-1/2 w-6 h-6 bg-gradient-to-br from-teal-400 to-green-400 rounded-full shadow-lg flex items-center justify-center"
+                  className="absolute -left-2 xl:-left-3 top-1/2 w-5 xl:w-6 h-5 xl:h-6 bg-gradient-to-br from-teal-400 to-green-400 rounded-full shadow-lg flex items-center justify-center"
                   style={{ y: '-50%' }}
                   whileHover={{ scale: 1.2 }}
                 >
-                  <GiPlantSeed className="text-white text-[10px]" />
+                  <GiPlantSeed className="text-white text-[6px] xl:text-[10px]" />
                 </motion.div>
               </motion.div>
 
@@ -351,14 +347,14 @@ const Hero = () => {
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                className="absolute w-[190px] h-[190px] border-2 border-teal-200/70 rounded-full"
+                className="absolute w-[130px] xl:w-[190px] h-[130px] xl:h-[190px] border-2 border-teal-200/70 rounded-full"
               >
                 <motion.div
-                  className="absolute top-0 left-1/2 w-5 h-5 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full shadow-lg flex items-center justify-center"
+                  className="absolute top-0 left-1/2 w-4 xl:w-5 h-4 xl:h-5 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full shadow-lg flex items-center justify-center"
                   style={{ x: '-50%' }}
                   whileHover={{ scale: 1.2 }}
                 >
-                  <FaTree className="text-white text-[8px]" />
+                  <FaTree className="text-white text-[6px] xl:text-[8px]" />
                 </motion.div>
               </motion.div>
 
@@ -366,12 +362,12 @@ const Hero = () => {
               <motion.div
                 animate={{ rotate: -360 }}
                 transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                className="absolute w-[130px] h-[130px] border border-green-300/80 rounded-full"
+                className="absolute w-[90px] xl:w-[130px] h-[90px] xl:h-[130px] border border-green-300/80 rounded-full"
               >
                 {[...Array(4)].map((_, i) => (
                   <motion.div
                     key={i}
-                    className="absolute w-1 h-1 bg-green-400 rounded-full"
+                    className="absolute w-0.5 xl:w-1 h-0.5 xl:h-1 bg-green-400 rounded-full"
                     style={{
                       left: `${50 + 40 * Math.cos(i * Math.PI / 2)}%`,
                       top: `${50 + 40 * Math.sin(i * Math.PI / 2)}%`,
@@ -400,47 +396,47 @@ const Hero = () => {
                   ]
                 }}
                 transition={{ duration: 3, repeat: Infinity }}
-                className="w-24 h-24 bg-gradient-to-br from-green-400 via-emerald-400 to-teal-400 rounded-full shadow-2xl flex items-center justify-center relative z-10"
+                className="w-16 xl:w-24 h-16 xl:h-24 bg-gradient-to-br from-green-400 via-emerald-400 to-teal-400 rounded-full shadow-2xl flex items-center justify-center relative z-10"
               >
                 <motion.div
                   animate={{ rotate: 360 }}
                   transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
                 >
-                  <GiEarthAfricaEurope className="text-white text-4xl" />
+                  <GiEarthAfricaEurope className="text-white text-2xl xl:text-4xl" />
                 </motion.div>
               </motion.div>
 
-              {/* Floating Icons */}
+              {/* Floating Icons - Responsif */}
               <motion.div
                 animate={{ y: [-12, 12, -12], rotate: [0, 10, -10, 0] }}
                 transition={{ duration: 4, repeat: Infinity }}
-                className="absolute -top-8 -right-8 w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-400 rounded-2xl shadow-xl flex items-center justify-center"
+                className="absolute -top-6 xl:-top-8 -right-6 xl:-right-8 w-8 xl:w-12 h-8 xl:h-12 bg-gradient-to-br from-yellow-400 to-orange-400 rounded-xl xl:rounded-2xl shadow-xl flex items-center justify-center"
               >
-                <FaRegSun className="text-white text-xl" />
+                <FaRegSun className="text-white text-sm xl:text-xl" />
               </motion.div>
 
               <motion.div
                 animate={{ y: [12, -12, 12], rotate: [0, -10, 10, 0] }}
                 transition={{ duration: 5, repeat: Infinity }}
-                className="absolute -bottom-6 -left-6 w-12 h-12 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-full shadow-xl flex items-center justify-center"
+                className="absolute -bottom-4 xl:-bottom-6 -left-4 xl:-left-6 w-8 xl:w-12 h-8 xl:h-12 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-full shadow-xl flex items-center justify-center"
               >
-                <FaCloudSun className="text-white text-xl" />
+                <FaCloudSun className="text-white text-sm xl:text-xl" />
               </motion.div>
             </div>
           </motion.div>
         </div>
 
-        {/* Scroll Indicator */}
+        {/* Scroll Indicator - Responsif */}
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
-          className="absolute bottom-3 left-1/2 transform -translate-x-1/2"
+          className="absolute bottom-2 sm:bottom-3 left-1/2 transform -translate-x-1/2 hidden sm:block"
         >
           <div className="relative">
-            <div className="w-4 h-7 border-2 border-green-400 rounded-full flex justify-center">
+            <div className="w-3 sm:w-4 h-5 sm:h-7 border-2 border-green-400 rounded-full flex justify-center">
               <motion.div 
-                className="w-0.5 h-1.5 bg-green-400 rounded-full mt-1"
-                animate={{ height: [6, 12, 6] }}
+                className="w-0.5 h-1 sm:h-1.5 bg-green-400 rounded-full mt-1"
+                animate={{ height: [4, 8, 4] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
               />
             </div>
