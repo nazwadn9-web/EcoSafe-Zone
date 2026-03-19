@@ -56,7 +56,7 @@ const Navbar = () => {
         { path: '/layanan/edukasi', label: 'Edukasi' },
         { path: '/layanan/bank-sampah', label: 'Bank Sampah' },
         { path: '/layanan/form-pengajuan', label: 'Form Pengajuan' },
-        { path: '/layanan/pelatihan', label: 'Pelatihan' },
+        { path: '/layanan/daerah', label: 'Daerah' },
         { path: '/games', label: 'Games', icon: FaGamepad },
       ]
     },

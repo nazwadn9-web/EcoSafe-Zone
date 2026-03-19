@@ -1,21 +1,16 @@
 // src/pages/Artikel.jsx
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { 
-
-  FaLeaf, FaRecycle, FaSeedling, FaGlobeAsia,
-  FaBookOpen, FaTree,
-
-  FaCalendar, FaUser, FaArrowRight, FaTimes, FaShare, 
-  FaFacebook, FaTwitter, FaWhatsapp, FaTelegram, 
-  FaEnvelope, FaCopy, FaShareAlt, FaCheckCircle,
-  FaClock, FaLeaf,
-  FaRecycle, FaSeedling, FaGlobeAsia,
-  FaBookOpen, FaTree, FaHeart, FaStar,
-   FaTint, FaSun, FaBug,
-  FaApple, FaCarrot, FaSeedling as FaSproutIcon,
-  FaArrowLeft
-
+import {
+  FaLeaf,
+  FaRecycle,
+  FaSeedling,
+  FaGlobeAsia,
+  FaBookOpen,
+  FaTree,
+  FaClock,
+  FaHeart,
+  FaStar
 } from 'react-icons/fa'
 import ArticleHeader from '../components/ArticleHeader'  // Perbaiki path
 import ArticleSearch from '../components/ArticleSearch'  // Perbaiki path

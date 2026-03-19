@@ -20,7 +20,7 @@ import TebakSampah from './pages/games/TebakSampah'
 import Edukasi from './pages/layanan/Edukasi'
 import BankSampah from './pages/layanan/BankSampah'
 import ReportForm from './pages/layanan/ReportForm'
-// import Pelatihan from './pages/layanan/Pelatihan'
+import Daerah from './pages/layanan/Daerah'
 
 const AnimatedRoutes = () => {
   const location = useLocation()
@@ -45,8 +45,8 @@ const AnimatedRoutes = () => {
         <Route path="/layanan/edukasi" element={<Edukasi />} />
         <Route path="/layanan/bank-sampah" element={<BankSampah />} />
         <Route path="/layanan/form-pengajuan" element={<ReportForm />} />
-        {/* <Route path="/layanan/pelatihan" element={<Pelatihan />} />
-         */}
+        <Route path="/layanan/daerah" element={<Daerah />} />
+        
         {/* Individual Game Pages */}
         <Route path="/games/pilah-sampah" element={<PilahSampah />} />
         <Route path="/games/tebak-sampah" element={<TebakSampah />} />
