@@ -28,69 +28,85 @@ const Footer = () => {
   ]
 
   const socialLinks = [
-    { icon: FaFacebookF, color: 'hover:bg-blue-600', href: '#' },
-    { icon: FaTwitter, color: 'hover:bg-sky-400', href: '#' },
-    { icon: FaInstagram, color: 'hover:bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600', href: '#' },
-    { icon: FaYoutube, color: 'hover:bg-red-600', href: '#' },
+    { icon: FaFacebookF, href: '#' },
+    { icon: FaTwitter, href: '#' },
+    { icon: FaInstagram, href: '#' },
+    { icon: FaYoutube, href: '#' },
+  ]
+
+  const contactInfo = [
+    { icon: FaMapMarkerAlt, text: 'Jl. Hijau Lestari No. 123, Jakarta' },
+    { icon: FaEnvelope, text: 'support@ecocare.id' },
+    { icon: FaPhoneAlt, text: '+62 812 3456 7890' },
   ]
 
   return (
-    <footer className="relative bg-slate-950 text-white pt-20 pb-10 overflow-hidden">
-      {/* Dekorasi Background - Meniru style Hero */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-green-500/50 to-transparent" />
-      <div className="absolute -top-24 -left-24 w-96 h-96 bg-green-900/20 rounded-full blur-[100px]" />
+    <footer className="relative bg-white border-t border-green-100 pt-16 sm:pt-20 pb-8 sm:pb-10 overflow-hidden">
+      {/* Dekorasi Background - Hijau Lembut seperti Navbar */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-green-300 to-transparent" />
+        <div className="absolute -top-24 -left-24 w-96 h-96 bg-green-100/30 rounded-full blur-[100px]" />
+        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-emerald-100/30 rounded-full blur-[100px]" />
+      </div>
 
-      <div className="container mx-auto px-6 lg:px-12 max-w-7xl relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
+        {/* Grid Responsif */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12 mb-12 sm:mb-16">
           
           {/* 1. Brand Section */}
-          <div className="space-y-6">
-            <Link to="/" className="flex items-center space-x-3 group">
-              <div className="w-12 h-12 bg-green-500 rounded-2xl flex items-center justify-center shadow-lg shadow-green-500/20 group-hover:rotate-12 transition-transform duration-300">
-                <FaLeaf className="text-white text-2xl" />
-              </div>
-              <span className="text-3xl font-black tracking-tight uppercase italic">
-                Eco<span className="text-green-500">Care</span>
+          <div className="space-y-4 sm:space-y-6 text-center sm:text-left">
+            <Link to="/" className="inline-flex items-center gap-2 sm:gap-3 group mx-auto sm:mx-0">
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                className="w-10 sm:w-12 h-10 sm:h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-all"
+              >
+                <FaLeaf className="text-white text-lg sm:text-2xl" />
+              </motion.div>
+              <span className="text-xl sm:text-2xl md:text-3xl font-bold text-green-700">
+                EcoCare
               </span>
             </Link>
-            <p className="text-slate-400 leading-relaxed">
+            <p className="text-xs sm:text-sm text-gray-600 leading-relaxed max-w-xs mx-auto sm:mx-0">
               Solusi cerdas untuk ekosistem yang lebih sehat. Kami membantu Anda berkontribusi bagi bumi dengan langkah nyata dan berkelanjutan.
             </p>
-            <div className="flex gap-3">
+            
+            {/* Social Links - Responsif */}
+            <div className="flex gap-2 sm:gap-3 justify-center sm:justify-start">
               {socialLinks.map((social, i) => (
                 <motion.a
                   key={i}
                   href={social.href}
-                  whileHover={{ y: -5 }}
-                  className={`w-10 h-10 bg-slate-900 border border-slate-800 rounded-xl flex items-center justify-center transition-all duration-300 ${social.color}`}
+                  whileHover={{ y: -3 }}
+                  className="w-8 sm:w-10 h-8 sm:h-10 bg-green-50 rounded-lg sm:rounded-xl flex items-center justify-center text-green-600 hover:bg-gradient-to-r hover:from-green-500 hover:to-emerald-500 hover:text-white transition-all duration-300 border border-green-200"
                 >
-                  <social.icon className="text-lg" />
+                  <social.icon className="text-xs sm:text-sm" />
                 </motion.a>
               ))}
             </div>
           </div>
 
           {/* 2. Quick Links Section */}
-          <div className="lg:pl-10">
-            <h3 className="text-lg font-bold mb-7 flex items-center gap-2">
-              <span className="w-2 h-2 bg-green-500 rounded-full" />
+          <div className="text-center sm:text-left">
+            <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-4 sm:mb-6 flex items-center gap-2 justify-center sm:justify-start">
+              <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-green-500 rounded-full" />
               Tautan Cepat
             </h3>
-            <ul className="space-y-4">
+            <ul className="space-y-2 sm:space-y-3">
               {quickLinks.map((item, index) => {
                 const Icon = item.icon
                 return (
                   <li key={index}>
                     <Link
                       to={`/${item.path}`}
-                      className="text-slate-400 hover:text-green-400 transition-all flex items-center gap-3 group"
+                      className="text-xs sm:text-sm text-gray-600 hover:text-green-600 transition-all flex items-center gap-2 sm:gap-3 justify-center sm:justify-start group"
                     >
-                      <div className="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center group-hover:bg-green-500/10 transition-colors">
-                        <Icon className="text-xs" />
+                      <div className="w-6 sm:w-7 h-6 sm:h-7 bg-green-50 rounded-lg flex items-center justify-center group-hover:bg-green-100 transition-colors">
+                        <Icon className="text-[10px] sm:text-xs text-green-600" />
                       </div>
-                      <span className="relative overflow-hidden">
+                      <span className="relative">
                         {item.name}
-                        <span className="absolute bottom-0 left-0 w-0 h-px bg-green-400 transition-all duration-300 group-hover:w-full" />
+                        <span className="absolute -bottom-1 left-0 w-0 h-px bg-green-500 transition-all duration-300 group-hover:w-full" />
                       </span>
                     </Link>
                   </li>
@@ -100,55 +116,55 @@ const Footer = () => {
           </div>
 
           {/* 3. Kontak Section */}
-          <div>
-            <h3 className="text-lg font-bold mb-7 flex items-center gap-2">
-              <span className="w-2 h-2 bg-green-500 rounded-full" />
+          <div className="text-center sm:text-left">
+            <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-4 sm:mb-6 flex items-center gap-2 justify-center sm:justify-start">
+              <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-green-500 rounded-full" />
               Hubungi Kami
             </h3>
-            <ul className="space-y-5">
-              {[
-                { icon: FaMapMarkerAlt, text: 'Jl. Hijau Lestari No. 123, Jakarta' },
-                { icon: FaEnvelope, text: 'support@ecocare.id' },
-                { icon: FaPhoneAlt, text: '+62 812 3456 7890' },
-              ].map((contact, i) => (
-                <li key={i} className="flex items-start gap-4 text-slate-400 group">
-                  <contact.icon className="text-green-500 mt-1" />
-                  <span className="group-hover:text-slate-200 transition-colors cursor-default">{contact.text}</span>
+            <ul className="space-y-3 sm:space-y-4">
+              {contactInfo.map((contact, i) => (
+                <li key={i} className="flex items-start gap-2 sm:gap-3 text-gray-600 justify-center sm:justify-start">
+                  <contact.icon className="text-green-600 text-xs sm:text-sm mt-0.5" />
+                  <span className="text-xs sm:text-sm hover:text-gray-900 transition-colors cursor-default">
+                    {contact.text}
+                  </span>
                 </li>
               ))}
             </ul>
           </div>
 
           {/* 4. Newsletter Section */}
-          <div>
-            <h3 className="text-lg font-bold mb-7 flex items-center gap-2">
-              <span className="w-2 h-2 bg-green-500 rounded-full" />
+          <div className="text-center sm:text-left">
+            <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-4 sm:mb-6 flex items-center gap-2 justify-center sm:justify-start">
+              <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-green-500 rounded-full" />
               Newsletter
             </h3>
-            <p className="text-slate-400 text-sm mb-5">Dapatkan update artikel lingkungan terbaru langsung di email Anda.</p>
-            <form className="relative group" onSubmit={(e) => e.preventDefault()}>
+            <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">
+              Dapatkan update artikel lingkungan terbaru.
+            </p>
+            <form className="relative max-w-xs mx-auto sm:mx-0" onSubmit={(e) => e.preventDefault()}>
               <input 
                 type="email" 
                 placeholder="Email aktif..." 
-                className="w-full bg-slate-900 border border-slate-800 rounded-2xl py-4 px-5 focus:outline-none focus:ring-2 focus:ring-green-500/50 transition-all text-sm"
+                className="w-full bg-green-50 border border-green-200 rounded-lg sm:rounded-xl py-2 sm:py-3 px-3 sm:px-4 pr-16 sm:pr-20 focus:outline-none focus:ring-2 focus:ring-green-500/30 transition-all text-xs sm:text-sm text-gray-700 placeholder-gray-400"
               />
-              <button className="absolute right-2 top-2 bottom-2 px-4 bg-green-500 hover:bg-green-400 text-white rounded-xl transition-colors shadow-lg shadow-green-500/20">
+              <button className="absolute right-1 sm:right-1.5 top-1 sm:top-1.5 bottom-1 sm:bottom-1.5 px-2 sm:px-3 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white rounded-md sm:rounded-lg text-xs sm:text-sm font-medium transition-all shadow-sm">
                 Kirim
               </button>
             </form>
           </div>
         </div>
 
-        {/* Bottom Copyright */}
-        <div className="pt-10 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="text-slate-500 text-sm">
-            © {currentYear} <span className="text-white font-bold">EcoCare Team</span>. Seluruh Hak Cipta Dilindungi.
+        {/* Bottom Copyright - Responsif */}
+        <div className="pt-6 sm:pt-8 border-t border-green-100 flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4">
+          <div className="text-xs sm:text-sm text-gray-500 order-2 sm:order-1">
+            © {currentYear} <span className="text-green-700 font-semibold">EcoCare</span>. All rights reserved.
           </div>
           <motion.div 
-            className="flex items-center gap-2 text-sm text-slate-400 px-4 py-2 bg-slate-900 rounded-full border border-slate-800"
+            className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-gray-600 px-3 sm:px-4 py-1.5 sm:py-2 bg-green-50 rounded-full border border-green-200 order-1 sm:order-2"
             whileHover={{ scale: 1.05 }}
           >
-            Made with <FaHeart className="text-red-500 animate-pulse" /> for a better earth
+            Made with <FaHeart className="text-red-500 text-xs sm:text-sm animate-pulse" /> for better earth
           </motion.div>
         </div>
       </div>

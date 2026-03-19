@@ -3,11 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { 
   FaApple, 
   FaBatteryFull, 
-  FaTrash, 
   FaRecycle, 
   FaLeaf, 
   FaNewspaper, 
-  FaWineBottle, 
   FaLightbulb, 
   FaClock,
   FaTrophy, 
@@ -18,14 +16,15 @@ import {
 import { 
   GiSkullCrossedBones, 
   GiGlassCelebration, 
-  GiPlantSeed 
+  GiPlantSeed,
+  GiWineBottle
 } from 'react-icons/gi'
 import { Link } from 'react-router-dom'
 
 const PilahSampah = () => {
   const [items, setItems] = useState([
     { id: 1, name: 'Apel Busuk', category: 'organik', icon: FaApple, color: 'text-orange-500', difficulty: 'mudah' },
-    { id: 2, name: 'Botol Plastik', category: 'anorganik', icon: FaWineBottle, color: 'text-blue-500', difficulty: 'mudah' },
+    { id: 2, name: 'Botol Plastik', category: 'anorganik', icon: GiWineBottle, color: 'text-blue-500', difficulty: 'mudah' },
     { id: 3, name: 'Baterai', category: 'b3', icon: FaBatteryFull, color: 'text-red-500', difficulty: 'sulit' },
     { id: 4, name: 'Koran Bekas', category: 'anorganik', icon: FaNewspaper, color: 'text-yellow-600', difficulty: 'mudah' },
     { id: 5, name: 'Daun Kering', category: 'organik', icon: FaLeaf, color: 'text-green-500', difficulty: 'mudah' },
@@ -37,35 +36,28 @@ const PilahSampah = () => {
   const [draggedItem, setDraggedItem] = useState(null)
   const [gameCompleted, setGameCompleted] = useState(false)
   const [timeLeft, setTimeLeft] = useState(60)
-  const [gameActive, setGameActive] = useState(true)
 
   const bins = [
     { 
       category: 'organik', 
       name: 'Organik', 
-      icon: 'GiPlantSeed', 
-      color: 'from-orange-400 to-orange-600', 
-      bgColor: 'bg-orange-500',
-      text: '🍂 Sisa Makanan, Daun',
-      examples: 'Apel, Daun, Kulit Pisang'
+      icon: GiPlantSeed, 
+      color: 'from-orange-400 to-orange-600',
+      examples: 'Apel, Daun'
     },
     { 
       category: 'anorganik', 
       name: 'Anorganik', 
       icon: FaRecycle, 
-      color: 'from-blue-400 to-blue-600', 
-      bgColor: 'bg-blue-500',
-      text: '📦 Plastik, Kaca, Kertas',
-      examples: 'Botol, Koran, Kaleng'
+      color: 'from-blue-400 to-blue-600',
+      examples: 'Botol, Koran'
     },
     { 
       category: 'b3', 
       name: 'B3 / Beracun', 
       icon: GiSkullCrossedBones, 
-      color: 'from-red-400 to-red-600', 
-      bgColor: 'bg-red-500',
-      text: '⚠️ Baterai, Lampu, Obat',
-      examples: 'Baterai, Lampu Neon'
+      color: 'from-red-400 to-red-600',
+      examples: 'Baterai, Lampu'
     },
   ]
 
@@ -88,21 +80,18 @@ const PilahSampah = () => {
     }
 
     if (itemCategory === binCategory) {
-      // Success - remove item and add score
       setItems(prev => prev.filter(item => item.id !== draggedItem.id))
       setScore(prev => prev + (draggedItem.difficulty === 'sulit' ? 20 : 10))
-      setMessage(`✅ Benar! +${draggedItem.difficulty === 'sulit' ? 20 : 10} poin`)
+      setMessage(`✅ Benar! +${draggedItem.difficulty === 'sulit' ? '20' : '10'}`)
       
       if (items.length === 1) {
         setGameCompleted(true)
         setMessage('🎉 SELAMAT! Game Selesai!')
       }
     } else {
-      // Wrong bin
-      setMessage(`❌ Salah! ${draggedItem.name} bukan sampah ${binCategory}`)
-      setScore(prev => Math.max(0, prev - 5)) // Kurangi 5 poin, minimal 0
+      setMessage(`❌ Salah! Bukan ${binCategory}`)
+      setScore(prev => Math.max(0, prev - 5))
       
-      // Shake animation
       const element = document.getElementById(`item-${draggedItem.id}`)
       if (element) {
         element.classList.add('animate-wiggle')
@@ -118,7 +107,7 @@ const PilahSampah = () => {
   const resetGame = () => {
     setItems([
       { id: 1, name: 'Apel Busuk', category: 'organik', icon: FaApple, color: 'text-orange-500', difficulty: 'mudah' },
-      { id: 2, name: 'Botol Plastik', category: 'anorganik', icon: FaBottleWater, color: 'text-blue-500', difficulty: 'mudah' },
+      { id: 2, name: 'Botol Plastik', category: 'anorganik', icon: GiWineBottle, color: 'text-blue-500', difficulty: 'mudah' },
       { id: 3, name: 'Baterai', category: 'b3', icon: FaBatteryFull, color: 'text-red-500', difficulty: 'sulit' },
       { id: 4, name: 'Koran Bekas', category: 'anorganik', icon: FaNewspaper, color: 'text-yellow-600', difficulty: 'mudah' },
       { id: 5, name: 'Daun Kering', category: 'organik', icon: FaLeaf, color: 'text-green-500', difficulty: 'mudah' },
@@ -135,40 +124,44 @@ const PilahSampah = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="min-h-screen pt-24 pb-16"
+      className="min-h-screen pt-16 sm:pt-20 pb-6 sm:pb-10 px-3 sm:px-4"
     >
-      <div className="container-custom">
+      <div className="container-custom max-w-5xl mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <Link to="/games" className="flex items-center gap-2 text-green-600 hover:text-green-700">
-            <FaArrowLeft /> Kembali
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-3 mb-3 sm:mb-4">
+          <Link to="/games" className="flex items-center gap-1 text-green-600 hover:text-green-700 text-xs sm:text-sm">
+            <FaArrowLeft className="text-xs" /> 
+            <span>Kembali</span>
           </Link>
-          <div className="flex items-center gap-4">
-            <div className="bg-yellow-100 px-4 py-2 rounded-full flex items-center gap-2">
-              <FaTrophy className="text-yellow-600" />
-              <span className="font-bold text-yellow-700">{score} Poin</span>
+          
+          <div className="flex items-center gap-2 w-full sm:w-auto">
+            <div className="bg-yellow-100 px-2.5 sm:px-3 py-1 rounded-full flex items-center gap-1 flex-1 sm:flex-none justify-center">
+              <FaTrophy className="text-yellow-600 text-xs" />
+              <span className="font-bold text-yellow-700 text-xs">{score}</span>
             </div>
-            <div className="bg-blue-100 px-4 py-2 rounded-full flex items-center gap-2">
-              <FaClock className="text-blue-600" />
-              <span className="font-bold text-blue-700">{timeLeft}s</span>
+            <div className="bg-blue-100 px-2.5 sm:px-3 py-1 rounded-full flex items-center gap-1 flex-1 sm:flex-none justify-center">
+              <FaClock className="text-blue-600 text-xs" />
+              <span className="font-bold text-blue-700 text-xs">{timeLeft}s</span>
             </div>
           </div>
         </div>
 
         {/* Game Title */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-2">
+        <div className="text-center mb-3 sm:mb-4">
+          <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800">
             Game <span className="text-green-600">Pilah Sampah</span>
           </h1>
-          <p className="text-gray-600">Seret sampah ke tong yang sesuai! Dapatkan poin sebanyak-banyaknya!</p>
+          <p className="text-xs text-gray-600 max-w-2xl mx-auto">
+            Seret sampah ke tong yang sesuai!
+          </p>
         </div>
 
         {/* Game Area */}
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           {/* Items to sort */}
-          <div className="bg-white/50 backdrop-blur-sm rounded-3xl p-8 mb-8 border-2 border-green-200">
-            <h3 className="text-xl font-bold text-gray-700 mb-4">Sampah yang harus dipilah:</h3>
-            <div className="flex flex-wrap justify-center gap-4 min-h-[120px]">
+          <div className="bg-white/50 backdrop-blur-sm rounded-lg sm:rounded-xl p-2 sm:p-3 mb-3 sm:mb-4 border border-green-200">
+            <h3 className="text-xs sm:text-sm font-bold text-gray-700 mb-1 sm:mb-2">Sampah:</h3>
+            <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 min-h-[60px] sm:min-h-[70px]">
               <AnimatePresence>
                 {items.map((item) => {
                   const Icon = item.icon
@@ -178,17 +171,17 @@ const PilahSampah = () => {
                       id={`item-${item.id}`}
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      exit={{ scale: 0, opacity: 0 }}
-                      whileHover={{ scale: 1.05, y: -5 }}
+                      exit={{ scale: 0 }}
+                      whileHover={{ scale: 1.02 }}
                       draggable={!gameCompleted}
                       onDragStart={(e) => handleDragStart(e, item)}
                       className={`cursor-grab active:cursor-grabbing ${gameCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
                     >
-                      <div className="bg-white px-6 py-4 rounded-full shadow-xl border-2 border-white flex items-center gap-3">
-                        <Icon className={`text-2xl ${item.color}`} />
-                        <span className="font-semibold text-gray-700">{item.name}</span>
+                      <div className="bg-white px-2 py-1 sm:px-3 sm:py-1.5 rounded-full shadow-sm border border-white flex items-center gap-1">
+                        <Icon className={`text-xs sm:text-sm ${item.color}`} />
+                        <span className="font-medium text-gray-700 text-[10px] sm:text-xs">{item.name}</span>
                         {item.difficulty === 'sulit' && (
-                          <span className="text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full">+20</span>
+                          <span className="text-[8px] sm:text-[10px] bg-yellow-100 text-yellow-700 px-1 py-0.5 rounded-full">20</span>
                         )}
                       </div>
                     </motion.div>
@@ -199,78 +192,86 @@ const PilahSampah = () => {
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="text-center py-8"
+                  className="text-center py-2 sm:py-3"
                 >
-                  <GiGlassCelebration className="text-6xl text-green-500 mx-auto mb-4" />
-                  <p className="text-xl text-green-600 font-bold">Semua sampah sudah terpilah!</p>
+                  <GiGlassCelebration className="text-xl sm:text-2xl text-green-500 mx-auto" />
+                  <p className="text-xs text-green-600 font-bold">Selesai!</p>
                 </motion.div>
               )}
             </div>
           </div>
 
-          {/* Bins */}
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
+          {/* Bins - Lebih kecil */}
+          <div className="grid grid-cols-3 gap-1.5 sm:gap-2 mb-3 sm:mb-4">
             {bins.map((bin) => {
               const Icon = bin.icon
               return (
                 <motion.div
                   key={bin.category}
-                  whileHover={{ scale: 1.05, y: -5 }}
+                  whileHover={{ scale: 1.02 }}
                   onDragOver={handleDragOver}
                   onDrop={(e) => handleDrop(e, bin.category)}
-                  className={`bg-gradient-to-br ${bin.color} rounded-3xl p-6 text-white text-center
-                            shadow-xl hover:shadow-2xl transition-all duration-300
-                            border-4 border-white/50 min-h-[200px] flex flex-col justify-between`}
+                  className={`bg-gradient-to-br ${bin.color} rounded-lg p-2 text-white text-center
+                            shadow-sm border border-white/30 min-h-[70px] sm:min-h-[80px] 
+                            flex flex-col items-center justify-between`}
                 >
-                  <div>
-                    <Icon className="text-5xl mx-auto mb-3" />
-                    <h3 className="text-2xl font-bold mb-2">{bin.name}</h3>
-                    <p className="text-white/90 text-sm mb-2">{bin.text}</p>
-                  </div>
-                  <div className="text-xs bg-white/20 rounded-full px-3 py-1">
+                  <Icon className="text-base sm:text-lg" />
+                  <h3 className="text-[10px] sm:text-xs font-bold leading-tight">{bin.name}</h3>
+                  <span className="text-[7px] sm:text-[8px] bg-white/20 rounded-full px-1.5 py-0.5">
                     {bin.examples}
-                  </div>
+                  </span>
                 </motion.div>
               )
             })}
           </div>
 
-          {/* Message & Controls */}
+          {/* Message & Reset */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-2xl p-6 shadow-xl flex flex-wrap items-center justify-between gap-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="bg-white rounded-lg p-2 shadow-sm flex items-center justify-between gap-2"
           >
-            <div className="flex items-center gap-3">
-              <div className={`w-3 h-3 rounded-full ${message.includes('✅') ? 'bg-green-500' : message.includes('❌') ? 'bg-red-500' : 'bg-blue-500'}`}></div>
-              <span className="text-lg font-semibold text-gray-700">{message}</span>
+            <div className="flex items-center gap-1.5 min-w-0 flex-1">
+              <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${
+                message.includes('✅') ? 'bg-green-500' : 
+                message.includes('❌') ? 'bg-red-500' : 
+                'bg-blue-500'
+              }`} />
+              <span className="text-[10px] sm:text-xs text-gray-700 truncate">{message}</span>
             </div>
             
-            <div className="flex gap-3">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={resetGame}
-                className="bg-green-600 text-white px-6 py-2 rounded-full font-semibold
-                         hover:bg-green-700 transition-colors shadow-lg flex items-center gap-2"
-              >
-                <FaRedo /> Reset Game
-              </motion.button>
-            </div>
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={resetGame}
+              className="bg-green-600 text-white px-2.5 py-1 rounded-full text-[10px] sm:text-xs
+                       hover:bg-green-700 transition-colors shadow-sm flex items-center gap-1 flex-shrink-0"
+            >
+              <FaRedo className="text-[8px] sm:text-[10px]" /> 
+              <span>Reset</span>
+            </motion.button>
           </motion.div>
 
-          {/* Game Rules */}
-          <div className="mt-8 bg-blue-50 rounded-2xl p-6 border-2 border-blue-200">
-            <h4 className="font-bold text-blue-800 mb-2">📋 Aturan Main:</h4>
-            <ul className="text-blue-700 space-y-1 text-sm">
-              <li>• Seret sampah ke tong yang sesuai</li>
-              <li>• Sampah mudah: +10 poin | Sampah sulit: +20 poin</li>
-              <li>• Salah tempat: -5 poin</li>
-              <li>• Kumpulkan poin sebanyak mungkin!</li>
-            </ul>
+          {/* Game Rules - Minimalis */}
+          <div className="mt-2 sm:mt-3 bg-blue-50 rounded-lg p-2 border border-blue-200">
+            <h4 className="font-bold text-blue-800 text-[10px] sm:text-xs mb-0.5">📋 Aturan:</h4>
+            <div className="text-blue-700 text-[8px] sm:text-[10px] leading-tight">
+              <span>+10/+20 poin | Salah -5 poin</span>
+            </div>
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes wiggle {
+          0%, 100% { transform: rotate(0deg); }
+          25% { transform: rotate(-3deg); }
+          75% { transform: rotate(3deg); }
+        }
+        .animate-wiggle {
+          animation: wiggle 0.2s ease-in-out;
+        }
+      `}</style>
     </motion.div>
   )
 }

@@ -16,6 +16,9 @@ import {
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { IoClose } from 'react-icons/io5'
 
+// Daftar halaman yang hero-nya full (tidak perlu spacer)
+const FULL_HERO_PATHS = ['/tentang']
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -23,6 +26,8 @@ const Navbar = () => {
   const [authDropdownOpen, setAuthDropdownOpen] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const location = useLocation()
+
+  const isFullHeroPage = FULL_HERO_PATHS.includes(location.pathname)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -87,13 +92,13 @@ const Navbar = () => {
         <div className={`
           rounded-full backdrop-blur-md border transition-all duration-300
           ${scrolled 
-            ? 'bg-white/90 border-green-200 shadow-lg' 
-            : 'bg-white/70 border-green-100/50 shadow-md'
+            ? 'bg-white/70 border-green-200 shadow-lg'
+            : 'bg-white/50 border-green-100/50 shadow-md'
           }
         `}>
           <div className="px-3 sm:px-4 md:px-6">
             <div className="flex justify-between items-center h-12 sm:h-14 md:h-16">
-              {/* Logo - Ukuran tetap proporsional */}
+              {/* Logo */}
               <Link to="/" className="flex items-center gap-1 sm:gap-2 group">
                 <motion.div
                   animate={{ rotate: 360 }}
@@ -102,12 +107,12 @@ const Navbar = () => {
                 >
                   <FaRecycle />
                 </motion.div>
-                <span className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-green-700">
+                <span className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-green-700 drop-shadow-sm">
                   PilahPintar
                 </span>
               </Link>
 
-              {/* Desktop Menu - Muncul di md ke atas */}
+              {/* Desktop Menu */}
               <div className="hidden md:flex items-center gap-1 lg:gap-2">
                 {navItems.map((item) => {
                   const Icon = item.icon
@@ -125,7 +130,7 @@ const Navbar = () => {
                             transition-all duration-300 border
                             ${isActive 
                               ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white border-green-400 shadow-md' 
-                              : 'text-gray-700 border-transparent hover:bg-white hover:border-green-300 hover:shadow-sm'
+                              : 'text-gray-700 border-transparent hover:bg-white/60 hover:border-green-300 hover:shadow-sm'
                             }
                           `}
                         >
@@ -141,13 +146,13 @@ const Navbar = () => {
                               animate={{ opacity: 1, y: 0 }}
                               exit={{ opacity: 0, y: -5 }}
                               transition={{ duration: 0.2 }}
-                              className="absolute top-full left-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-green-100 overflow-hidden"
+                              className="absolute top-full left-0 mt-2 w-48 bg-white/90 backdrop-blur-md rounded-xl shadow-xl border border-green-100 overflow-hidden"
                             >
                               {item.dropdownItems.map((dropdownItem, index) => (
                                 <Link
                                   key={index}
                                   to={dropdownItem.path}
-                                  className="flex items-center gap-2 px-4 py-2.5 text-xs text-gray-700 hover:bg-green-50 transition-colors"
+                                  className="flex items-center gap-2 px-4 py-2.5 text-xs text-gray-700 hover:bg-green-50/80 transition-colors"
                                   onClick={() => setDropdownOpen(false)}
                                 >
                                   {dropdownItem.icon && <dropdownItem.icon className="text-green-600 text-xs" />}
@@ -171,7 +176,7 @@ const Navbar = () => {
                           transition-all duration-300 border
                           ${isActive 
                             ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white border-green-400 shadow-md' 
-                            : 'text-gray-700 border-transparent hover:bg-white hover:border-green-300 hover:shadow-sm'
+                            : 'text-gray-700 border-transparent hover:bg-white/60 hover:border-green-300 hover:shadow-sm'
                           }
                         `}
                       >
@@ -181,56 +186,9 @@ const Navbar = () => {
                     </Link>
                   )
                 })}
-
-                {/* Auth Button Desktop - Sederhana */}
-                <div className="ml-2 lg:ml-4">
-                  {isLoggedIn ? (
-                    <div className="relative">
-                      <button
-                        onClick={() => setAuthDropdownOpen(!authDropdownOpen)}
-                        className="px-3 lg:px-4 py-1.5 lg:py-2 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 text-white flex items-center gap-1 lg:gap-2 text-xs lg:text-sm font-medium shadow-md hover:shadow-lg transition-all"
-                      >
-                        <FaUserCircle className="text-sm lg:text-base" />
-                        <span>Akun</span>
-                        <FaChevronDown className={`text-[10px] lg:text-xs transition-transform ${authDropdownOpen ? 'rotate-180' : ''}`} />
-                      </button>
-
-                      <AnimatePresence>
-                        {authDropdownOpen && (
-                          <motion.div
-                            initial={{ opacity: 0, y: -5 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -5 }}
-                            className="absolute right-0 mt-2 w-40 bg-white rounded-xl shadow-xl border border-green-100 overflow-hidden"
-                          >
-                            <Link
-                              to="/profile"
-                              className="block px-4 py-2 text-xs text-gray-700 hover:bg-green-50"
-                              onClick={() => setAuthDropdownOpen(false)}
-                            >
-                              Profil Saya
-                            </Link>
-                            <button
-                              onClick={handleLogout}
-                              className="w-full text-left px-4 py-2 text-xs text-red-600 hover:bg-red-50"
-                            >
-                              Logout
-                            </button>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  ) : (
-                    <Link to="/login">
-                      <button className="px-3 lg:px-4 py-1.5 lg:py-2 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs lg:text-sm font-medium shadow-md hover:shadow-lg transition-all">
-                        Masuk
-                      </button>
-                    </Link>
-                  )}
-                </div>
               </div>
 
-              {/* Mobile Menu Button - Hanya di mobile */}
+              {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="md:hidden w-8 h-8 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 text-white flex items-center justify-center shadow-md hover:shadow-lg transition-all"
@@ -250,40 +208,6 @@ const Navbar = () => {
                   className="md:hidden overflow-hidden"
                 >
                   <div className="pt-2 pb-3 space-y-1">
-                    {/* Mobile Auth - Sederhana */}
-                    <div className="px-2 py-2">
-                      {isLoggedIn ? (
-                        <div className="space-y-2">
-                          <div className="bg-green-50 rounded-lg p-2">
-                            <p className="text-xs text-gray-600">Selamat datang,</p>
-                            <p className="text-sm font-bold text-green-700">{localStorage.getItem('userName') || 'Pengguna'}</p>
-                          </div>
-                          <Link
-                            to="/profile"
-                            className="block px-3 py-2 text-xs bg-white/50 rounded-lg text-gray-700 hover:bg-white/80"
-                            onClick={() => setIsOpen(false)}
-                          >
-                            Profil Saya
-                          </Link>
-                          <button
-                            onClick={handleLogout}
-                            className="w-full text-left px-3 py-2 text-xs bg-red-50 rounded-lg text-red-600 hover:bg-red-100"
-                          >
-                            Logout
-                          </button>
-                        </div>
-                      ) : (
-                        <Link
-                          to="/login"
-                          className="block w-full text-center px-3 py-2 text-xs bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg font-medium"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Masuk / Daftar
-                        </Link>
-                      )}
-                    </div>
-
-                    {/* Mobile Navigation - Teks kecil */}
                     {navItems.map((item) => {
                       const Icon = item.icon
                       const isActive = isActivePath(item.path)
@@ -296,7 +220,7 @@ const Navbar = () => {
                               className={`
                                 w-full px-3 py-2 rounded-lg flex items-center justify-between
                                 text-xs font-medium transition-all
-                                ${isActive ? 'bg-green-50 text-green-700' : 'text-gray-700 hover:bg-white/50'}
+                                ${isActive ? 'bg-green-50/80 text-green-700' : 'text-gray-700 hover:bg-white/40'}
                               `}
                             >
                               <span className="flex items-center gap-2">
@@ -318,7 +242,7 @@ const Navbar = () => {
                                     <Link
                                       key={index}
                                       to={dropdownItem.path}
-                                      className="block px-3 py-1.5 text-[11px] text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-lg"
+                                      className="block px-3 py-1.5 text-[11px] text-gray-600 hover:text-green-600 hover:bg-green-50/60 rounded-lg"
                                       onClick={() => setIsOpen(false)}
                                     >
                                       {dropdownItem.label}
@@ -339,8 +263,8 @@ const Navbar = () => {
                             w-full px-3 py-2 rounded-lg flex items-center gap-2
                             text-xs font-medium transition-all
                             ${isActive 
-                              ? 'bg-green-50 text-green-700' 
-                              : 'text-gray-700 hover:bg-white/50'
+                              ? 'bg-green-50/80 text-green-700' 
+                              : 'text-gray-700 hover:bg-white/40'
                             }
                           `}
                           onClick={() => setIsOpen(false)}
@@ -358,8 +282,10 @@ const Navbar = () => {
         </div>
       </motion.nav>
 
-      {/* Spacer */}
-      <div className="h-14 sm:h-16 md:h-20"></div>
+      {/* Spacer — tidak dirender di halaman full-hero seperti /tentang */}
+      {!isFullHeroPage && (
+        <div className="h-14 sm:h-16 md:h-20"></div>
+      )}
     </>
   )
 }

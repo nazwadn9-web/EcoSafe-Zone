@@ -11,49 +11,53 @@ const ArticleCard = ({ article, index, openArticle, openShareModal }) => {
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ y: -10 }}
-      className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl 
+      transition={{ duration: 0.4, delay: index * 0.05 }}
+      whileHover={{ y: -5 }}
+      className="group bg-white rounded-lg sm:rounded-xl shadow-sm hover:shadow-md 
                overflow-hidden cursor-pointer transition-all duration-300"
       onClick={() => openArticle(article)}
     >
       {/* Image Container */}
-      <div className="relative h-56 overflow-hidden">
+      <div className="relative h-36 sm:h-40 md:h-44 overflow-hidden">
         <img
           src={article.image}
           alt={article.title}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
         
         {/* Overlay Gradient */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
         
         {/* Category Badge */}
-        <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm 
-                      px-4 py-2 rounded-full text-sm font-semibold flex items-center gap-2">
-          <CategoryIcon className="text-green-600" />
+        <div className="absolute top-1.5 left-1.5 bg-white/90 backdrop-blur-sm 
+                      px-1.5 py-0.5 rounded-full text-[8px] sm:text-[10px] font-medium 
+                      flex items-center gap-0.5 shadow">
+          <CategoryIcon className="text-green-600 text-[8px] sm:text-[10px]" />
           <span className="text-gray-700">{article.category}</span>
         </div>
         
-        {/* Share Button */}
+        {/* Share Button - Hijau */}
         <motion.div 
-          className="absolute top-4 right-4"
+          className="absolute top-1.5 right-1.5"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          transition={{ delay: 0.3 }}
-          whileHover={{ scale: 1.1 }}
+          transition={{ delay: 0.2 }}
+          whileHover={{ scale: 1.05 }}
           onHoverStart={() => setHoveredShare(article.id)}
           onHoverEnd={() => setHoveredShare(null)}
         >
           <div 
             className="relative"
-            onClick={(e) => openShareModal(e, article)}
+            onClick={(e) => {
+              e.stopPropagation()
+              openShareModal(e, article)
+            }}
           >
-            {/* Pulse Animation */}
+            {/* Pulse Animation - Hijau */}
             <motion.div
-              className="absolute inset-0 rounded-full bg-blue-400"
+              className="absolute inset-0 rounded-full bg-green-400"
               animate={{
                 scale: [1, 1.3, 1],
                 opacity: [0.5, 0, 0.5]
@@ -65,36 +69,35 @@ const ArticleCard = ({ article, index, openArticle, openShareModal }) => {
               }}
             />
             
-            {/* Main Button */}
+            {/* Main Button - Hijau */}
             <motion.div
-              className="relative w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 
+              className="relative w-6 h-6 sm:w-7 sm:h-7 bg-gradient-to-br from-green-500 to-emerald-600 
                        rounded-full flex items-center justify-center cursor-pointer
-                       shadow-lg hover:shadow-xl transition-all z-10"
+                       shadow hover:shadow-md transition-all z-10"
               animate={{
-                rotate: hoveredShare === article.id ? [0, 15, -15, 0] : 0
+                rotate: hoveredShare === article.id ? [0, 10, -10, 0] : 0
               }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.4 }}
             >
-              <FaShare className="text-white text-lg" />
+              <FaShare className="text-white text-[10px] sm:text-xs" />
               
-              {/* Sparkle Effect on Hover */}
+              {/* Sparkle Effect */}
               {hoveredShare === article.id && (
                 <>
                   <motion.div
                     className="absolute -top-1 -right-1 text-yellow-300"
-                    initial={{ scale: 0, rotate: 0 }}
-                    animate={{ scale: 1, rotate: 360 }}
-                    transition={{ duration: 0.3 }}
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
                   >
-                    <FaStar className="text-xs" />
+                    <FaStar className="text-[4px] sm:text-[6px]" />
                   </motion.div>
                   <motion.div
                     className="absolute -bottom-1 -left-1 text-yellow-300"
-                    initial={{ scale: 0, rotate: 0 }}
-                    animate={{ scale: 1, rotate: -360 }}
-                    transition={{ duration: 0.3, delay: 0.1 }}
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.05 }}
                   >
-                    <FaStar className="text-xs" />
+                    <FaStar className="text-[4px] sm:text-[6px]" />
                   </motion.div>
                 </>
               )}
@@ -104,13 +107,13 @@ const ArticleCard = ({ article, index, openArticle, openShareModal }) => {
             <AnimatePresence>
               {hoveredShare === article.id && (
                 <motion.div
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={{ opacity: 0, y: 5 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  className="absolute -bottom-8 right-0 bg-gray-800 text-white 
-                           text-xs px-2 py-1 rounded whitespace-nowrap"
+                  exit={{ opacity: 0, y: 5 }}
+                  className="absolute -bottom-5 right-0 bg-gray-800 text-white 
+                           text-[6px] sm:text-[8px] px-1 py-0.5 rounded whitespace-nowrap"
                 >
-                  Bagikan Artikel
+                  Bagikan
                 </motion.div>
               )}
             </AnimatePresence>
@@ -119,44 +122,44 @@ const ArticleCard = ({ article, index, openArticle, openShareModal }) => {
       </div>
       
       {/* Content */}
-      <div className="p-6">
+      <div className="p-2 sm:p-3">
         {/* Author Info */}
-        <div className="flex items-center gap-3 mb-4">
+        <div className="flex items-center gap-1.5 mb-1">
           <img
             src={article.authorImage}
             alt={article.author}
-            className="w-10 h-10 rounded-full object-cover"
+            className="w-5 h-5 sm:w-6 sm:h-6 rounded-full object-cover"
           />
-          <div>
-            <h4 className="font-semibold text-gray-800">{article.author}</h4>
-            <p className="text-xs text-gray-500">{article.authorRole}</p>
+          <div className="flex items-center gap-1 flex-wrap">
+            <h4 className="font-semibold text-gray-800 text-[10px] sm:text-xs">{article.author}</h4>
+            <span className="text-[6px] sm:text-[8px] text-gray-400">•</span>
+            <p className="text-[6px] sm:text-[8px] text-gray-500">{article.authorRole}</p>
           </div>
         </div>
         
         {/* Title */}
-        <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-green-600 
-                     transition-colors line-clamp-2">
+        <h3 className="text-xs sm:text-sm font-bold text-gray-800 mb-1 
+                     group-hover:text-green-600 transition-colors line-clamp-2">
           {article.title}
         </h3>
         
-        {/* Excerpt */}
-        <p className="text-gray-600 mb-4 line-clamp-2">{article.excerpt}</p>
-        
         {/* Meta Info */}
-        <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-          <span className="flex items-center gap-1">
-            <FaCalendar /> {article.date}
+        <div className="flex items-center gap-2 text-[6px] sm:text-[8px] text-gray-500 mb-1">
+          <span className="flex items-center gap-0.5">
+            <FaCalendar className="text-[5px] sm:text-[6px]" /> 
+            <span>{article.date}</span>
           </span>
-          <span className="flex items-center gap-1">
-            <FaClock /> {article.readTime}
+          <span className="flex items-center gap-0.5">
+            <FaClock className="text-[5px] sm:text-[6px]" /> 
+            <span>{article.readTime}</span>
           </span>
         </div>
         
-        {/* Read More Button */}
-        <button className="text-green-600 font-semibold flex items-center gap-2 
-                         group/btn hover:gap-3 transition-all">
-          Baca Selengkapnya
-          <FaArrowRight className="group-hover/btn:translate-x-2 transition-transform" />
+        {/* Read More */}
+        <button className="text-green-600 font-medium flex items-center gap-1 
+                         group/btn hover:gap-1.5 transition-all text-[8px] sm:text-[10px]">
+          Baca
+          <FaArrowRight className="group-hover/btn:translate-x-1 transition-transform text-[6px] sm:text-[8px]" />
         </button>
       </div>
     </motion.article>

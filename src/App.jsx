@@ -7,8 +7,6 @@ import Tentang from './pages/Tentang'
 import Layanan from './pages/Layanan'
 import Artikel from './pages/Artikel'
 import Games from './pages/Games'
-import Login from './pages/Login'
-import SignUp from './pages/SignUp'
 import Footer from './components/Footer'
 
 // Game Pages
@@ -34,9 +32,6 @@ const AnimatedRoutes = () => {
         <Route path="/layanan" element={<Layanan />} />
         <Route path="/artikel" element={<Artikel />} />
         
-        {/* Auth Pages */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
         
         {/* Games Hub Page */}
         <Route path="/games" element={<Games />} />

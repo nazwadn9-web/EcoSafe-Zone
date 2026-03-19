@@ -3,7 +3,6 @@ import { motion } from 'framer-motion'
 import Hero from '../components/Hero'
 import Stats from '../components/Stats'
 import EducationCards from '../components/EducationCards'
-import WasteGame from '../components/WasteGame'
 // import ReportForm from '../components/ReportForm'
 
 const Beranda = () => {
@@ -17,7 +16,6 @@ const Beranda = () => {
       <Hero />
       <Stats />
       <EducationCards />
-      <WasteGame />
       {/* <ReportForm /> */}
     </motion.div>
   )

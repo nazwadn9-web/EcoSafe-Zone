@@ -9,15 +9,32 @@ import {
   FaBug,
   FaRecycle, 
   FaClock, 
-  FaBoxOpen
+  FaBoxOpen,
+  FaTimes,
+  FaArrowLeft
 } from 'react-icons/fa'
 import { GiPlantRoots, GiEarthAmerica, GiGrowth } from 'react-icons/gi'
 
-const KomposDetail = ({ article }) => {
+const KomposDetail = ({ article, onClose }) => {
   const [activeInfoTab, setActiveInfoTab] = useState('manfaat')
 
   return (
-    <div className="space-y-8">
+    <div className="relative space-y-8">
+      {/* Tombol Close - Floating di pojok kanan atas */}
+      <div className="sticky top-4 z-10 flex justify-end mb-4">
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={onClose}
+          className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full 
+                   flex items-center justify-center text-gray-700 
+                   hover:bg-white shadow-lg border border-gray-200
+                   transition-all"
+        >
+          <FaTimes className="text-lg" />
+        </motion.button>
+      </div>
+
       {/* Hero Section dengan tanaman animasi */}
       <div className="relative bg-gradient-to-br from-green-600 to-emerald-700 rounded-3xl p-8 text-white overflow-hidden">
         {/* Background Pattern */}
@@ -57,9 +74,9 @@ const KomposDetail = ({ article }) => {
               <GiPlantRoots className="text-white text-5xl" />
             </motion.div>
             <h2 className="text-3xl md:text-4xl font-bold mb-2">
-              {article.title}
+              {article?.title || 'Panduan Kompos'}
             </h2>
-            <p className="text-white/80 text-lg">{article.excerpt}</p>
+            <p className="text-white/80 text-lg">{article?.excerpt}</p>
           </div>
 
           {/* Right: Stats */}

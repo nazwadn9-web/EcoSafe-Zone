@@ -1,20 +1,18 @@
 // src/pages/Artikel.jsx
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { 
   FaLeaf, FaRecycle, FaSeedling, FaGlobeAsia,
   FaBookOpen, FaTree
 } from 'react-icons/fa'
-import ArticleHeader from '../components/ArticleHeader'  // Perbaiki path
-import ArticleSearch from '../components/ArticleSearch'  // Perbaiki path
-import ArticleCategories from '../components/ArticleCategories'  // Perbaiki path
-import ArticleGrid from '../components/ArticleGrid'  // Perbaiki path
-import ArticleModal from '../components/ArticleModal'  // Perbaiki path
-import ShareModal from '../components/ShareModal'  // Perbaiki path
-import SuccessNotification from '../components/SuccessNotification'  // Perbaiki path
-import { articles as initialArticles } from '../data/articles'  // Perbaiki path
-
-// ... rest of the code
+import ArticleHeader from '../components/ArticleHeader'
+import ArticleSearch from '../components/ArticleSearch'
+import ArticleCategories from '../components/ArticleCategories'
+import ArticleGrid from '../components/ArticleGrid'
+import ArticleModal from '../components/ArticleModal'
+import ShareModal from '../components/ShareModal'
+import SuccessNotification from '../components/SuccessNotification'
+import { articles as initialArticles } from '../data/articles'
 
 const Artikel = () => {
   const [selectedArticle, setSelectedArticle] = useState(null)
@@ -24,7 +22,10 @@ const Artikel = () => {
   const [activeTab, setActiveTab] = useState('semua')
   const [searchQuery, setSearchQuery] = useState('')
   const [articles, setArticles] = useState(initialArticles)
-  const [visibleArticles, setVisibleArticles] = useState(6)
+  
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1)
+  const articlesPerPage = 6
 
   const categories = [
     { name: 'Semua', icon: FaGlobeAsia, value: 'semua' },
@@ -97,10 +98,7 @@ const Artikel = () => {
     setShowShareModal(false)
   }
 
-  const loadMoreArticles = () => {
-    setVisibleArticles(prev => prev + 3)
-  }
-
+  // Filter articles berdasarkan tab dan search
   const filteredArticles = articles.filter(article => {
     if (activeTab === 'semua') return true
     return article.category === activeTab
@@ -109,7 +107,37 @@ const Artikel = () => {
     article.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
   )
 
-  const displayedArticles = filteredArticles.slice(0, visibleArticles)
+  // Pagination logic
+  const totalPages = Math.ceil(filteredArticles.length / articlesPerPage)
+  const indexOfLastArticle = currentPage * articlesPerPage
+  const indexOfFirstArticle = indexOfLastArticle - articlesPerPage
+  const currentArticles = filteredArticles.slice(indexOfFirstArticle, indexOfLastArticle)
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber)
+    // Scroll ke atas grid artikel
+    const gridElement = document.getElementById('article-grid')
+    if (gridElement) {
+      gridElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
+
+  // Reset ke halaman 1 ketika filter berubah
+  const handleTabChange = (tab) => {
+    setActiveTab(tab)
+    setCurrentPage(1)
+  }
+
+  const handleSearchChange = (query) => {
+    setSearchQuery(query)
+    setCurrentPage(1)
+  }
+
+  // Update class untuk padding top
+  useEffect(() => {
+    // Memberi jarak dari navbar
+    document.body.style.paddingTop = '0'
+  }, [])
 
   return (
     <>
@@ -117,24 +145,34 @@ const Artikel = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="pt-24 pb-16"
+        className="min-h-screen bg-gradient-to-b from-white via-green-50/30 to-white"
       >
-        <div className="container-custom">
-          <ArticleHeader />
-          <ArticleSearch searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-          <ArticleCategories 
-            categories={categories}
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-          />
-          <ArticleGrid 
-            articles={displayedArticles}
-            filteredArticles={filteredArticles}
-            visibleArticles={visibleArticles}
-            loadMoreArticles={loadMoreArticles}
-            openArticle={openArticle}
-            openShareModal={openShareModal}
-          />
+<div className="pt-4 sm:pt-6 pb-16 sm:pb-20">
+            <div className="container-custom max-w-7xl mx-auto px-4">
+            <ArticleHeader />
+            <ArticleSearch 
+              searchQuery={searchQuery} 
+              setSearchQuery={handleSearchChange} 
+            />
+            <ArticleCategories 
+              categories={categories}
+              activeTab={activeTab}
+              setActiveTab={handleTabChange}
+            />
+            
+            {/* Article Grid dengan ID untuk scroll */}
+            <div id="article-grid">
+              <ArticleGrid 
+                articles={currentArticles}
+                filteredArticles={filteredArticles}
+                openArticle={openArticle}
+                openShareModal={openShareModal}
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+              />
+            </div>
+          </div>
         </div>
       </motion.div>
 
