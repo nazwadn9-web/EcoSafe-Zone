@@ -298,7 +298,7 @@ const Navbar = () => {
                     ) : (
                       // Login & Signup Buttons
                       <>
-                        <Link to="/login">
+                        {/* <Link to="/login">
                           <motion.div
                             whileHover={{ scale: 1.05, y: -2 }}
                             whileTap={{ scale: 0.95 }}
@@ -309,8 +309,8 @@ const Navbar = () => {
                             <FaSignInAlt />
                             <span>Masuk</span>
                           </motion.div>
-                        </Link>
-                        <Link to="/signup">
+                        </Link> */}
+                        <Link to="/login">
                           <motion.div
                             whileHover={{ scale: 1.05, y: -2 }}
                             whileTap={{ scale: 0.95 }}
@@ -320,7 +320,7 @@ const Navbar = () => {
                                      flex items-center gap-2"
                           >
                             <FaUserPlus />
-                            <span>Daftar</span>
+                            <span>Masuk</span>
                           </motion.div>
                         </Link>
                       </>
