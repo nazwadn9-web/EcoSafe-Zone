@@ -1,14 +1,11 @@
-import React, { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import React from 'react'
+import { motion } from 'framer-motion'
 import { Link, useNavigate } from 'react-router-dom'
-import { FaRecycle, FaTree, FaLeaf, FaRegSun, FaCloudSun, FaSearch, FaMapMarkerAlt } from 'react-icons/fa'
+import { FaRecycle, FaTree, FaLeaf, FaRegSun, FaCloudSun, FaMapMarkerAlt } from 'react-icons/fa'
 import { GiPlantSeed, GiEarthAfricaEurope, GiFlowerPot, GiWaterDrop } from 'react-icons/gi'
 
 const Hero = () => {
   const navigate = useNavigate()
-  const [searchQuery, setSearchQuery] = useState('')
-  const [isSearching, setIsSearching] = useState(false)
-  const [suggestions, setSuggestions] = useState([])
 
   // Eco Dots
   const ecoDots = [
@@ -44,41 +41,8 @@ const Hero = () => {
     { size: 4, x: '70%', y: '80%', delay: 2.5 },
   ]
 
-  // Data kota/wilayah untuk suggestions
-  const cities = [
-    'Jakarta', 'Surabaya', 'Bandung', 'Medan', 'Semarang', 'Makassar', 
-    'Palembang', 'Tangerang', 'Denpasar', 'Yogyakarta', 'Malang', 'Bogor',
-    'Pekanbaru', 'Banjarmasin', 'Padang', 'Samarinda', 'Manado', 'Balikpapan'
-  ]
-
-  const handleSearch = (e) => {
-    e.preventDefault()
-    if (searchQuery.trim()) {
-      navigate(`/cari?kota=${encodeURIComponent(searchQuery)}`)
-    }
-  }
-
-  const handleSearchChange = (e) => {
-    const query = e.target.value
-    setSearchQuery(query)
-    
-    if (query.length > 1) {
-      const filtered = cities.filter(city => 
-        city.toLowerCase().includes(query.toLowerCase())
-      )
-      setSuggestions(filtered.slice(0, 5))
-      setIsSearching(true)
-    } else {
-      setSuggestions([])
-      setIsSearching(false)
-    }
-  }
-
-  const selectSuggestion = (city) => {
-    setSearchQuery(city)
-    setSuggestions([])
-    setIsSearching(false)
-    navigate(`/cari?kota=${encodeURIComponent(city)}`)
+  const handleSemuaWilayah = () => {
+    navigate('/cari')
   }
 
   return (
@@ -237,62 +201,23 @@ const Hero = () => {
               Ayo mulai perubahan dari hal kecil. Bersama kita bisa menciptakan bumi yang lebih hijau dan sehat.
             </motion.p>
 
-            {/* Buttons - POSISI DITUKAR: Search di kiri, Tentang di kanan */}
+            {/* Buttons - Semua Wilayah (kiri) dan Tentang Kami (kanan) */}
             <motion.div 
               className="flex flex-wrap gap-3"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
-              {/* SEARCH - Posisi Kiri */}
-              <div className="relative flex-1 max-w-[250px]">
-                <form onSubmit={handleSearch} className="relative">
-                  <motion.input
-                    type="text"
-                    value={searchQuery}
-                    onChange={handleSearchChange}
-                    placeholder="Cari kota/wilayah..."
-                    className="w-full px-5 py-2.5 pl-10 pr-12 border-2 border-green-600 text-green-600 rounded-lg bg-white/90 backdrop-blur-sm text-sm focus:outline-none focus:ring-2 focus:ring-green-300"
-                    whileFocus={{ scale: 1.02 }}
-                  />
-                  <FaMapMarkerAlt className="absolute left-3 top-1/2 transform -translate-y-1/2 text-green-500 text-sm" />
-                  <motion.button
-                    type="submit"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2 w-7 h-7 bg-green-100 rounded-full flex items-center justify-center"
-                  >
-                    <FaSearch className="text-green-600 text-xs" />
-                  </motion.button>
-                </form>
-
-                {/* Search Suggestions */}
-                <AnimatePresence>
-                  {isSearching && suggestions.length > 0 && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-xl border border-green-100 overflow-hidden z-20"
-                    >
-                      {suggestions.map((city, index) => (
-                        <motion.button
-                          key={city}
-                          onClick={() => selectSuggestion(city)}
-                          className="w-full px-4 py-2 text-left text-sm hover:bg-green-50 flex items-center gap-2 transition-colors"
-                          whileHover={{ x: 5 }}
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.05 }}
-                        >
-                          <FaMapMarkerAlt className="text-green-500 text-xs" />
-                          <span className="text-gray-700">{city}</span>
-                        </motion.button>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+              {/* BUTTON SEMUA WILAYAH - Posisi Kiri (MENGGANTIKAN SEARCH) */}
+              <motion.button
+                onClick={handleSemuaWilayah}
+                whileHover={{ scale: 1.05, boxShadow: '0 10px 25px -5px rgba(34, 197, 94, 0.4)' }}
+                whileTap={{ scale: 0.95 }}
+                className="px-5 py-2.5 bg-white border-2 border-green-600 text-green-600 rounded-lg font-semibold shadow-md flex items-center gap-2 text-sm hover:bg-green-50 transition-colors"
+              >
+                <FaMapMarkerAlt className="text-green-500 text-sm" />
+                Semua Wilayah
+              </motion.button>
 
               {/* TENTANG KAMI - Posisi Kanan (TANPA ICON) */}
               <Link to="/tentang">
