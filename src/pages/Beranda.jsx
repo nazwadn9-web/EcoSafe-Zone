@@ -4,7 +4,7 @@ import Hero from '../components/Hero'
 import Stats from '../components/Stats'
 import EducationCards from '../components/EducationCards'
 import WasteGame from '../components/WasteGame'
-import ReportForm from '../components/ReportForm'
+// import ReportForm from '../components/ReportForm'
 
 const Beranda = () => {
   return (
@@ -18,7 +18,7 @@ const Beranda = () => {
       <Stats />
       <EducationCards />
       <WasteGame />
-      <ReportForm />
+      {/* <ReportForm /> */}
     </motion.div>
   )
 }
