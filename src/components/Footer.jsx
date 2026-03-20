@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { 
   FaLeaf, 
-  FaHeart, 
+  FaGlobeAsia,
   FaFacebookF, 
   FaTwitter, 
   FaInstagram, 
@@ -16,6 +16,8 @@ import {
   FaEnvelope,
   FaPhoneAlt
 } from 'react-icons/fa'
+
+const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
@@ -42,7 +44,7 @@ const Footer = () => {
 
   return (
     <footer className="relative bg-white border-t border-green-100 pt-16 sm:pt-20 pb-8 sm:pb-10 overflow-hidden">
-      {/* Dekorasi Background - Hijau Lembut seperti Navbar */}
+      {/* Dekorasi Background */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-green-300 to-transparent" />
         <div className="absolute -top-24 -left-24 w-96 h-96 bg-green-100/30 rounded-full blur-[100px]" />
@@ -50,12 +52,11 @@ const Footer = () => {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
-        {/* Grid Responsif */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12 mb-12 sm:mb-16">
           
           {/* 1. Brand Section */}
           <div className="space-y-4 sm:space-y-6 text-center sm:text-left">
-            <Link to="/" className="inline-flex items-center gap-2 sm:gap-3 group mx-auto sm:mx-0">
+            <Link to="/" onClick={scrollTop} className="inline-flex items-center gap-2 sm:gap-3 group mx-auto sm:mx-0">
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
@@ -71,7 +72,7 @@ const Footer = () => {
               Solusi cerdas untuk ekosistem yang lebih sehat. Kami membantu Anda berkontribusi bagi bumi dengan langkah nyata dan berkelanjutan.
             </p>
             
-            {/* Social Links - Responsif */}
+            {/* Social Links */}
             <div className="flex gap-2 sm:gap-3 justify-center sm:justify-start">
               {socialLinks.map((social, i) => (
                 <motion.a
@@ -86,7 +87,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* 2. Quick Links Section */}
+          {/* 2. Quick Links */}
           <div className="text-center sm:text-left">
             <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-4 sm:mb-6 flex items-center gap-2 justify-center sm:justify-start">
               <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-green-500 rounded-full" />
@@ -99,6 +100,7 @@ const Footer = () => {
                   <li key={index}>
                     <Link
                       to={`/${item.path}`}
+                      onClick={scrollTop}
                       className="text-xs sm:text-sm text-gray-600 hover:text-green-600 transition-all flex items-center gap-2 sm:gap-3 justify-center sm:justify-start group"
                     >
                       <div className="w-6 sm:w-7 h-6 sm:h-7 bg-green-50 rounded-lg flex items-center justify-center group-hover:bg-green-100 transition-colors">
@@ -115,7 +117,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* 3. Kontak Section */}
+          {/* 3. Kontak */}
           <div className="text-center sm:text-left">
             <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-4 sm:mb-6 flex items-center gap-2 justify-center sm:justify-start">
               <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-green-500 rounded-full" />
@@ -124,7 +126,7 @@ const Footer = () => {
             <ul className="space-y-3 sm:space-y-4">
               {contactInfo.map((contact, i) => (
                 <li key={i} className="flex items-start gap-2 sm:gap-3 text-gray-600 justify-center sm:justify-start">
-                  <contact.icon className="text-green-600 text-xs sm:text-sm mt-0.5" />
+                  <contact.icon className="text-green-600 text-xs sm:text-sm mt-0.5 flex-shrink-0" />
                   <span className="text-xs sm:text-sm hover:text-gray-900 transition-colors cursor-default">
                     {contact.text}
                   </span>
@@ -133,7 +135,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* 4. Newsletter Section */}
+          {/* 4. Newsletter */}
           <div className="text-center sm:text-left">
             <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-4 sm:mb-6 flex items-center gap-2 justify-center sm:justify-start">
               <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-green-500 rounded-full" />
@@ -155,7 +157,7 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom Copyright - Responsif */}
+        {/* Bottom Copyright */}
         <div className="pt-6 sm:pt-8 border-t border-green-100 flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4">
           <div className="text-xs sm:text-sm text-gray-500 order-2 sm:order-1">
             © {currentYear} <span className="text-green-700 font-semibold">EcoCare</span>. All rights reserved.
@@ -164,7 +166,7 @@ const Footer = () => {
             className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-gray-600 px-3 sm:px-4 py-1.5 sm:py-2 bg-green-50 rounded-full border border-green-200 order-1 sm:order-2"
             whileHover={{ scale: 1.05 }}
           >
-            Made with <FaHeart className="text-red-500 text-xs sm:text-sm animate-pulse" /> for better earth
+            Made with <FaGlobeAsia className="text-green-600 text-xs sm:text-sm animate-pulse" /> for better earth
           </motion.div>
         </div>
       </div>

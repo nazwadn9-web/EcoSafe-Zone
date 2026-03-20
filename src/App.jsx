@@ -20,6 +20,9 @@ import BankSampah from './pages/layanan/BankSampah'
 import ReportForm from './pages/layanan/ReportForm'
 import Daerah from './pages/layanan/Daerah'
 
+import ScrollToTop from './components/ScrollToTop'
+
+
 const AnimatedRoutes = () => {
   const location = useLocation()
   
@@ -63,6 +66,7 @@ function App() {
         </div>
 
         <Navbar />
+          <ScrollToTop />
         <main className="flex-grow">
           <AnimatedRoutes />
         </main>
