@@ -147,7 +147,7 @@ const Hero = () => {
               className="flex flex-wrap gap-2 sm:gap-3 justify-center lg:justify-start mb-5 sm:mb-6"
             >
               <motion.button
-                onClick={() => navigate('/cari')}
+                onClick={() => navigate('/layanan/daerah')}
                 whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}
                 className="px-4 sm:px-5 py-2 sm:py-2.5 bg-white border-2 border-green-600 text-green-600 rounded-xl font-semibold shadow-sm flex items-center gap-1.5 text-xs sm:text-sm hover:bg-green-50 transition-colors"
               >
