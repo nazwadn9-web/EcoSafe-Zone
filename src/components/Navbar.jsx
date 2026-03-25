@@ -59,8 +59,8 @@ const Navbar = () => {
       dropdownItems: [
         { path: '/layanan/edukasi', label: 'Edukasi', icon: FaBookOpen },
         { path: '/layanan/bank-sampah', label: 'Bank Sampah', icon: FaRecycle },
-        { path: '/layanan/pengaduan', label: 'Form Pengaduan', icon: FaHandHoldingHeart },
-        { path: '/layanan/wilayah', label: 'Wilayah', icon: FaMapMarkedAlt },
+        { path: '/layanan/form-pengajuan', label: 'Form Pengaduan', icon: FaHandHoldingHeart },
+        { path: '/layanan/daerah', label: 'Daerah', icon: FaMapMarkedAlt },
         { path: '/games', label: 'Games', icon: FaGamepad },
       ]
     },
@@ -130,8 +130,7 @@ const Navbar = () => {
                           `}
                         >
                           <Icon className={`text-xs lg:text-sm ${isActive ? 'text-white' : 'text-green-600'}`} />
-                          <span className="hidden xl:inline">{item.label}</span>
-                          <span className="xl:hidden">{item.label.charAt(0)}</span>
+                         <span>{item.label}</span>
                         </button>
                       </Link>
                     )
@@ -156,8 +155,7 @@ const Navbar = () => {
                         `}
                       >
                         <Icon className={`text-xs lg:text-sm ${isActive ? 'text-white' : 'text-green-600'}`} />
-                        <span className="hidden xl:inline">{item.label}</span>
-                        <span className="xl:hidden">{item.label.charAt(0)}</span>
+                        <span>{item.label}</span>
                         <FaChevronDown className={`text-[8px] lg:text-[10px] transition-transform duration-300 ${dropdownOpen ? 'rotate-180' : ''}`} />
                       </button>
 

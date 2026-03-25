@@ -17,9 +17,10 @@ const detailKota = {
   // DKI Jakarta
   'Jakarta Selatan': {
     alamat: 'Jl. Raya Pasar Minggu No. 17, Pancoran, Jakarta Selatan 12780',
-    telepon: '(021) 7884-2210',
-    whatsapp: '0812-9988-7712',
-    email: 'jaksel@pilahpintar.id',
+    whatsapp: '0821-3411-7789',
+    waNumber: '6282134117789',
+    mapsUrl: 'https://maps.google.com/?q=Jl.+Raya+Pasar+Minggu+No.+17+Pancoran+Jakarta+Selatan',
+    email: 'nazwadn9@gmail.com',
     jam: 'Sen–Sab: 08.00–16.00 WIB',
     layananAktif: ['Bank Sampah', 'Edukasi', 'Komunitas', 'Pelatihan', 'Pengaduan'],
     nasabah: 412,
@@ -28,9 +29,10 @@ const detailKota = {
   },
   'Jakarta Utara': {
     alamat: 'Jl. Pluit Selatan Raya No. 8, Penjaringan, Jakarta Utara 14450',
-    telepon: '(021) 6619-3344',
-    whatsapp: '0813-1100-2233',
-    email: 'jakut@pilahpintar.id',
+    whatsapp: '0858-1146-3202',
+    waNumber: '6285811463202',
+    mapsUrl: 'https://maps.google.com/?q=Jl.+Pluit+Selatan+Raya+No.+8+Penjaringan+Jakarta+Utara',
+    email: 'mutscaraw@gmail.com',
     jam: 'Sen–Jum: 08.00–15.30 WIB',
     layananAktif: ['Bank Sampah', 'Edukasi', 'Pengaduan'],
     nasabah: 285,
@@ -39,9 +41,10 @@ const detailKota = {
   },
   'Jakarta Barat': {
     alamat: 'Jl. Daan Mogot KM 11 No. 45, Cengkareng, Jakarta Barat 11730',
-    telepon: '(021) 5437-8891',
-    whatsapp: '0815-7788-9900',
-    email: 'jakbar@pilahpintar.id',
+    whatsapp: '0821-3411-7789',
+    waNumber: '6282134117789',
+    mapsUrl: 'https://maps.google.com/?q=Jl.+Daan+Mogot+KM+11+No.+45+Cengkareng+Jakarta+Barat',
+    email: 'nazwadn9@gmail.com',
     jam: 'Sen–Sab: 08.30–16.00 WIB',
     layananAktif: ['Bank Sampah', 'Edukasi', 'Komunitas'],
     nasabah: 320,
@@ -50,9 +53,10 @@ const detailKota = {
   },
   'Jakarta Timur': {
     alamat: 'Jl. Pemuda No. 55, Rawamangun, Jakarta Timur 13220',
-    telepon: '(021) 4788-5500',
-    whatsapp: '0817-2233-4455',
-    email: 'jaktim@pilahpintar.id',
+    whatsapp: '0858-1146-3202',
+    waNumber: '6285811463202',
+    mapsUrl: 'https://maps.google.com/?q=Jl.+Pemuda+No.+55+Rawamangun+Jakarta+Timur',
+    email: 'mutscaraw@gmail.com',
     jam: 'Sen–Sab: 08.00–16.00 WIB',
     layananAktif: ['Bank Sampah', 'Edukasi', 'Komunitas', 'Pelatihan'],
     nasabah: 378,
@@ -61,9 +65,10 @@ const detailKota = {
   },
   'Jakarta Pusat': {
     alamat: 'Jl. Kramat Raya No. 12, Senen, Jakarta Pusat 10450',
-    telepon: '(021) 3901-7722',
-    whatsapp: '0811-9988-0011',
-    email: 'jakpus@pilahpintar.id',
+    whatsapp: '0821-3411-7789',
+    waNumber: '6282134117789',
+    mapsUrl: 'https://maps.google.com/?q=Jl.+Kramat+Raya+No.+12+Senen+Jakarta+Pusat',
+    email: 'nazwadn9@gmail.com',
     jam: 'Sen–Jum: 08.00–17.00 WIB',
     layananAktif: ['Bank Sampah', 'Edukasi', 'Komunitas', 'Pelatihan', 'Pengaduan'],
     nasabah: 290,
@@ -73,9 +78,10 @@ const detailKota = {
   // Jawa Barat
   'Bandung': {
     alamat: 'Jl. Pajajaran No. 82, Cicendo, Kota Bandung 40172',
-    telepon: '(022) 6034-8821',
-    whatsapp: '0821-4433-6678',
-    email: 'bandung@pilahpintar.id',
+    whatsapp: '0858-1146-3202',
+    waNumber: '6285811463202',
+    mapsUrl: 'https://maps.google.com/?q=Jl.+Pajajaran+No.+82+Cicendo+Bandung',
+    email: 'mutscaraw@gmail.com',
     jam: 'Sen–Sab: 08.00–16.00 WIB',
     layananAktif: ['Bank Sampah', 'Edukasi', 'Komunitas', 'Pelatihan', 'Pengaduan'],
     nasabah: 534,
@@ -84,9 +90,10 @@ const detailKota = {
   },
   'Bogor': {
     alamat: 'Jl. Juanda No. 28, Bogor Tengah, Kota Bogor 16122',
-    telepon: '(0251) 831-4400',
-    whatsapp: '0822-5544-3322',
-    email: 'bogor@pilahpintar.id',
+    whatsapp: '0821-3411-7789',
+    waNumber: '6282134117789',
+    mapsUrl: 'https://maps.google.com/?q=Jl.+Juanda+No.+28+Bogor+Tengah+Bogor',
+    email: 'nazwadn9@gmail.com',
     jam: 'Sen–Jum: 08.00–15.00 WIB',
     layananAktif: ['Bank Sampah', 'Edukasi', 'Komunitas'],
     nasabah: 310,
@@ -95,9 +102,10 @@ const detailKota = {
   },
   'Bekasi': {
     alamat: 'Jl. Ahmad Yani No. 10, Bekasi Selatan, Kota Bekasi 17141',
-    telepon: '(021) 8840-2211',
-    whatsapp: '0823-6677-8899',
-    email: 'bekasi@pilahpintar.id',
+    whatsapp: '0858-1146-3202',
+    waNumber: '6285811463202',
+    mapsUrl: 'https://maps.google.com/?q=Jl.+Ahmad+Yani+No.+10+Bekasi+Selatan+Bekasi',
+    email: 'mutscaraw@gmail.com',
     jam: 'Sen–Sab: 08.30–16.30 WIB',
     layananAktif: ['Bank Sampah', 'Edukasi', 'Pelatihan'],
     nasabah: 422,
@@ -106,9 +114,10 @@ const detailKota = {
   },
   'Depok': {
     alamat: 'Jl. Margonda Raya No. 100, Pancoran Mas, Kota Depok 16431',
-    telepon: '(021) 7754-3300',
-    whatsapp: '0819-1122-3344',
-    email: 'depok@pilahpintar.id',
+    whatsapp: '0821-3411-7789',
+    waNumber: '6282134117789',
+    mapsUrl: 'https://maps.google.com/?q=Jl.+Margonda+Raya+No.+100+Pancoran+Mas+Depok',
+    email: 'nazwadn9@gmail.com',
     jam: 'Sen–Jum: 09.00–16.00 WIB',
     layananAktif: ['Bank Sampah', 'Edukasi'],
     nasabah: 245,
@@ -118,9 +127,10 @@ const detailKota = {
   // Jawa Tengah
   'Semarang': {
     alamat: 'Jl. Pemuda No. 150, Semarang Tengah, Kota Semarang 50132',
-    telepon: '(024) 3541-2200',
-    whatsapp: '0824-7788-5566',
-    email: 'semarang@pilahpintar.id',
+    whatsapp: '0858-1146-3202',
+    waNumber: '6285811463202',
+    mapsUrl: 'https://maps.google.com/?q=Jl.+Pemuda+No.+150+Semarang+Tengah+Semarang',
+    email: 'mutscaraw@gmail.com',
     jam: 'Sen–Sab: 08.00–16.00 WIB',
     layananAktif: ['Bank Sampah', 'Edukasi', 'Komunitas', 'Pelatihan'],
     nasabah: 398,
@@ -129,9 +139,10 @@ const detailKota = {
   },
   'Surakarta': {
     alamat: 'Jl. Slamet Riyadi No. 275, Laweyan, Kota Surakarta 57141',
-    telepon: '(0271) 712-4400',
-    whatsapp: '0825-3344-1122',
-    email: 'solo@pilahpintar.id',
+    whatsapp: '0821-3411-7789',
+    waNumber: '6282134117789',
+    mapsUrl: 'https://maps.google.com/?q=Jl.+Slamet+Riyadi+No.+275+Laweyan+Surakarta',
+    email: 'nazwadn9@gmail.com',
     jam: 'Sen–Sab: 08.30–15.30 WIB',
     layananAktif: ['Bank Sampah', 'Edukasi', 'Komunitas'],
     nasabah: 287,
@@ -141,9 +152,10 @@ const detailKota = {
   // Jawa Timur
   'Surabaya': {
     alamat: 'Jl. Raya Gubeng No. 33, Gubeng, Kota Surabaya 60281',
-    telepon: '(031) 5023-9910',
-    whatsapp: '0831-7722-4490',
-    email: 'surabaya@pilahpintar.id',
+    whatsapp: '0858-1146-3202',
+    waNumber: '6285811463202',
+    mapsUrl: 'https://maps.google.com/?q=Jl.+Raya+Gubeng+No.+33+Gubeng+Surabaya',
+    email: 'mutscaraw@gmail.com',
     jam: 'Sen–Sab: 08.00–16.00 WIB',
     layananAktif: ['Bank Sampah', 'Edukasi', 'Komunitas', 'Pelatihan'],
     nasabah: 612,
@@ -152,9 +164,10 @@ const detailKota = {
   },
   'Malang': {
     alamat: 'Jl. Veteran No. 20, Lowokwaru, Kota Malang 65145',
-    telepon: '(0341) 551-2200',
-    whatsapp: '0832-5566-7788',
-    email: 'malang@pilahpintar.id',
+    whatsapp: '0821-3411-7789',
+    waNumber: '6282134117789',
+    mapsUrl: 'https://maps.google.com/?q=Jl.+Veteran+No.+20+Lowokwaru+Malang',
+    email: 'nazwadn9@gmail.com',
     jam: 'Sen–Jum: 08.00–15.30 WIB',
     layananAktif: ['Bank Sampah', 'Edukasi', 'Komunitas'],
     nasabah: 334,
@@ -164,9 +177,10 @@ const detailKota = {
   // Default untuk kota yang belum ada data spesifik
   'default': {
     alamat: 'Hubungi pusat untuk info alamat cabang',
-    telepon: '(021) 1234-5678',
-    whatsapp: '0800-PILAH-01',
-    email: 'info@pilahpintar.id',
+    whatsapp: '0821-3411-7789',
+    waNumber: '6282134117789',
+    mapsUrl: 'https://maps.google.com/?q=PilahPintar+Indonesia',
+    email: 'nazwadn9@gmail.com',
     jam: 'Sen–Jum: 08.00–16.00 WIB',
     layananAktif: ['Bank Sampah'],
     nasabah: null,
@@ -174,6 +188,7 @@ const detailKota = {
     jadwalEdukasi: null
   }
 }
+ 
 
 const dataWilayah = {
   'Aceh': {
@@ -655,16 +670,12 @@ const LayananWilayah = () => {
                           })}
                         </div>
 
-                        {/* Info kontak */}
+                        {/* Info kontak — tanpa telepon */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-[10px] text-gray-600">
                           <div className="bg-white rounded-lg p-2.5 space-y-1.5">
                             <p className="flex items-start gap-1.5">
                               <FaMapMarkerAlt className="text-green-600 mt-0.5 flex-shrink-0" />
                               {detail.alamat}
-                            </p>
-                            <p className="flex items-center gap-1.5">
-                              <FaPhone className="text-green-600 flex-shrink-0" />
-                              {detail.telepon}
                             </p>
                             <p className="flex items-center gap-1.5">
                               <FaEnvelope className="text-green-600 flex-shrink-0" />
@@ -689,19 +700,26 @@ const LayananWilayah = () => {
                           </div>
                         </div>
 
-                        {/* Tombol Aksi */}
+                        {/* Tombol Aksi — tanpa tombol telepon */}
                         <div className="flex gap-2 mt-3">
-                          <button className="flex-1 bg-green-600 text-white py-2 rounded-lg text-xs font-semibold
-                                           hover:bg-green-700 transition flex items-center justify-center gap-1">
+                          <a
+                            href={`https://wa.me/${detail.waNumber}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex-1 bg-green-600 text-white py-2 rounded-lg text-xs font-semibold
+                                       hover:bg-green-700 transition flex items-center justify-center gap-1"
+                          >
                             <FaWhatsapp className="text-xs" /> Chat WhatsApp
-                          </button>
-                          <button className="flex-1 bg-blue-600 text-white py-2 rounded-lg text-xs font-semibold
-                                           hover:bg-blue-700 transition flex items-center justify-center gap-1">
+                          </a>
+                          <a
+                            href={detail.mapsUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex-1 bg-blue-600 text-white py-2 rounded-lg text-xs font-semibold
+                                       hover:bg-blue-700 transition flex items-center justify-center gap-1"
+                          >
                             <FaMapMarkerAlt className="text-xs" /> Buka Maps
-                          </button>
-                          <button className="w-9 h-9 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 hover:bg-gray-200 transition flex-shrink-0">
-                            <FaPhone className="text-xs" />
-                          </button>
+                          </a>
                         </div>
                       </div>
                     </motion.div>

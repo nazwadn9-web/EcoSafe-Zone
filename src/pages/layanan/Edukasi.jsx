@@ -60,7 +60,7 @@ const Edukasi = () => {
         'Pengelolaan bank sampah'
       ],
       jadwal: ['Selasa', 'Kamis', 'Sabtu'],
-      gambar: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=500&auto=format'
+      gambar: 'https://images.unsplash.com/photo-1588072432836-e10032774350?w=600&auto=format&fit=crop&q=80'
     },
     {
       id: 3,
@@ -145,23 +145,40 @@ const Edukasi = () => {
   ]
 
   const faqs = [
-    { 
-      q: 'Apakah programnya gratis?', 
-      a: 'Ya, ada program gratis untuk Edukasi SD dan Edukasi Masyarakat. Untuk program lainnya dikenakan biaya yang terjangkau.' 
-    },
-    { 
-      q: 'Bagaimana cara mendaftar?', 
-      a: 'Anda bisa mendaftar melalui tombol "Daftar" di setiap program atau menghubungi kami via WhatsApp.' 
-    },
-    { 
-      q: 'Apakah mendapatkan sertifikat?', 
-      a: 'Ya, semua peserta akan mendapatkan sertifikat resmi yang dapat digunakan untuk berbagai keperluan.' 
-    },
-    { 
-      q: 'Bisa request jadwal khusus?', 
-      a: 'Tentu, kami bisa menyesuaikan jadwal dengan kebutuhan sekolah atau instansi Anda.' 
-    }
-  ]
+  {
+    q: 'Apakah program edukasi EcoSafe Zone berbayar?',
+    a: [
+      'Program Edukasi SD dan Edukasi Masyarakat disediakan secara GRATIS sebagai bagian dari program pengabdian lingkungan.',
+      'Program Edukasi SMP/SMA dan Pelatihan Guru dikenakan biaya operasional yang sangat terjangkau.',
+      'Biaya digunakan untuk modul pembelajaran, alat praktik, serta operasional tim edukator.'
+    ]
+  },
+  {
+    q: 'Bagaimana prosedur pendaftaran program edukasi?',
+    a: [
+      'Klik tombol "Lihat Detail" pada program yang dipilih.',
+      'Hubungi admin melalui tombol WhatsApp.',
+      'Tim kami akan membantu menentukan jadwal kegiatan.',
+      'Program siap dilaksanakan sesuai kesepakatan.'
+    ]
+  },
+  {
+    q: 'Apakah peserta mendapatkan sertifikat setelah kegiatan?',
+    a: [
+      'Ya, seluruh peserta akan mendapatkan sertifikat resmi dari EcoSafe Zone.',
+      'Sertifikat dapat digunakan sebagai bukti kegiatan edukasi lingkungan.',
+      'Khusus pelatihan guru dapat digunakan sebagai dokumentasi pengembangan kompetensi.'
+    ]
+  },
+  {
+    q: 'Apakah jadwal kegiatan bisa disesuaikan dengan sekolah?',
+    a: [
+      'Bisa.',
+      'Kami fleksibel menyesuaikan jadwal dengan kebutuhan sekolah atau instansi.',
+      'Silakan diskusikan jadwal melalui admin WhatsApp untuk penjadwalan khusus.'
+    ]
+  }
+]
 
   const stats = [
     { icon: FaUsers, label: 'Peserta', value: '5.200+' },
@@ -236,9 +253,9 @@ const Edukasi = () => {
         {/* Tabs */}
         <div className="flex justify-center gap-2 mb-6">
           {[
-            { id: 'program', label: '📋 Program', icon: FaBook },
-            { id: 'testimonial', label: '⭐ Testimoni', icon: FaStar },
-            { id: 'faq', label: '❓ FAQ', icon: FaLeaf }
+            { id: 'program', label: ' Program', icon: FaBook },
+            { id: 'testimonial', label: ' Testimoni', icon: FaStar },
+            { id: 'faq', label: ' FAQ', icon: FaLeaf }
           ].map((tab) => (
             <button
               key={tab.id}
@@ -342,9 +359,14 @@ const Edukasi = () => {
                               {isExpanded ? 'Tutup Detail' : 'Lihat Detail'}
                               {isExpanded ? <FaChevronUp className="text-[10px]" /> : <FaChevronDown className="text-[10px]" />}
                             </button>
-                            <button className="w-9 h-9 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors">
-                              <FaWhatsapp className="text-sm" />
-                            </button>
+                            <a
+  href="https://wa.me/082134117789?text=Halo%20saya%20tertarik%20dengan%20program%20edukasi%20EcoSafe%20Zone"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="w-9 h-9 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
+>
+  <FaWhatsapp className="text-sm" />
+</a>
                           </div>
                         </div>
                       </div>
@@ -535,13 +557,21 @@ const Edukasi = () => {
           <h2 className="text-base font-bold mb-1">Siap Menjadi Agen Perubahan?</h2>
           <p className="text-xs mb-4 opacity-90">Mulai perjalanan edukasi lingkungan Anda bersama kami</p>
           <div className="flex justify-center gap-3">
-            <button className="bg-white text-green-600 px-5 py-2 rounded-full text-xs font-bold shadow-md hover:shadow-lg hover:scale-105 transition-all">
-              Daftar Sekarang
-            </button>
-            <button className="border border-white text-white px-5 py-2 rounded-full text-xs font-bold hover:bg-white/10 hover:scale-105 transition-all flex items-center gap-1">
-              <FaWhatsapp className="text-xs" />
-              Hubungi Kami
-            </button>
+           <Link
+  to="/tentang"
+  className="bg-white text-green-600 px-5 py-2 rounded-full text-xs font-bold shadow-md hover:shadow-lg hover:scale-105 transition-all"
+>
+  Daftar Sekarang
+</Link>
+           <a
+  href="https://wa.me/082134117789"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="border border-white text-white px-5 py-2 rounded-full text-xs font-bold hover:bg-white/10 hover:scale-105 transition-all flex items-center gap-1"
+>
+  <FaWhatsapp className="text-xs" />
+  Hubungi Kami
+</a>
           </div>
         </motion.div>
       </div>
