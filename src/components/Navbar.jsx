@@ -56,6 +56,7 @@ const Navbar = () => {
       icon: FaHandsHelping,
       hasDropdown: true,
       dropdownItems: [
+        { path: '/layanan', label: 'Semua Layanan', icon: FaHandsHelping },
         { path: '/layanan/edukasi', label: 'Edukasi', icon: FaBookOpen },
         { path: '/layanan/bank-sampah', label: 'Bank Sampah', icon: FaRecycle },
         { path: '/layanan/form-pengajuan', label: 'Form Pengaduan', icon: FaHandHoldingHeart },

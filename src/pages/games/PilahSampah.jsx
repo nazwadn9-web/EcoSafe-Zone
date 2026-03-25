@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { 
   FaApple, FaBatteryFull, FaRecycle, FaLeaf, 
   FaNewspaper, FaLightbulb, FaClock, FaTrophy, 
-  FaRedo, FaArrowLeft
+  FaRedo, FaArrowLeft, FaStar
 } from 'react-icons/fa'
 import { 
   GiSkullCrossedBones, 
@@ -24,10 +24,11 @@ const PilahSampah = () => {
   ])
 
   const [score, setScore] = useState(0)
-  const [message, setMessage] = useState('🤚 Tap sampah, lalu tap tong yang sesuai!')
+  const [message, setMessage] = useState('👆 Tap sampah, lalu tap tong yang sesuai!')
   const [selectedItem, setSelectedItem] = useState(null)
   const [gameCompleted, setGameCompleted] = useState(false)
   const [timeLeft, setTimeLeft] = useState(60)
+  const [showCelebration, setShowCelebration] = useState(false)
 
   const bins = [
     { 
@@ -61,7 +62,7 @@ const PilahSampah = () => {
         if (prev <= 1) {
           clearInterval(timer)
           setGameCompleted(true)
-          setMessage('⏰ Waktu habis! Tekan Reset untuk main lagi')
+          setMessage('⏰ Waktu habis!')
           return 0
         }
         return prev - 1
@@ -70,26 +71,37 @@ const PilahSampah = () => {
     return () => clearInterval(timer)
   }, [gameCompleted, items.length])
 
-  // Touch/Click handler untuk memilih sampah
+  // Effect untuk menampilkan celebration saat game selesai
+  useEffect(() => {
+    if (items.length === 0 && !gameCompleted) {
+      setGameCompleted(true)
+      setShowCelebration(true)
+      setMessage('🎉 Selamat! Kamu berhasil memilah semua sampah!')
+      
+      // Sembunyikan celebration setelah 3 detik
+      setTimeout(() => setShowCelebration(false), 3000)
+    }
+  }, [items.length, gameCompleted])
+
   const handleItemClick = (item) => {
     if (gameCompleted) return
     setSelectedItem(item)
-    setMessage(`📍 ${item.name} dipilih. Sekarang tap tong yang sesuai!`)
+    setMessage(`📍 ${item.name} dipilih. Tap tong yang sesuai!`)
     
-    // Animasi getar pada item yang dipilih
     const element = document.getElementById(`item-${item.id}`)
     if (element) {
       element.classList.add('animate-pulse')
-      setTimeout(() => {
-        element.classList.remove('animate-pulse')
-      }, 500)
+      setTimeout(() => element.classList.remove('animate-pulse'), 500)
     }
   }
 
-  // Touch/Click handler untuk tong
   const handleBinClick = (binCategory) => {
     if (gameCompleted) {
-      setMessage('🎮 Game selesai! Tekan Reset untuk main lagi')
+      if (items.length === 0) {
+        setMessage('🎉 Game selesai! Tekan Reset untuk main lagi')
+      } else {
+        setMessage('⏰ Game selesai! Tekan Reset untuk main lagi')
+      }
       return
     }
     
@@ -99,37 +111,24 @@ const PilahSampah = () => {
     }
 
     if (selectedItem.category === binCategory) {
-      // Benar
       setItems(prev => prev.filter(item => item.id !== selectedItem.id))
       setScore(prev => prev + (selectedItem.difficulty === 'sulit' ? 20 : 10))
-      setMessage(`✅ Benar! +${selectedItem.difficulty === 'sulit' ? '20' : '10'} poin`)
+      setMessage(`✅ Benar! +${selectedItem.difficulty === 'sulit' ? '20' : '10'}`)
       setSelectedItem(null)
-      
-      if (items.length === 1) {
-        setGameCompleted(true)
-        setMessage('🎉 SELAMAT! Kamu berhasil memilah semua sampah!')
-      }
     } else {
-      // Salah
-      setMessage(`❌ Salah! ${selectedItem.name} bukan sampah ${binCategory}`)
+      setMessage(`❌ Salah! ${selectedItem.name} bukan ${binCategory}`)
       setScore(prev => Math.max(0, prev - 5))
       
-      // Animasi shake pada item yang salah
       const element = document.getElementById(`item-${selectedItem.id}`)
       if (element) {
         element.classList.add('animate-wiggle')
-        setTimeout(() => {
-          element.classList.remove('animate-wiggle')
-        }, 500)
+        setTimeout(() => element.classList.remove('animate-wiggle'), 500)
       }
       
-      // Animasi shake pada tong
       const binElement = document.getElementById(`bin-${binCategory}`)
       if (binElement) {
         binElement.classList.add('animate-shake')
-        setTimeout(() => {
-          binElement.classList.remove('animate-shake')
-        }, 500)
+        setTimeout(() => binElement.classList.remove('animate-shake'), 500)
       }
     }
     
@@ -150,6 +149,7 @@ const PilahSampah = () => {
     setGameCompleted(false)
     setTimeLeft(60)
     setSelectedItem(null)
+    setShowCelebration(false)
   }
 
   return (
@@ -185,15 +185,52 @@ const PilahSampah = () => {
             Game <span className="text-green-600">Pilah Sampah</span>
           </h1>
           <p className="text-xs sm:text-sm text-gray-500 max-w-2xl mx-auto mt-1">
-            {gameCompleted ? 'Game selesai! Tekan Reset untuk bermain lagi' : 'Tap sampah, lalu tap tong yang sesuai!'}
+            Tap sampah, lalu tap tong yang sesuai!
           </p>
         </div>
+
+        {/* Celebration Modal */}
+        <AnimatePresence>
+          {showCelebration && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none"
+            >
+              <div className="bg-white/95 backdrop-blur-md rounded-2xl p-6 sm:p-8 text-center shadow-2xl border border-green-200 max-w-[280px] sm:max-w-sm mx-4">
+                <motion.div
+                  animate={{ 
+                    rotate: [0, 10, -10, 0],
+                    scale: [1, 1.2, 1]
+                  }}
+                  transition={{ duration: 0.5 }}
+                  className="text-5xl sm:text-6xl mb-3"
+                >
+                  🎉
+                </motion.div>
+                <h2 className="text-lg sm:text-xl font-bold text-green-600 mb-2">Selamat!</h2>
+                <p className="text-sm sm:text-base text-gray-700">Kamu berhasil memilah semua sampah!</p>
+                <div className="flex justify-center gap-1 mt-3">
+                  {[...Array(3)].map((_, i) => (
+                    <FaStar key={i} className="text-yellow-400 text-sm" />
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Game Area */}
         <div className="max-w-4xl mx-auto">
           {/* Items to sort */}
           <div className="bg-white/80 backdrop-blur-sm rounded-xl sm:rounded-2xl p-3 sm:p-4 mb-4 sm:mb-5 border border-green-200 shadow-sm">
-            <h3 className="text-xs sm:text-sm font-bold text-gray-700 mb-2 sm:mb-3">Sampah yang harus dipilah:</h3>
+            <h3 className="text-xs sm:text-sm font-bold text-gray-700 mb-2 sm:mb-3">
+              Sampah yang harus dipilah:
+              {items.length === 0 && (
+                <span className="ml-2 text-green-600"> ✓ Selesai!</span>
+              )}
+            </h3>
             <div className="flex flex-wrap justify-center gap-2 sm:gap-3 min-h-[80px] sm:min-h-[100px]">
               <AnimatePresence>
                 {items.map((item) => {
@@ -209,7 +246,7 @@ const PilahSampah = () => {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={() => handleItemClick(item)}
-                      className={`cursor-pointer transition-all ${gameCompleted ? 'opacity-50 cursor-not-allowed' : ''} ${isSelected ? 'ring-2 ring-green-500 ring-offset-2' : ''}`}
+                      className={`cursor-pointer transition-all ${gameCompleted ? 'opacity-50 cursor-not-allowed' : ''} ${isSelected ? 'ring-2 ring-green-500 ring-offset-2 rounded-full' : ''}`}
                     >
                       <div className={`bg-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-full shadow-sm border ${isSelected ? 'border-green-500 bg-green-50' : 'border-gray-200'} flex items-center gap-1.5 sm:gap-2`}>
                         <Icon className={`text-sm sm:text-base ${item.color}`} />
@@ -262,18 +299,20 @@ const PilahSampah = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className={`bg-white rounded-xl p-3 sm:p-4 shadow-md flex items-center justify-between gap-2
+            className={`bg-white rounded-xl p-3 sm:p-4 shadow-md flex flex-col sm:flex-row items-center justify-between gap-2
                        ${message.includes('✅') ? 'border-l-4 border-l-green-500' : ''}
-                       ${message.includes('❌') ? 'border-l-4 border-l-red-500' : ''}`}
+                       ${message.includes('❌') ? 'border-l-4 border-l-red-500' : ''}
+                       ${message.includes('🎉') ? 'border-l-4 border-l-yellow-500' : ''}`}
           >
-            <div className="flex items-center gap-2 min-w-0 flex-1">
+            <div className="flex items-center gap-2 w-full sm:w-auto">
               <div className={`w-2 h-2 rounded-full flex-shrink-0 ${
                 message.includes('✅') ? 'bg-green-500' : 
                 message.includes('❌') ? 'bg-red-500' : 
                 message.includes('📍') ? 'bg-blue-500' :
+                message.includes('🎉') ? 'bg-yellow-500' :
                 'bg-gray-400'
               }`} />
-              <span className="text-xs sm:text-sm text-gray-700 truncate">{message}</span>
+              <span className="text-xs sm:text-sm text-gray-700 break-words flex-1">{message}</span>
             </div>
             
             <motion.button
@@ -281,10 +320,10 @@ const PilahSampah = () => {
               whileTap={{ scale: 0.98 }}
               onClick={resetGame}
               className="bg-green-600 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm
-                       hover:bg-green-700 transition-colors shadow-sm flex items-center gap-1.5 flex-shrink-0"
+                       hover:bg-green-700 transition-colors shadow-sm flex items-center gap-1.5 flex-shrink-0 w-full sm:w-auto justify-center"
             >
               <FaRedo className="text-xs sm:text-sm" /> 
-              <span>Reset</span>
+              <span>Reset Game</span>
             </motion.button>
           </motion.div>
 
