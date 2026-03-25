@@ -13,7 +13,6 @@ import { GiMoneyStack, GiRecycle, GiGlassCelebration } from 'react-icons/gi'
 
 const BankSampah = () => {
   const [activeTab, setActiveTab] = useState('informasi')
-  const [selectedLocation, setSelectedLocation] = useState(null)
 
   const bankInfo = {
     'Nasabah Aktif': '2.547',
@@ -34,39 +33,6 @@ const BankSampah = () => {
     { jenis: 'Elektronik (HP, Laptop)', harga: 'Rp 5.000/kg', icon: FaRecycle, color: 'text-purple-500' },
     { jenis: 'Minyak Jelantah', harga: 'Rp 4.000/liter', icon: FaRecycle, color: 'text-orange-500' },
   ]
-
-  const lokasi = [
-  {
-    id: 1,
-    nama: 'Bank Sampah Pusat — Jakarta Selatan',
-    alamat: 'Jl. Raya Pasar Minggu No. 17, Pancoran, Jakarta Selatan',
-    maps: 'https://maps.google.com/?q=Jl.+Raya+Pasar+Minggu+No.+17+Jakarta+Selatan',
-    jam: 'Senin–Sabtu, 08.00–16.00 WIB',
-    whatsapp: '0821-3411-7789',
-    fasilitas: ['Timbangan Digital', 'Area Parkir', 'Ruang Edukasi', 'Kantin'],
-    gambar: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=600&auto=format'
-  },
-  {
-    id: 2,
-    nama: 'Bank Sampah Bandung — Cicendo',
-    alamat: 'Jl. Pajajaran No. 82, Cicendo, Kota Bandung',
-    maps: 'https://maps.google.com/?q=Jl.+Pajajaran+No.+82+Bandung',
-    jam: 'Senin–Jumat, 09.00–17.00 WIB',
-    whatsapp: '0858-1146-3202',
-    fasilitas: ['Timbangan Digital', 'Drop Box 24 Jam', 'Komunitas Aktif'],
-    gambar: 'https://images.unsplash.com/photo-1503596476-1c12a8ba09a9?w=600&auto=format&fit=crop&q=80'
-  },
-  {
-    id: 3,
-    nama: 'Bank Sampah Surabaya — Gubeng',
-    alamat: 'Jl. Raya Gubeng No. 33, Gubeng, Kota Surabaya',
-    maps: 'https://maps.google.com/?q=Jl.+Raya+Gubeng+No.+33+Surabaya',
-    jam: 'Senin–Sabtu, 08.30–15.30 WIB',
-    whatsapp: '0821-3411-7789',
-    fasilitas: ['Timbangan Digital', 'Area Parkir Luas', 'Kafe Daur Ulang'],
-    gambar: 'https://images.unsplash.com/photo-1528323273322-d81458248d40?w=600&auto=format'
-  }
-]
 
   const keuntungan = [
     { icon: FaCoins, title: 'Poin Tunai', desc: 'Poin dari setoran bisa dicairkan menjadi saldo tabungan sampah' },
@@ -191,7 +157,6 @@ const BankSampah = () => {
           {[
             { key: 'informasi', label: 'Informasi', icon: FaInfoCircle },
             { key: 'harga', label: 'Harga Sampah', icon: GiMoneyStack },
-            { key: 'lokasi', label: 'Lokasi', icon: FaMapMarkerAlt },
             { key: 'cara', label: 'Cara Kerja', icon: FaTruck },
           ].map((tab) => (
             <button
@@ -352,75 +317,6 @@ const BankSampah = () => {
               </div>
             </div>
           </motion.div>
-        )}
-
-        {activeTab === 'lokasi' && (
-          <div className="space-y-3">
-            {lokasi.map((loc, idx) => (
-              <motion.div
-                key={loc.id}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.05 }}
-                className="bg-white rounded-xl shadow-sm overflow-hidden"
-              >
-                <div className="flex flex-col md:flex-row">
-                  <div className="h-32 md:h-auto md:w-1/4 overflow-hidden">
-                    <img src={loc.gambar} alt={loc.nama} className="w-full h-full object-cover" />
-                  </div>
-                  <div className="p-3 md:w-3/4">
-                    <div className="flex justify-between items-start mb-2">
-                      <h3 className="text-sm font-bold text-gray-800 leading-tight">{loc.nama}</h3>
-                      <span className="bg-green-100 text-green-600 px-2 py-0.5 rounded-full text-[10px] ml-2 whitespace-nowrap">● Buka</span>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-1 text-[10px] text-gray-600 mb-2">
-                      <p className="flex items-start gap-1"><FaMapMarkerAlt className="text-green-600 text-[10px] mt-0.5 flex-shrink-0" />{loc.alamat}</p>
-                      <p className="flex items-center gap-1"><FaClock className="text-green-600 text-[10px]" />{loc.jam}</p>
-                     
-                      <p className="flex items-center gap-1"><FaWhatsapp className="text-green-600 text-[10px]" />{loc.whatsapp}</p>
-                    </div>
-                    <div className="flex flex-wrap gap-1 mb-2">
-                      {loc.fasilitas.map((item, i) => (
-                        <span key={i} className="px-2 py-0.5 bg-gray-100 rounded-full text-[9px] text-gray-600">{item}</span>
-                      ))}
-                    </div>
-                    <button
-                      onClick={() => setSelectedLocation(selectedLocation === loc.id ? null : loc.id)}
-                      className="text-xs text-green-600 font-semibold hover:text-green-700 transition-colors"
-                    >
-                      {selectedLocation === loc.id ? 'Tutup ↑' : 'Lihat Kontak →'}
-                    </button>
-                    {selectedLocation === loc.id && (
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        className="mt-2 pt-2 border-t border-gray-100"
-                      >
-                        <div className="flex gap-2">
-                          <a
-                            href={`https://wa.me/${loc.whatsapp.replace(/[^0-9]/g, '')}?text=Halo%20saya%20ingin%20bertanya%20tentang%20Bank%20Sampah`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex-1 bg-green-600 text-white py-1.5 rounded-lg text-[10px] font-semibold hover:bg-green-700 transition text-center"
-                            >
-                            Chat WhatsApp
-                          </a>
-                          <a
-                            href={loc.maps}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex-1 bg-blue-600 text-white py-1.5 rounded-lg text-[10px] font-semibold hover:bg-blue-700 transition text-center"
-                            >
-                            Buka Google Maps
-                          </a>
-                          </div>
-                      </motion.div>
-                    )}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
         )}
 
         {activeTab === 'cara' && (
