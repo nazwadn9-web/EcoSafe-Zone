@@ -1,3 +1,5 @@
+Here is the improved and corrected version of the `README.md` file. I've fixed structural issues, standardized formatting, corrected spelling and grammar, and added missing elements to make it more professional and functional.
+```markdown
 # 🌿 PilahPintar — Platform Peduli Lingkungan
 
 <div align="center">
@@ -12,7 +14,7 @@
 
 **Website multifungsi bertema lingkungan hidup yang menggabungkan edukasi, komunitas, dan layanan daur ulang dalam satu platform.**
 
-[Demo](#) · [Dokumentasi](#) · [Kontribusi](#kontribusi) · [Laporan Bug](#)
+[Demo](#) · [Dokumentasi](#) · [Kontribusi](#-kontribusi) · [Laporan Bug](#)
 
 </div>
 
@@ -34,34 +36,34 @@
 
 ## ✨ Fitur Utama
 
-### 🏠 Beranda (Hero)
+### 🏠 Beranda
 - Animasi orbit interaktif dengan ikon-ikon ekologi
-- Eco dots dan sparkle effects yang fully responsive
-- Statistik lingkungan real-time dengan animasi counter
+- *Eco dots* dan *sparkle effects* yang *fully responsive*
+- Statistik lingkungan *real-time* dengan animasi *counter*
 - Navigasi cepat ke semua layanan utama
 
 ### 📋 Tentang Kami
-- Hero section fullscreen dengan efek ganti gambar (image shattering effect)
-- Video modal profil organisasi
-- Timeline perjalanan organisasi yang interaktif
-- Profil tim dengan animasi scroll
-- Section visi & misi dengan desain card modern
+- *Hero section* *fullscreen* dengan efek ganti gambar (*image shattering effect*)
+- *Video modal* profil organisasi
+- *Timeline* perjalanan organisasi yang interaktif
+- Profil tim dengan animasi *scroll*
+- *Section* visi & misi dengan desain *card* modern
 
 ### 🔧 Layanan
-- **Edukasi Sekolah** — Program kunjungan dan workshop untuk pelajar
-- **Bank Sampah** — Sistem poin tabungan sampah dengan harga pasar real
+- **Edukasi Sekolah** — Program kunjungan dan *workshop* untuk pelajar
+- **Bank Sampah** — Sistem poin tabungan sampah dengan harga pasar *real*
 - **Komunitas Hijau** — Forum dan grup aksi bersama
-- **Pelatihan Daur Ulang** — Workshop ekonomi kreatif berbasis sampah
+- **Pelatihan Daur Ulang** — *Workshop* ekonomi kreatif berbasis sampah
 - **Konsultasi Lingkungan** — Layanan konsultasi profesional
 - **Penghijauan** — Program tanam pohon komunal
 - **Layanan Daerah** — Peta sebaran cabang di 34 provinsi Indonesia
 
 ### 📰 Artikel & Berita
-- Grid artikel dengan sistem paginasi
+- *Grid* artikel dengan sistem paginasi
 - Filter kategori (Edukasi, Tips, Gaya Hidup, Kreatif, Lingkungan)
-- Search real-time
-- Modal baca artikel dengan animasi smooth
-- Fitur share ke media sosial (WhatsApp, Facebook, Twitter, Email)
+- Pencarian *real-time*
+- Modal baca artikel dengan animasi *smooth*
+- Fitur bagikan ke media sosial (WhatsApp, Facebook, Twitter, Email)
 
 ### 📍 Layanan Wilayah
 - Peta layanan 34 provinsi seluruh Indonesia
@@ -70,29 +72,29 @@
 - Tombol langsung ke WhatsApp dan Google Maps
 
 ### 📝 Form Pengaduan
-- Multi-step form (3 langkah) dengan validasi real-time
-- Upload foto bukti
+- *Multi-step form* (3 langkah) dengan validasi *real-time*
+- Unggah foto bukti
 - Pemilihan tingkat urgensi (Rendah / Sedang / Tinggi)
-- Confirm modal sebelum submit
+- Modal konfirmasi sebelum kirim
 - Nomor tiket otomatis (format `RPT-YYYYMMDD-XXXX`)
-- Animasi konfetti saat laporan berhasil terkirim
+- Animasi konfeti saat laporan berhasil terkirim
 
-### 🎮 Games
-- Mini game edukasi interaktif bertema lingkungan
+### 🎮 *Games*
+- *Mini game* edukasi interaktif bertema lingkungan
 
 ---
 
-## 🖥️ Tech Stack
+## 🖥️ *Tech Stack*
 
 | Teknologi | Versi | Fungsi |
 |-----------|-------|--------|
-| **React** | 18.x | UI Library |
-| **Vite** | 5.x | Build Tool & Dev Server |
-| **Tailwind CSS** | 3.x | Utility-first CSS Framework |
+| **React** | 18.x | *UI Library* |
+| **Vite** | 5.x | *Build Tool* & *Dev Server* |
+| **Tailwind CSS** | 3.x | *Utility-first CSS Framework* |
 | **Framer Motion** | 11.x | Animasi & transisi |
-| **React Router DOM** | 6.x | Client-side routing |
-| **React Icons** | 5.x | Icon library (FA, GI, MD, IO5) |
-| **React Intersection Observer** | 9.x | Scroll-triggered animations |
+| **React Router DOM** | 6.x | *Client-side routing* |
+| **React Icons** | 5.x | *Icon library* (FA, GI, MD, IO5) |
+| **React Intersection Observer** | 9.x | Animasi pemicu *scroll* |
 
 ---
 
@@ -100,7 +102,7 @@
 
 ### Tema & Estetika
 
-PilahPintar menggunakan tema **organic green** yang terinspirasi dari alam — menggabungkan palet hijau emerald dengan aksen kuning keemasan untuk menciptakan nuansa yang hangat, terpercaya, dan bersemangat.
+PilahPintar menggunakan tema *organic green* yang terinspirasi dari alam — menggabungkan palet hijau *emerald* dengan aksen kuning keemasan untuk menciptakan nuansa yang hangat, terpercaya, dan bersemangat.
 
 ```
 Warna Primer    : green-600  (#16a34a)
@@ -114,37 +116,51 @@ Teks Sekunder   : gray-600
 ### Prinsip Desain
 
 - **Responsif Total** — Dioptimalkan untuk semua ukuran layar (320px hingga 1920px+)
-- **Mobile-first** — Layout dirancang dari HP terlebih dahulu
-- **Micro-interactions** — Hover, tap, dan scroll effects yang natural
-- **Accessibility** — Kontras warna cukup dan semantic HTML
-- **Performance** — Lazy loading, animasi CSS-first, minimal re-render
+- ***Mobile-first*** — Tata letak dirancang dari perangkat seluler terlebih dahulu
+- ***Micro-interactions*** — Efek *hover*, *tap*, dan *scroll* yang natural
+- **Aksesibilitas** — Kontras warna cukup dan *semantic HTML*
+- ***Performance*** — *Lazy loading*, animasi CSS-*first*, minimal *re-render*
 
 ### Komponen Utama
 
 ```
 src/
 ├── components/
+│   ├── article/
+│   │   ├── ArticleCard.jsx
+│   │   ├── ArticleCategories.jsx
+│   │   ├── ArticleGrid.jsx
+│   │   ├── ArticleHeader.jsx
+│   │   ├── ArticleModal.jsx
+│   │   ├── ArticleSearch.jsx
+│   │   ├── Komposdetail.jsx
+│   │   ├── relatedarticles.jsx
+│   │   ├── sharemodal.jsx
+│   │   └── succesnotification.jsx
 │   ├── Navbar.jsx          # Navigasi fixed dengan dropdown
 │   ├── Footer.jsx          # Footer dengan newsletter
 │   ├── Hero.jsx            # Landing hero dengan orbit animation
 │   ├── Stats.jsx           # Statistik lingkungan
 │   ├── EducationCards.jsx  # Kartu jenis sampah
-│   ├── ArticleHeader.jsx   # Header halaman artikel
-│   ├── ArticleGrid.jsx     # Grid artikel dengan pagination
-│   ├── ArticleModal.jsx    # Modal baca artikel
-│   └── ShareModal.jsx      # Modal share artikel
+│   └── scrolltop.jsx
 ├── pages/
+│   ├── games/
+│   │   ├── pilahsampah.jsx
+│   │   └── tebaksampah.jsx
+│   ├── layanan/
+│   │   ├── banksampah.jsx
+│   │   ├── daerah.jsx
+│   │   ├── edukasi.jsx
+│   │   └── reportform.jsx
 │   ├── Beranda.jsx         # Halaman utama
 │   ├── Tentang.jsx         # Halaman tentang
 │   ├── Layanan.jsx         # Daftar layanan
 │   ├── Artikel.jsx         # Halaman artikel
-│   └── layanan/
-│       ├── Edukasi.jsx
-│       ├── BankSampah.jsx
-│       ├── FormPengajuan.jsx
-│       └── LayananWilayah.jsx
-└── data/
-    └── articles.js         # Data artikel
+│   └── Games.jsx
+├── data/
+│   └── articles.js
+└── utils/
+    └── articleutils.js
 ```
 
 ---
@@ -173,9 +189,9 @@ npm install
 npm run dev
 ```
 
-Buka browser dan akses `http://localhost:5173`
+Buka *browser* dan akses `http://localhost:5173`
 
-### Build untuk Produksi
+### *Build* untuk Produksi
 
 ```bash
 # Build
@@ -208,6 +224,7 @@ pilahpintar/
 │   ├── pages/             # Halaman utama
 │   │   └── layanan/       # Sub-halaman layanan
 │   ├── data/              # Data statis (artikel, dll)
+│   ├── utils/             # Fungsi utilitas
 │   ├── App.jsx            # Root component & routing
 │   ├── main.jsx           # Entry point
 │   └── index.css          # Global styles & Tailwind
@@ -221,11 +238,11 @@ pilahpintar/
 
 ---
 
-## 🌐 Halaman & Routing
+## 🌐 Halaman & *Routing*
 
-| Path | Halaman | Deskripsi |
+| *Path* | Halaman | Deskripsi |
 |------|---------|-----------|
-| `/` | Beranda | Landing page utama |
+| `/` | Beranda | *Landing page* utama |
 | `/tentang` | Tentang | Profil & informasi organisasi |
 | `/layanan` | Layanan | Daftar semua layanan |
 | `/layanan/edukasi` | Edukasi | Detail layanan edukasi |
@@ -233,7 +250,7 @@ pilahpintar/
 | `/layanan/form-pengajuan` | Form Pengaduan | Formulir laporan lingkungan |
 | `/layanan/daerah` | Layanan Wilayah | Sebaran layanan per provinsi |
 | `/artikel` | Artikel | Berita & artikel lingkungan |
-| `/games` | Games | Mini game edukasi |
+| `/games` | *Games* | *Mini game* edukasi |
 
 ---
 
@@ -267,13 +284,13 @@ Data 34 provinsi dan detail kota tersimpan di `src/pages/layanan/LayananWilayah.
 
 Platform ini dioptimalkan untuk:
 
-| Perangkat | Breakpoint | Keterangan |
+| Perangkat | *Breakpoint* | Keterangan |
 |-----------|-----------|------------|
-| HP kecil | `< 375px` | Layout single column |
-| HP standar | `375px–640px` | Grid 2 kolom untuk card |
-| Tablet | `640px–1024px` | Layout medium |
-| Laptop kecil | `1024px–1280px` | Desktop layout compact |
-| Laptop/Desktop | `1280px+` | Layout penuh |
+| Ponsel kecil | `< 375px` | Tata letak satu kolom |
+| Ponsel standar | `375px–640px` | *Grid* 2 kolom untuk *card* |
+| Tablet | `640px–1024px` | Tata letak medium |
+| Laptop kecil | `1024px–1280px` | Tata letak *desktop* *compact* |
+| Laptop/*Desktop* | `1280px+` | Tata letak penuh |
 
 ---
 
@@ -296,7 +313,7 @@ git push origin fitur/nama-fitur
 # 5. Buat Pull Request
 ```
 
-### Konvensi Commit
+### Konvensi *Commit*
 
 ```
 feat:     Fitur baru
@@ -311,7 +328,7 @@ chore:    Update dependensi/konfigurasi
 
 ## 📄 Lisensi
 
-Proyek ini dilisensikan di bawah **MIT License** — lihat file [LICENSE](LICENSE) untuk detail lengkap.
+Proyek ini dilisensikan di bawah **MIT License** — lihat *file* [LICENSE](LICENSE) untuk detail lengkap.
 
 ---
 
@@ -319,16 +336,17 @@ Proyek ini dilisensikan di bawah **MIT License** — lihat file [LICENSE](LICENS
 
 **EcoCare / PilahPintar**
 
-- 🌐 Website: [ecosafezone.netlify.app](#)
-- 📧 Email: nazwadn9@gmail.com
-- 📱 WhatsApp: +62 821-3411-7789
+- 🌐 *Website*: [ecosafezone.netlify.app](#)
+- 📧 *Email*: nazwadn9@gmail.com
+- 📱 *WhatsApp*: +62 821-3411-7789
 
 ---
 
 <div align="center">
 
-Made with 🌍 for a better earth
+Dibuat dengan 🌍 untuk bumi yang lebih baik
 
 **PilahPintar** — *Pilah Sampah, Pintar Lingkungan*
 
 </div>
+```
