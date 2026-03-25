@@ -69,14 +69,14 @@ const BankSampah = () => {
 ]
 
   const keuntungan = [
-    { icon: FaCoins, title: 'Poin Tunai', desc: 'Setor sampah, kumpulkan poin yang bisa dicairkan' },
+    { icon: FaCoins, title: 'Poin Tunai', desc: 'Poin dari setoran bisa dicairkan menjadi saldo tabungan sampah' },
     { icon: FaTrophy, title: 'Kompetisi Bulanan', desc: 'Hadiah menarik untuk nasabah terbaik' },
     { icon: FaUsers, title: 'Komunitas Hijau', desc: 'Bergabung dengan ribuan anggota aktif' },
     { icon: GiRecycle, title: 'Workshop Gratis', desc: 'Edukasi daur ulang setiap bulan' }
   ]
 
   const caraKerja = [
-    { step: 1, title: 'Pilah Sampah', desc: 'Pisahkan organik & anorganik di rumah', icon: FaTrash },
+    { step: 1, title: 'Pilah Sampah', desc: 'Pisahkan plastik, kertas, dan logam sebelum dibawa ke bank sampah', icon: FaTrash },
     { step: 2, title: 'Setor ke Bank', desc: 'Bawa ke cabang terdekat atau jadwalkan jemput', icon: FaTruck },
     { step: 3, title: 'Timbang & Catat', desc: 'Petugas menimbang dan mencatat di buku tabungan', icon: FaBalanceScale },
     { step: 4, title: 'Poin Masuk', desc: 'Poin otomatis masuk rekening sampah Anda', icon: FaCoins }
@@ -86,7 +86,7 @@ const BankSampah = () => {
     {
       nama: 'Ibu Ratna Dewi',
       role: 'Nasabah sejak 2021',
-      text: 'Alhamdulillah, dari setor sampah saya bisa bantu bayar listrik tiap bulan. Lumayan banget!',
+      text: 'Biasanya setor plastik botol tiap minggu, lumayan bisa bantu bayar listrik.',
       rating: 5,
       image: 'https://randomuser.me/api/portraits/women/65.jpg'
     },
@@ -117,7 +117,7 @@ const BankSampah = () => {
     { 
       step: 2, 
       title: 'Bawa KTP Asli', 
-      desc: 'Untuk verifikasi dan registrasi data diri',
+      desc: 'Petugas akan mencatat data KTP untuk pembuatan buku tabungan sampah',
       icon: FaIdCard,
       color: 'from-green-400 to-green-600'
     },
@@ -142,10 +142,9 @@ const BankSampah = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="min-h-screen pt-6 pb-10"
-    >
+      className="min-h-screen pt-6 pb-10">
+
       <div className="container-custom max-w-6xl px-3">
-        {/* Breadcrumb */}
         <div className="flex items-center gap-1 text-xs text-gray-500 mb-3">
           <Link to="/" className="hover:text-green-600">Beranda</Link>
           <span>/</span>
@@ -154,7 +153,6 @@ const BankSampah = () => {
           <span className="text-green-600 font-medium">Bank Sampah</span>
         </div>
 
-        {/* Header */}
         <div className="mb-6">
           <div className="text-center">
             <motion.div
@@ -174,7 +172,6 @@ const BankSampah = () => {
           </div>
         </div>
 
-        {/* Quick Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-6">
           {Object.entries(bankInfo).map(([key, value], idx) => (
             <motion.div
@@ -190,26 +187,29 @@ const BankSampah = () => {
           ))}
         </div>
 
-        {/* Tabs */}
         <div className="flex justify-center gap-1 mb-5 flex-wrap">
-          {['informasi', 'harga', 'lokasi', 'cara'].map((tab) => (
+          {[
+            { key: 'informasi', label: 'Informasi', icon: FaInfoCircle },
+            { key: 'harga', label: 'Harga Sampah', icon: GiMoneyStack },
+            { key: 'lokasi', label: 'Lokasi', icon: FaMapMarkerAlt },
+            { key: 'cara', label: 'Cara Kerja', icon: FaTruck },
+          ].map((tab) => (
             <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`px-3 py-1.5 rounded-full text-xs font-semibold capitalize transition-all
-                        ${activeTab === tab 
-                          ? 'bg-green-600 text-white shadow' 
-                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key)}
+              className={`px-3 py-1.5 rounded-full text-xs font-semibold capitalize transition-all flex items-center gap-1
+              ${
+                activeTab === tab.key
+                  ? 'bg-green-600 text-white shadow'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
             >
-              {tab === 'informasi' && '📋 Informasi'}
-              {tab === 'harga' && '💰 Harga Sampah'}
-              {tab === 'lokasi' && '📍 Lokasi'}
-              {tab === 'cara' && '⚙️ Cara Kerja'}
+              <tab.icon className="text-xs" />
+              {tab.label}
             </button>
           ))}
         </div>
 
-        {/* Informasi Tab */}
         {activeTab === 'informasi' && (
           <div className="space-y-4">
             {/* Keuntungan */}
@@ -234,7 +234,6 @@ const BankSampah = () => {
               </div>
             </div>
 
-            {/* Testimoni */}
             <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4">
               <h2 className="text-base font-bold text-gray-800 mb-3 text-center">Kata Nasabah Kami</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -262,7 +261,6 @@ const BankSampah = () => {
               </div>
             </div>
 
-            {/* Cara Daftar */}
             <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-5 shadow-md border border-green-100">
               <div className="flex items-center gap-2 mb-4 justify-center">
                 <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
@@ -310,19 +308,18 @@ const BankSampah = () => {
                   Pendaftaran 100% gratis — langsung datangi cabang terdekat
                 </p>
                 <a
-  href="https://wa.me/082134117789"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="bg-green-600 text-white px-4 py-1.5 rounded-full text-xs font-semibold shadow hover:bg-green-700 transition inline-flex items-center gap-1"
->
-  <FaWhatsapp className="text-xs" /> Konsultasi via WhatsApp
-</a>
+                  href="https://wa.me/082134117789"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-green-600 text-white px-4 py-1.5 rounded-full text-xs font-semibold shadow hover:bg-green-700 transition inline-flex items-center gap-1"
+                  >
+                  <FaWhatsapp className="text-xs" /> Konsultasi via WhatsApp
+                </a>
               </div>
             </div>
           </div>
         )}
 
-        {/* Harga Tab */}
         {activeTab === 'harga' && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="bg-white rounded-xl shadow-sm overflow-hidden">
             <div className="bg-gradient-to-r from-green-600 to-emerald-600 p-3 text-white">
@@ -357,7 +354,6 @@ const BankSampah = () => {
           </motion.div>
         )}
 
-        {/* Lokasi Tab */}
         {activeTab === 'lokasi' && (
           <div className="space-y-3">
             {lokasi.map((loc, idx) => (
@@ -402,22 +398,22 @@ const BankSampah = () => {
                       >
                         <div className="flex gap-2">
                           <a
-  href={`https://wa.me/${loc.whatsapp.replace(/[^0-9]/g, '')}?text=Halo%20saya%20ingin%20bertanya%20tentang%20Bank%20Sampah`}
-  target="_blank"
-  rel="noopener noreferrer"
-  className="flex-1 bg-green-600 text-white py-1.5 rounded-lg text-[10px] font-semibold hover:bg-green-700 transition text-center"
->
-  Chat WhatsApp
-</a>
-                         <a
-  href={loc.maps}
-  target="_blank"
-  rel="noopener noreferrer"
-  className="flex-1 bg-blue-600 text-white py-1.5 rounded-lg text-[10px] font-semibold hover:bg-blue-700 transition text-center"
->
-  Buka Google Maps
-</a>
-                        </div>
+                            href={`https://wa.me/${loc.whatsapp.replace(/[^0-9]/g, '')}?text=Halo%20saya%20ingin%20bertanya%20tentang%20Bank%20Sampah`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex-1 bg-green-600 text-white py-1.5 rounded-lg text-[10px] font-semibold hover:bg-green-700 transition text-center"
+                            >
+                            Chat WhatsApp
+                          </a>
+                          <a
+                            href={loc.maps}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex-1 bg-blue-600 text-white py-1.5 rounded-lg text-[10px] font-semibold hover:bg-blue-700 transition text-center"
+                            >
+                            Buka Google Maps
+                          </a>
+                          </div>
                       </motion.div>
                     )}
                   </div>
@@ -427,7 +423,6 @@ const BankSampah = () => {
           </div>
         )}
 
-        {/* Cara Kerja Tab */}
         {activeTab === 'cara' && (
           <div className="space-y-4">
             <div className="bg-white rounded-xl shadow-sm p-4">
@@ -504,7 +499,6 @@ const BankSampah = () => {
           </div>
         )}
 
-        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -514,25 +508,23 @@ const BankSampah = () => {
           <p className="text-xs mb-3 opacity-90">Daftar sekarang dan mulai ubah sampah menjadi tabungan bermanfaat</p>
          <div className="flex justify-center gap-2">
 
-  {/* Tombol Daftar Sekarang */}
-  <Link
-    to="/tentang"
-    className="bg-white text-green-600 px-5 py-1.5 rounded-full text-xs font-bold shadow hover:scale-105 transition"
-  >
-    Daftar Sekarang
-  </Link>
+          <Link
+            to="/tentang"
+            className="bg-white text-green-600 px-5 py-1.5 rounded-full text-xs font-bold shadow hover:scale-105 transition"
+          >
+            Daftar Sekarang
+          </Link>
 
-  {/* Tombol Hubungi CS */}
-  <a
-    href="https://wa.me/082134117789"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="border border-white text-white px-5 py-1.5 rounded-full text-xs font-bold hover:bg-white/10 transition flex items-center gap-1"
-  >
-    <FaWhatsapp className="text-xs" /> Hubungi CS
-  </a>
+          <a
+            href="https://wa.me/082134117789"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="border border-white text-white px-5 py-1.5 rounded-full text-xs font-bold hover:bg-white/10 transition flex items-center gap-1"
+          >
+            <FaWhatsapp className="text-xs" /> Hubungi CS
+          </a>
 
-</div>
+        </div>
         </motion.div>
       </div>
     </motion.div>

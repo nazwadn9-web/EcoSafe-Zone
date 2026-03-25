@@ -2,19 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { 
-  FaLeaf, 
-  FaGlobeAsia,
-  FaFacebookF, 
-  FaTwitter, 
-  FaInstagram, 
-  FaYoutube,
-  FaHome,
-  FaInfoCircle,
-  FaServicestack,
-  FaNewspaper,
-  FaMapMarkerAlt,
-  FaEnvelope,
-  FaPhoneAlt
+  FaLeaf,  FaGlobeAsia, FaFacebookF, 
+  FaTwitter,  FaInstagram,  FaYoutube, FaHome,
+  FaInfoCircle, FaServicestack, FaNewspaper,
+  FaMapMarkerAlt, FaEnvelope, FaPhoneAlt
 } from 'react-icons/fa'
 
 const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -44,7 +35,6 @@ const Footer = () => {
 
   return (
     <footer className="relative bg-white border-t border-green-100 pt-16 sm:pt-20 pb-8 sm:pb-10 overflow-hidden">
-      {/* Dekorasi Background */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-green-300 to-transparent" />
         <div className="absolute -top-24 -left-24 w-96 h-96 bg-green-100/30 rounded-full blur-[100px]" />
@@ -53,8 +43,7 @@ const Footer = () => {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12 mb-12 sm:mb-16">
-          
-          {/* 1. Brand Section */}
+
           <div className="space-y-4 sm:space-y-6 text-center sm:text-left">
             <Link to="/" onClick={scrollTop} className="inline-flex items-center gap-2 sm:gap-3 group mx-auto sm:mx-0">
               <motion.div
@@ -71,8 +60,7 @@ const Footer = () => {
             <p className="text-xs sm:text-sm text-gray-600 leading-relaxed max-w-xs mx-auto sm:mx-0">
               Solusi cerdas untuk ekosistem yang lebih sehat. Kami membantu Anda berkontribusi bagi bumi dengan langkah nyata dan berkelanjutan.
             </p>
-            
-            {/* Social Links */}
+ 
             <div className="flex gap-2 sm:gap-3 justify-center sm:justify-start">
               {socialLinks.map((social, i) => (
                 <motion.a
@@ -90,7 +78,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* 2. Quick Links */}
           <div className="text-center sm:text-left">
             <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-4 sm:mb-6 flex items-center gap-2 justify-center sm:justify-start">
               <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-green-500 rounded-full" />
@@ -120,7 +107,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* 3. Kontak */}
           <div className="text-center sm:text-left">
             <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-4 sm:mb-6 flex items-center gap-2 justify-center sm:justify-start">
               <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-green-500 rounded-full" />
@@ -138,7 +124,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* 4. Newsletter */}
           <div className="text-center sm:text-left">
             <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-4 sm:mb-6 flex items-center gap-2 justify-center sm:justify-start">
               <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-green-500 rounded-full" />
@@ -160,7 +145,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom Copyright */}
         <div className="pt-6 sm:pt-8 border-t border-green-100 flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4">
           <div className="text-xs sm:text-sm text-gray-500 order-2 sm:order-1">
             © {currentYear} <span className="text-green-700 font-semibold">EcoCare</span>. All rights reserved.

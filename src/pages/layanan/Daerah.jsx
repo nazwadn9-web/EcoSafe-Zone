@@ -12,7 +12,7 @@ import {
 } from 'react-icons/fa'
 import { GiEarthAmerica } from 'react-icons/gi'
 
-// Data realistis per kota
+
 const detailKota = {
   // DKI Jakarta
   'Jakarta Selatan': {
@@ -174,7 +174,6 @@ const detailKota = {
     sampahBulan: '2,6 Ton',
     jadwalEdukasi: 'Setiap Rabu, 10.00 WIB'
   },
-  // Default untuk kota yang belum ada data spesifik
   'default': {
     alamat: 'Hubungi pusat untuk info alamat cabang',
     whatsapp: '0821-3411-7789',
@@ -189,7 +188,6 @@ const detailKota = {
   }
 }
  
-
 const dataWilayah = {
   'Aceh': {
     provinsi: 'Aceh', ibuKota: 'Banda Aceh',
@@ -310,59 +308,8 @@ const dataWilayah = {
     provinsi: 'Kalimantan Utara', ibuKota: 'Tanjung Selor',
     kota: ['Tarakan'],
     layanan: ['Bank Sampah'], cabang: 1
-  },
-  'Sulawesi Utara': {
-    provinsi: 'Sulawesi Utara', ibuKota: 'Manado',
-    kota: ['Manado', 'Bitung', 'Tomohon', 'Kotamobagu'],
-    layanan: ['Bank Sampah', 'Edukasi'], cabang: 2
-  },
-  'Sulawesi Tengah': {
-    provinsi: 'Sulawesi Tengah', ibuKota: 'Palu',
-    kota: ['Palu'],
-    layanan: ['Bank Sampah'], cabang: 1
-  },
-  'Sulawesi Selatan': {
-    provinsi: 'Sulawesi Selatan', ibuKota: 'Makassar',
-    kota: ['Makassar', 'Parepare', 'Palopo'],
-    layanan: ['Bank Sampah', 'Edukasi', 'Komunitas'], cabang: 3
-  },
-  'Sulawesi Tenggara': {
-    provinsi: 'Sulawesi Tenggara', ibuKota: 'Kendari',
-    kota: ['Kendari', 'Baubau'],
-    layanan: ['Bank Sampah'], cabang: 1
-  },
-  'Gorontalo': {
-    provinsi: 'Gorontalo', ibuKota: 'Gorontalo',
-    kota: ['Gorontalo'],
-    layanan: ['Bank Sampah'], cabang: 1
-  },
-  'Sulawesi Barat': {
-    provinsi: 'Sulawesi Barat', ibuKota: 'Mamuju',
-    kota: ['Mamuju'],
-    layanan: ['Bank Sampah'], cabang: 1
-  },
-  'Maluku': {
-    provinsi: 'Maluku', ibuKota: 'Ambon',
-    kota: ['Ambon', 'Tual'],
-    layanan: ['Bank Sampah'], cabang: 1
-  },
-  'Maluku Utara': {
-    provinsi: 'Maluku Utara', ibuKota: 'Sofifi',
-    kota: ['Ternate', 'Tidore Kepulauan'],
-    layanan: ['Bank Sampah'], cabang: 1
-  },
-  'Papua': {
-    provinsi: 'Papua', ibuKota: 'Jayapura',
-    kota: ['Jayapura'],
-    layanan: ['Bank Sampah'], cabang: 1
-  },
-  'Papua Barat': {
-    provinsi: 'Papua Barat', ibuKota: 'Manokwari',
-    kota: ['Manokwari'],
-    layanan: ['Bank Sampah'], cabang: 1
   }
 }
-
 const layananColors = {
   'Bank Sampah': 'bg-green-100 text-green-700',
   'Edukasi': 'bg-blue-100 text-blue-700',
@@ -435,7 +382,6 @@ const LayananWilayah = () => {
           )}
         </div>
 
-        {/* Header */}
         <div className="mb-5 text-center">
           <motion.div
             initial={{ scale: 0 }}
@@ -449,11 +395,10 @@ const LayananWilayah = () => {
             Layanan <span className="text-green-600">Wilayah</span>
           </h1>
           <p className="text-sm text-gray-500 max-w-xl mx-auto">
-            Temukan cabang dan layanan PilahPintar di 34 provinsi seluruh Indonesia
+            Temukan cabang dan layanan PilahPintar di 24 provinsi seluruh Indonesia
           </p>
         </div>
 
-        {/* Search — hanya di halaman daftar */}
         {!showDetail && (
           <div className="relative mb-5 max-w-md mx-auto">
             <input
@@ -550,7 +495,6 @@ const LayananWilayah = () => {
                 </div>
               </div>
 
-              {/* Statistik Provinsi */}
               <div className="grid grid-cols-3 gap-2">
                 <div className="bg-white rounded-xl p-3 text-center shadow-sm">
                   <div className="text-lg font-bold text-green-600">{selectedProvinsi.kota.length}</div>
@@ -566,7 +510,6 @@ const LayananWilayah = () => {
                 </div>
               </div>
 
-              {/* Layanan Tersedia */}
               <div className="bg-white rounded-xl shadow-sm p-4">
                 <h3 className="text-sm font-bold text-gray-800 mb-3">Layanan di Provinsi Ini</h3>
                 <div className="flex flex-wrap gap-2">
@@ -586,7 +529,6 @@ const LayananWilayah = () => {
                 </p>
               </div>
 
-              {/* Pilih Kota */}
               <div className="bg-white rounded-xl shadow-sm p-4">
                 <h3 className="text-sm font-bold text-gray-800 mb-3">Pilih Kota / Kabupaten</h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
@@ -640,7 +582,6 @@ const LayananWilayah = () => {
                           <span className="ml-auto text-[9px] bg-green-600 text-white px-2 py-0.5 rounded-full">● Aktif</span>
                         </div>
 
-                        {/* Statistik Kota */}
                         {detail.nasabah && (
                           <div className="grid grid-cols-3 gap-2 mb-3">
                             <div className="bg-white rounded-lg p-2 text-center">
@@ -658,7 +599,6 @@ const LayananWilayah = () => {
                           </div>
                         )}
 
-                        {/* Layanan aktif di kota ini */}
                         <div className="flex flex-wrap gap-1 mb-3">
                           {detail.layananAktif.map((l, i) => {
                             const Icon = layananIcons[l] || FaMapMarkerAlt
@@ -670,7 +610,6 @@ const LayananWilayah = () => {
                           })}
                         </div>
 
-                        {/* Info kontak — tanpa telepon */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-[10px] text-gray-600">
                           <div className="bg-white rounded-lg p-2.5 space-y-1.5">
                             <p className="flex items-start gap-1.5">
@@ -700,7 +639,6 @@ const LayananWilayah = () => {
                           </div>
                         </div>
 
-                        {/* Tombol Aksi — tanpa tombol telepon */}
                         <div className="flex gap-2 mt-3">
                           <a
                             href={`https://wa.me/${detail.waNumber}`}
@@ -730,7 +668,6 @@ const LayananWilayah = () => {
           )}
         </AnimatePresence>
 
-        {/* Info Box */}
         <div className="mt-6 bg-blue-50 rounded-xl p-3 flex items-start gap-2">
           <FaInfoCircle className="text-blue-500 text-xs mt-0.5 flex-shrink-0" />
           <p className="text-[10px] text-blue-700">

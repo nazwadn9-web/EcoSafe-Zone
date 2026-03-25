@@ -1,18 +1,10 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
-  FaApple, 
-  FaBatteryFull, 
-  FaRecycle, 
-  FaLeaf, 
-  FaNewspaper, 
-  FaLightbulb, 
-  FaClock,
-  FaTrophy, 
-  FaRedo, 
-  FaArrowLeft
+  FaApple,  FaBatteryFull,  FaRecycle,  FaLeaf, 
+  FaNewspaper,  FaLightbulb,  FaClock, FaTrophy, 
+  FaRedo,  FaArrowLeft
 } from 'react-icons/fa'
-
 import { 
   GiSkullCrossedBones, 
   GiGlassCelebration, 
@@ -201,7 +193,6 @@ const PilahSampah = () => {
             </div>
           </div>
 
-          {/* Bins - Lebih kecil */}
           <div className="grid grid-cols-3 gap-1.5 sm:gap-2 mb-3 sm:mb-4">
             {bins.map((bin) => {
               const Icon = bin.icon
@@ -225,7 +216,6 @@ const PilahSampah = () => {
             })}
           </div>
 
-          {/* Message & Reset */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -252,7 +242,6 @@ const PilahSampah = () => {
             </motion.button>
           </motion.div>
 
-          {/* Game Rules - Minimalis */}
           <div className="mt-2 sm:mt-3 bg-blue-50 rounded-lg p-2 border border-blue-200">
             <h4 className="font-bold text-blue-800 text-[10px] sm:text-xs mb-0.5">📋 Aturan:</h4>
             <div className="text-blue-700 text-[8px] sm:text-[10px] leading-tight">

@@ -2,16 +2,9 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { 
-  FaGamepad, 
-  FaTrash, 
-  FaBrain, 
-  FaRecycle, 
-  FaStar, 
-  FaClock, 
-  FaTrophy, 
-  FaArrowLeft,
-  FaLeaf,
-  FaUsers
+  FaGamepad,  FaTrash,  FaBrain,  FaRecycle, 
+  FaStar,  FaClock,  FaTrophy,  FaArrowLeft,
+  FaLeaf, FaUsers
 } from 'react-icons/fa'
 import { 
   GiRecycle, 
@@ -127,7 +120,6 @@ const Games = () => {
           </p>
         </div>
 
-        {/* Game Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-7xl mx-auto">
           {games.map((game, index) => {
             const Icon = game.icon
@@ -142,7 +134,7 @@ const Games = () => {
                 whileHover={{ y: -5 }}
                 className="relative h-full"
               >
-                {/* Coming Soon Badge */}
+
                 {isComingSoon && (
                   <div className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 z-10">
                     <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white 
@@ -153,34 +145,29 @@ const Games = () => {
                   </div>
                 )}
 
-                {/* Card */}
                 <Link to={game.path} className="block h-full">
                   <div className={`bg-white rounded-2xl sm:rounded-3xl shadow-lg hover:shadow-xl 
                                   overflow-hidden transition-all duration-300 h-full
                                   ${isComingSoon ? 'opacity-75' : ''}`}>
-                    
-                    {/* Card Header with Gradient */}
+
                     <div className={`h-32 sm:h-36 md:h-40 lg:h-48 bg-gradient-to-br ${game.color} p-3 sm:p-4 md:p-5 lg:p-6 relative overflow-hidden`}>
                       {/* Background Pattern */}
                       <div className="absolute inset-0 opacity-10">
                         <div className="absolute -right-10 -top-10 w-20 sm:w-40 h-20 sm:h-40 bg-white rounded-full"></div>
                         <div className="absolute -left-10 -bottom-10 w-20 sm:w-40 h-20 sm:h-40 bg-white rounded-full"></div>
                       </div>
-                      
-                      {/* Icon */}
+
                       <div className="relative z-10">
                         <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 
                                       bg-white/20 backdrop-blur-sm rounded-lg sm:rounded-xl lg:rounded-2xl 
                                       flex items-center justify-center mb-2 sm:mb-3 lg:mb-4 border border-white/50">
                           <Icon className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white" />
                         </div>
-                        
-                        {/* Title */}
+
                         <h2 className="text-lg sm:text-xl md:text-2xl lg:text-2xl font-bold text-white mb-1">
                           {game.title}
                         </h2>
-                        
-                        {/* Quick Stats */}
+
                         <div className="flex items-center gap-2 text-white/90 text-[10px] sm:text-xs">
                           <span className="flex items-center gap-0.5">
                             <FaStar className="text-yellow-300 text-[10px] sm:text-xs" /> 
@@ -196,9 +183,7 @@ const Games = () => {
                       </div>
                     </div>
 
-                    {/* Card Body */}
                     <div className="p-3 sm:p-4 md:p-5">
-                      {/* Description */}
                       <p className="text-xs sm:text-sm text-gray-600 mb-3 line-clamp-2">
                         {game.description}
                       </p>
@@ -259,7 +244,6 @@ const Games = () => {
           })}
         </div>
 
-        {/* Info Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
