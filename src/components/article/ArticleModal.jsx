@@ -31,16 +31,6 @@ const ArticleModal = ({ showModal, selectedArticle, closeModal, openShareModal, 
           >
             <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl w-full h-full flex flex-col overflow-hidden">
 
-              {/* Mobile back bar */}
-              <div className="sm:hidden flex items-center px-4 py-3 border-b border-gray-100 flex-shrink-0">
-                <button
-                  onClick={closeModal}
-                  className="flex items-center gap-1.5 text-green-600 font-medium text-sm"
-                >
-                  <FaArrowLeft className="text-xs" /> Kembali
-                </button>
-              </div>
-
               {/* Scrollable body */}
               <div className="flex-1 overflow-y-auto overscroll-contain">
 
@@ -94,10 +84,10 @@ const ArticleHero = ({ article, closeModal, openShareModal }) => {
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
 
-      {/* Close — desktop only */}
+      {/* Close — semua ukuran layar */}
       <button
         onClick={closeModal}
-        className="hidden sm:flex absolute top-4 right-4
+        className="flex absolute top-4 right-4
                    w-9 h-9 sm:w-10 sm:h-10 bg-white/90 backdrop-blur-sm rounded-full
                    items-center justify-center text-gray-700 hover:bg-white
                    transition-colors shadow-lg z-20"
@@ -109,7 +99,7 @@ const ArticleHero = ({ article, closeModal, openShareModal }) => {
       <motion.button
         onClick={(e) => openShareModal(e, article)}
         whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
-        className="absolute top-4 right-16 sm:right-16
+        className="absolute top-4 right-16
                    w-9 h-9 sm:w-10 sm:h-10 bg-green-500 rounded-full
                    flex items-center justify-center shadow-lg
                    hover:bg-green-600 transition-colors z-20"
