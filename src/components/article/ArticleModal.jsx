@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FaTimes, FaCalendar, FaClock, FaArrowLeft, FaShare, FaTag } from 'react-icons/fa'
+import { FaTimes, FaCalendar, FaClock, FaShare, FaTag } from 'react-icons/fa'
 import { getCategoryIcon, getCategoryColor } from '../../utils/articleUtils'
 import KomposDetail from './KomposDetail'
 import RelatedArticles from './RelatedArticles'
@@ -21,7 +21,7 @@ const ArticleModal = ({ showModal, selectedArticle, closeModal, openShareModal, 
             className="fixed inset-0 bg-black/75 backdrop-blur-sm z-50"
           />
 
-          {/* Modal */}
+          {/* Modal Container */}
           <motion.div
             initial={{ opacity: 0, scale: 0.93, y: 24 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -31,21 +31,22 @@ const ArticleModal = ({ showModal, selectedArticle, closeModal, openShareModal, 
           >
             <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl w-full h-full flex flex-col overflow-hidden">
 
-              {/* Mobile close bar — tampil di HP untuk semua artikel, tersembunyi di desktop */}
-              <div className="sm:hidden flex items-center justify-end px-4 py-3 border-b border-gray-100 flex-shrink-0">
+              {/* Universal Close Bar — Muncul di semua layar agar navigasi konsisten */}
+              <div className="flex items-center justify-end px-4 py-3 border-b border-gray-100 flex-shrink-0 bg-white z-30">
                 <button
                   onClick={closeModal}
-                  className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center
-                             text-gray-600 hover:bg-gray-200 transition-colors"
+                  className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-100 rounded-full flex items-center justify-center
+                             text-gray-600 hover:bg-red-50 hover:text-red-500 transition-all shadow-sm"
+                  title="Tutup"
                 >
-                  <FaTimes className="text-sm" />
+                  <FaTimes className="text-sm sm:text-base" />
                 </button>
               </div>
 
               {/* Scrollable body */}
               <div className="flex-1 overflow-y-auto overscroll-contain">
 
-                {/* Hero — for non-kompos articles */}
+                {/* Hero Section — Hanya untuk artikel selain ID 2 (Kompos) */}
                 {selectedArticle.id !== 2 && (
                   <ArticleHero
                     article={selectedArticle}
@@ -54,22 +55,29 @@ const ArticleModal = ({ showModal, selectedArticle, closeModal, openShareModal, 
                   />
                 )}
 
-                {/* Content */}
+                {/* Content Area */}
                 <div className="px-4 sm:px-6 md:px-8 lg:px-10 py-6 sm:py-8">
                   <div className="max-w-3xl mx-auto">
                     {selectedArticle.id === 2 ? (
+                      /* Tampilan Khusus Panduan Kompos */
                       <KomposDetail article={selectedArticle} onClose={closeModal} />
                     ) : (
+                      /* Tampilan Artikel Standar */
                       <ArticleContent article={selectedArticle} />
                     )}
-                    <RelatedArticles
-                      articles={articles}
-                      relatedIds={selectedArticle.relatedArticles}
-                      openArticle={(article) => {
-                        closeModal()
-                        setTimeout(() => openShareModal && null, 300)
-                      }}
-                    />
+
+                    {/* Footer Content: Related Articles */}
+                    <div className="mt-12">
+                       <RelatedArticles
+                        articles={articles}
+                        relatedIds={selectedArticle.relatedArticles}
+                        openArticle={(article) => {
+                          closeModal()
+                          // Delay sedikit agar animasi modal tutup selesai sebelum buka yang baru
+                          setTimeout(() => { /* Logika buka artikel baru jika diperlukan */ }, 300)
+                        }}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -81,8 +89,8 @@ const ArticleModal = ({ showModal, selectedArticle, closeModal, openShareModal, 
   )
 }
 
-/* ── Hero Image ── */
-const ArticleHero = ({ article, closeModal, openShareModal }) => {
+/* ── Sub-Component: Hero Image ── */
+const ArticleHero = ({ article, openShareModal }) => {
   const CategoryIcon = getCategoryIcon(article.category)
   const catColor = getCategoryColor(article.category)
 
@@ -95,30 +103,18 @@ const ArticleHero = ({ article, closeModal, openShareModal }) => {
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
 
-      {/* Close — desktop only, hidden on mobile (mobile pakai bar di atas) */}
-      <button
-        onClick={closeModal}
-        className="hidden sm:flex absolute top-4 right-4
-                   w-9 h-9 sm:w-10 sm:h-10 bg-white/90 backdrop-blur-sm rounded-full
-                   items-center justify-center text-gray-700 hover:bg-white
-                   transition-colors shadow-lg z-20"
-      >
-        <FaTimes className="text-sm" />
-      </button>
-
-      {/* Share button — di HP posisi right-4, di desktop right-16 */}
+      {/* Share button */}
       <motion.button
         onClick={(e) => openShareModal(e, article)}
-        whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
-        className="absolute top-4 right-4 sm:right-16
-                   w-9 h-9 sm:w-10 sm:h-10 bg-green-500 rounded-full
-                   flex items-center justify-center shadow-lg
-                   hover:bg-green-600 transition-colors z-20"
+        whileHover={{ scale: 1.05 }} 
+        whileTap={{ scale: 0.95 }}
+        className="absolute top-4 right-4 w-9 h-9 sm:w-10 sm:h-10 bg-green-500 rounded-full
+                   flex items-center justify-center shadow-lg hover:bg-green-600 transition-colors z-20"
       >
         <FaShare className="text-white text-xs sm:text-sm" />
       </motion.button>
 
-      {/* Category */}
+      {/* Category Badge */}
       <div className={`absolute top-4 left-4 ${catColor}
                       px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-semibold
                       flex items-center gap-1 shadow-md z-20`}>
@@ -126,7 +122,7 @@ const ArticleHero = ({ article, closeModal, openShareModal }) => {
         <span>{article.category}</span>
       </div>
 
-      {/* Title + meta */}
+      {/* Title & Metadata */}
       <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 text-white z-10">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-base sm:text-xl md:text-2xl lg:text-3xl font-bold mb-2 sm:mb-3 leading-snug">
@@ -159,7 +155,7 @@ const ArticleHero = ({ article, closeModal, openShareModal }) => {
   )
 }
 
-/* ── Article Content Renderer ── */
+/* ── Sub-Component: Article Content Renderer ── */
 const ArticleContent = ({ article }) => {
   const renderContent = () => {
     if (!article.fullDescription) return null
@@ -222,7 +218,7 @@ const ArticleContent = ({ article }) => {
     <>
       <div className="prose max-w-none">{renderContent()}</div>
 
-      {/* Tags */}
+      {/* Tags Section */}
       <div className="mt-8 pt-5 border-t border-gray-100">
         <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-1.5">
           <FaTag className="text-green-500 text-xs" /> Topik Terkait
