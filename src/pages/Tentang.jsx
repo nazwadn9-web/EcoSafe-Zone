@@ -351,7 +351,7 @@ const Tentang = () => {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
           {[
-            { icon: FaLeaf, title: 'Edukasi', desc: 'Memberikan pemahaman yang benar tentang lingkungan melalui program edukasi berkelanjutan', color: 'from-green-400 to-green-600', delay: 0.1 },
+            { icon: FaLeaf, title: 'Edukasi', desc: 'Memberikan pemahaman yang benar tentang lingkungan melalui program edukasi', color: 'from-green-400 to-green-600', delay: 0.1 },
             { icon: FaHeart, title: 'Kepedulian', desc: 'Membangun rasa cinta dan kepedulian terhadap alam sekitar', color: 'from-red-400 to-pink-500', delay: 0.2 },
             { icon: FaHands, title: 'Kolaborasi', desc: 'Bekerja sama dengan berbagai pihak untuk dampak yang lebih besar', color: 'from-blue-400 to-blue-600', delay: 0.3 },
           ].map((item, index) => (
