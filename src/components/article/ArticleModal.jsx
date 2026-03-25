@@ -31,6 +31,17 @@ const ArticleModal = ({ showModal, selectedArticle, closeModal, openShareModal, 
           >
             <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl w-full h-full flex flex-col overflow-hidden">
 
+              {/* Mobile close bar — tampil di HP untuk semua artikel, tersembunyi di desktop */}
+              <div className="sm:hidden flex items-center justify-end px-4 py-3 border-b border-gray-100 flex-shrink-0">
+                <button
+                  onClick={closeModal}
+                  className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center
+                             text-gray-600 hover:bg-gray-200 transition-colors"
+                >
+                  <FaTimes className="text-sm" />
+                </button>
+              </div>
+
               {/* Scrollable body */}
               <div className="flex-1 overflow-y-auto overscroll-contain">
 
@@ -84,7 +95,7 @@ const ArticleHero = ({ article, closeModal, openShareModal }) => {
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
 
-      {/* Close — desktop only, hidden on mobile */}
+      {/* Close — desktop only, hidden on mobile (mobile pakai bar di atas) */}
       <button
         onClick={closeModal}
         className="hidden sm:flex absolute top-4 right-4
@@ -95,7 +106,7 @@ const ArticleHero = ({ article, closeModal, openShareModal }) => {
         <FaTimes className="text-sm" />
       </button>
 
-      {/* Share button — di HP posisi right-4, di desktop right-16 (geser kiri karena ada tombol X) */}
+      {/* Share button — di HP posisi right-4, di desktop right-16 */}
       <motion.button
         onClick={(e) => openShareModal(e, article)}
         whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
