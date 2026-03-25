@@ -120,7 +120,6 @@ const TebakSampah = () => {
     >
       <div className="w-full max-w-2xl mx-auto px-4 sm:px-6">
 
-        {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <Link to="/games" className="flex items-center gap-2 text-sm text-green-600 hover:text-green-700 font-medium transition-colors">
             <FaArrowLeft className="text-xs" /> Kembali
@@ -148,7 +147,7 @@ const TebakSampah = () => {
             exit={{ opacity: 0, x: -30 }}
             className="bg-white rounded-2xl shadow-xl p-5 sm:p-6 md:p-8"
           >
-            {/* Progress header */}
+
             <div className="flex justify-between items-center mb-4">
               <span className="text-sm text-gray-500">
                 Pertanyaan {currentQuestion + 1} / {questions.length}
@@ -162,7 +161,6 @@ const TebakSampah = () => {
               </span>
             </div>
 
-            {/* Progress Bar */}
             <div className="w-full h-2.5 bg-gray-100 rounded-full mb-6">
               <div
                 className="h-2.5 bg-green-500 rounded-full transition-all duration-300"
@@ -170,7 +168,6 @@ const TebakSampah = () => {
               />
             </div>
 
-            {/* Question */}
             <div className="text-center mb-6">
               <div className="w-28 h-28 sm:w-32 sm:h-32 mx-auto mb-4 bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl flex items-center justify-center shadow-md">
                 {questions[currentQuestion].image}
@@ -181,7 +178,6 @@ const TebakSampah = () => {
               <p className="text-sm text-gray-500">Termasuk sampah jenis apa?</p>
             </div>
 
-            {/* Options */}
             <div className="grid gap-3 mb-6">
               {questions[currentQuestion].options.map((option, index) => {
                 const colors = {
@@ -214,7 +210,6 @@ const TebakSampah = () => {
               })}
             </div>
 
-            {/* Feedback */}
             <AnimatePresence>
               {feedback && (
                 <motion.div
@@ -233,7 +228,7 @@ const TebakSampah = () => {
             </AnimatePresence>
           </motion.div>
         ) : (
-          /* Result Screen */
+
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}

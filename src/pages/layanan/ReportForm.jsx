@@ -2,26 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
-  FaExclamationTriangle, 
-  FaLeaf, 
-  FaPen, 
-  FaUser, 
-  FaMapMarkerAlt, 
-  FaPhone,
-  FaCheckCircle,
-  FaSmile,
-  FaStar,
-  FaHandsHelping,
-  FaRecycle,
-  FaTree,
-  FaClock,
-  FaShieldAlt,
-  FaCamera,
-  FaTimes,
-  FaExclamationCircle,
-  FaTicketAlt,
-  FaFileAlt,
-  FaChevronRight
+  FaExclamationTriangle, FaLeaf, FaPen, FaUser, 
+  FaMapMarkerAlt, FaPhone,FaCheckCircle,FaSmile,
+  FaStar, FaHandsHelping, FaRecycle, FaTree, FaClock,
+  FaShieldAlt, FaCamera, FaTimes, FaExclamationCircle,
+  FaTicketAlt, FaFileAlt, FaChevronRight
 } from 'react-icons/fa'
 import { MdEmail, MdDescription } from 'react-icons/md'
 import { GiEarthAmerica } from 'react-icons/gi'
@@ -143,13 +128,11 @@ const ReportForm = () => {
 
   return (
     <section className="relative pt-6 pb-20 overflow-hidden">
-      {/* Background blobs */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-20 left-10 w-64 h-64 bg-green-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-emerald-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse delay-1000"></div>
       </div>
 
-      {/* Confetti celebration */}
       <AnimatePresence>
         {showCelebration && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
@@ -172,7 +155,6 @@ const ReportForm = () => {
         )}
       </AnimatePresence>
 
-      {/* ===== CONFIRM MODAL ===== */}
       <AnimatePresence>
         {showConfirmModal && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
@@ -237,12 +219,10 @@ const ReportForm = () => {
       <div className="container-custom max-w-2xl">
         <AnimatePresence mode="wait">
 
-          {/* ===== FORM (step 0 & 1) ===== */}
           {step < 3 && (
             <motion.div key="form"
               initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30 }}>
 
-              {/* Header */}
               <div className="text-center mb-5">
                 <div className="inline-block p-4 bg-gradient-to-br from-red-100 to-orange-100 rounded-full mb-3 shadow-lg">
                   <FaExclamationTriangle className="text-3xl text-red-600" />
@@ -253,7 +233,6 @@ const ReportForm = () => {
                 <p className="text-sm text-gray-500">Pencemaran dan/atau Perusakan Lingkungan Hidup</p>
               </div>
 
-              {/* Progress Steps */}
               <div className="flex items-center justify-center mb-5">
                 {STEPS.map((s, i) => (
                   <React.Fragment key={i}>
@@ -273,7 +252,6 @@ const ReportForm = () => {
                 ))}
               </div>
 
-              {/* Quote */}
               <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-600 p-3 rounded-r-lg mb-5">
                 <p className="text-green-800 font-medium flex items-center gap-2 text-xs md:text-sm">
                   <FaLeaf className="text-green-600 animate-pulse flex-shrink-0" />
@@ -281,10 +259,7 @@ const ReportForm = () => {
                 </p>
               </div>
 
-              {/* Form Card */}
               <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
-
-                {/* STEP 0 — Data Diri */}
                 {step === 0 && (
                   <motion.div key="step0" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-4">
                     <h3 className="text-sm font-bold text-gray-700 mb-3 flex items-center gap-2">
@@ -313,14 +288,12 @@ const ReportForm = () => {
                   </motion.div>
                 )}
 
-                {/* STEP 1 — Detail Laporan */}
                 {step === 1 && (
                   <motion.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-4">
                     <h3 className="text-sm font-bold text-gray-700 mb-3 flex items-center gap-2">
                       <MdDescription className="text-green-600" /> Detail Laporan
                     </h3>
 
-                    {/* Jenis Pengaduan */}
                     <div>
                       <label className="block text-gray-700 font-semibold mb-1.5 text-sm">Jenis Pengaduan</label>
                       <select name="type" value={formData.type} onChange={handleChange}
@@ -332,7 +305,6 @@ const ReportForm = () => {
                       </select>
                     </div>
 
-                    {/* Tingkat Urgensi */}
                     <div>
                       <label className="block text-gray-700 font-semibold mb-1.5 text-sm">Tingkat Urgensi</label>
                       <div className="grid grid-cols-3 gap-2">
@@ -347,7 +319,6 @@ const ReportForm = () => {
                       </div>
                     </div>
 
-                    {/* Lokasi */}
                     <div>
                       <label className="block text-gray-700 font-semibold mb-1.5 text-sm flex items-center gap-1.5">
                         <FaMapMarkerAlt className="text-green-600 text-xs" /> Lokasi Kejadian
@@ -359,7 +330,6 @@ const ReportForm = () => {
                       {errors.location && <p className="text-red-500 text-xs mt-1 flex items-center gap-1"><FaExclamationCircle className="text-[10px]" /> {errors.location}</p>}
                     </div>
 
-                    {/* Deskripsi */}
                     <div>
                       <label className="block text-gray-700 font-semibold mb-1.5 text-sm flex items-center gap-1.5">
                         <MdDescription className="text-green-600" /> Deskripsi Kejadian
@@ -378,7 +348,6 @@ const ReportForm = () => {
                       </div>
                     </div>
 
-                    {/* Upload Foto */}
                     <div>
                       <label className="block text-gray-700 font-semibold mb-1.5 text-sm flex items-center gap-1.5">
                         <FaCamera className="text-green-600 text-xs" /> Foto Bukti
@@ -420,7 +389,6 @@ const ReportForm = () => {
                 </div>
               </div>
 
-              {/* Info cards */}
               <div className="grid grid-cols-3 gap-3 mt-5">
                 {[
                   { icon: FaClock, title: 'Respon Cepat', desc: 'Maks. 1×24 jam' },
@@ -437,7 +405,6 @@ const ReportForm = () => {
             </motion.div>
           )}
 
-          {/* ===== SUCCESS ===== */}
           {step === 3 && (
             <motion.div key="success"
               initial={{ opacity: 0, scale: 0.85, y: 40 }} animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -470,7 +437,6 @@ const ReportForm = () => {
                   Terima kasih, <span className="font-bold text-yellow-300">{formData.name || 'Sahabat Lingkungan'}</span>!
                 </motion.p>
 
-                {/* Nomor Tiket */}
                 <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.5 }}
                   className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 mb-5 max-w-xs mx-auto border border-white/30">
                   <div className="flex items-center justify-center gap-2 mb-1">

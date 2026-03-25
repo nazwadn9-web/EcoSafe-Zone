@@ -148,7 +148,7 @@ const Edukasi = () => {
   {
     q: 'Apakah program edukasi EcoSafe Zone berbayar?',
     a: [
-      'Program Edukasi SD dan Edukasi Masyarakat disediakan secara GRATIS sebagai bagian dari program pengabdian lingkungan.',
+      'Program Edukasi SD dan masyarakat tersedia gratis karena bagian dari program sosial EcoSafe Zone.',
       'Program Edukasi SMP/SMA dan Pelatihan Guru dikenakan biaya operasional yang sangat terjangkau.',
       'Biaya digunakan untuk modul pembelajaran, alat praktik, serta operasional tim edukator.'
     ]
@@ -181,8 +181,8 @@ const Edukasi = () => {
 ]
 
   const stats = [
-    { icon: FaUsers, label: 'Peserta', value: '5.200+' },
-    { icon: FaSchool, label: 'Sekolah', value: '127' },
+    { icon: FaUsers, label: 'Peserta', value: '150+' },
+    { icon: FaSchool, label: 'Sekolah', value: '12 sekolah mitra' },
     { icon: FaChalkboardTeacher, label: 'Pengajar', value: '28' },
     { icon: FaCalendarAlt, label: 'Program', value: '245' }
   ]
@@ -203,7 +203,6 @@ const Edukasi = () => {
       className="min-h-screen bg-gradient-to-b from-white via-green-50/20 to-white pt-6 pb-12"
     >
       <div className="container-custom max-w-6xl mx-auto px-4">
-        {/* Breadcrumb */}
         <nav className="flex items-center gap-1 text-xs text-gray-500 mb-4">
           <Link to="/" className="hover:text-green-600 transition-colors">Beranda</Link>
           <span>/</span>
@@ -212,7 +211,6 @@ const Edukasi = () => {
           <span className="text-green-600 font-medium">Edukasi</span>
         </nav>
 
-        {/* Header */}
         <div className="mb-8">
           <div className="text-center">
             <motion.div
@@ -233,7 +231,6 @@ const Edukasi = () => {
           </div>
         </div>
 
-        {/* Quick Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
           {stats.map((stat, idx) => (
             <motion.div
@@ -250,7 +247,6 @@ const Edukasi = () => {
           ))}
         </div>
 
-        {/* Tabs */}
         <div className="flex justify-center gap-2 mb-6">
           {[
             { id: 'program', label: ' Program', icon: FaBook },
@@ -271,7 +267,6 @@ const Edukasi = () => {
           ))}
         </div>
 
-        {/* Program Tab */}
         <AnimatePresence mode="wait">
           {activeTab === 'program' && (
             <motion.div
@@ -296,7 +291,6 @@ const Edukasi = () => {
                   >
                     <div className="p-4">
                       <div className="flex flex-col sm:flex-row gap-4">
-                        {/* Image */}
                         <div className="sm:w-32 md:w-40 flex-shrink-0">
                           <div className="relative h-24 sm:h-full rounded-lg overflow-hidden">
                             <img 
@@ -308,7 +302,6 @@ const Edukasi = () => {
                           </div>
                         </div>
 
-                        {/* Content */}
                         <div className="flex-1">
                           <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
                             <div className="flex items-center gap-2">
@@ -360,18 +353,17 @@ const Edukasi = () => {
                               {isExpanded ? <FaChevronUp className="text-[10px]" /> : <FaChevronDown className="text-[10px]" />}
                             </button>
                             <a
-  href="https://wa.me/082134117789?text=Halo%20saya%20tertarik%20dengan%20program%20edukasi%20EcoSafe%20Zone"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="w-9 h-9 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
->
-  <FaWhatsapp className="text-sm" />
-</a>
+                              href="https://wa.me/082134117789?text=Halo%20saya%20tertarik%20dengan%20program%20edukasi%20EcoSafe%20Zone"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="w-9 h-9 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
+                            >
+                              <FaWhatsapp className="text-sm" />
+                            </a>
                           </div>
                         </div>
                       </div>
 
-                      {/* Expanded Details */}
                       <AnimatePresence>
                         {isExpanded && (
                           <motion.div
@@ -430,7 +422,6 @@ const Edukasi = () => {
             </motion.div>
           )}
 
-          {/* Testimonial Tab */}
           {activeTab === 'testimonial' && (
             <motion.div
               key="testimonial"
@@ -474,7 +465,6 @@ const Edukasi = () => {
             </motion.div>
           )}
 
-          {/* FAQ Tab */}
           {activeTab === 'faq' && (
             <motion.div
               key="faq"
@@ -523,7 +513,6 @@ const Edukasi = () => {
           )}
         </AnimatePresence>
 
-        {/* Fasilitas */}
         <div className="mt-10">
           <h2 className="text-base font-bold text-gray-800 text-center mb-4">
             Fasilitas yang Didapatkan
@@ -547,31 +536,30 @@ const Edukasi = () => {
           </div>
         </div>
 
-        {/* CTA Section */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
           className="mt-10 bg-gradient-to-r from-green-600 to-emerald-600 rounded-xl p-6 text-center text-white"
         >
-          <h2 className="text-base font-bold mb-1">Siap Menjadi Agen Perubahan?</h2>
+          <h2 className="text-base font-bold mb-1">Ayo jadwalkan program edukasi lingkungan di sekolah Anda</h2>
           <p className="text-xs mb-4 opacity-90">Mulai perjalanan edukasi lingkungan Anda bersama kami</p>
           <div className="flex justify-center gap-3">
            <Link
-  to="/tentang"
-  className="bg-white text-green-600 px-5 py-2 rounded-full text-xs font-bold shadow-md hover:shadow-lg hover:scale-105 transition-all"
->
-  Daftar Sekarang
-</Link>
-           <a
-  href="https://wa.me/082134117789"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="border border-white text-white px-5 py-2 rounded-full text-xs font-bold hover:bg-white/10 hover:scale-105 transition-all flex items-center gap-1"
->
-  <FaWhatsapp className="text-xs" />
-  Hubungi Kami
-</a>
+              to="/tentang"
+              className="bg-white text-green-600 px-5 py-2 rounded-full text-xs font-bold shadow-md hover:shadow-lg hover:scale-105 transition-all"
+            >
+              Daftar Sekarang
+            </Link>
+                      <a
+              href="https://wa.me/082134117789"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="border border-white text-white px-5 py-2 rounded-full text-xs font-bold hover:bg-white/10 hover:scale-105 transition-all flex items-center gap-1"
+            >
+              <FaWhatsapp className="text-xs" />
+              Hubungi Kami
+            </a>
           </div>
         </motion.div>
       </div>

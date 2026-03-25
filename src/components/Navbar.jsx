@@ -40,7 +40,6 @@ const Navbar = () => {
     window.scrollTo({ top: 0, behavior: 'instant' })
   }, [location.pathname])
 
-  // Klik di luar dropdown → tutup
   useEffect(() => {
     if (!dropdownOpen) return
     const handleClickOutside = () => setDropdownOpen(false)
@@ -90,7 +89,6 @@ const Navbar = () => {
           <div className="px-2 sm:px-3 md:px-4 lg:px-5">
             <div className="flex justify-between items-center h-12 sm:h-14 md:h-16">
 
-              {/* Logo */}
               <Link to="/" onClick={scrollTop} className="flex items-center gap-1 sm:gap-2 group flex-shrink-0">
                 <motion.div
                   animate={{ rotate: 360 }}
@@ -104,7 +102,6 @@ const Navbar = () => {
                 </span>
               </Link>
 
-              {/* Desktop Menu */}
               <div className="hidden md:flex items-center gap-1 lg:gap-2 xl:gap-3">
                 {navItems.map((item, idx) => {
                   const Icon = item.icon
@@ -191,7 +188,6 @@ const Navbar = () => {
                 })}
               </div>
 
-              {/* Mobile toggle */}
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="md:hidden w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 text-white flex items-center justify-center shadow-md hover:shadow-lg transition-all active:scale-95"
@@ -296,7 +292,6 @@ const Navbar = () => {
         </div>
       </motion.nav>
 
-      {/* Spacer */}
       {!isFullHeroPage && (
         <div className="h-[52px] sm:h-[60px] md:h-[68px] lg:h-[76px]" />
       )}
