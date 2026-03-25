@@ -3,7 +3,6 @@ import { motion } from 'framer-motion'
 import Hero from '../components/Hero'
 import Stats from '../components/Stats'
 import EducationCards from '../components/EducationCards'
-// import ReportForm from '../components/ReportForm' // Aktifkan jika file ini sudah ada
 
 const Beranda = () => {
   return (
@@ -16,12 +15,6 @@ const Beranda = () => {
       <Hero />
       <Stats />
       <EducationCards />
-      
-      {/* WasteGame telah dihapus sesuai commit sebelumnya. 
-        Jika ingin menambah fitur baru, kamu bisa meletakkannya di bawah sini. 
-      */}
-      
-      {/* <ReportForm /> */}
     </motion.div>
   )
 }

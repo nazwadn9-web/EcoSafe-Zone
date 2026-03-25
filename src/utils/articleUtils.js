@@ -1,26 +1,25 @@
-import { 
-  FaLeaf, FaBookOpen, FaSeedling, FaRecycle, FaTree, FaGlobeAsia 
+import {
+  FaLeaf, FaRecycle, FaSeedling, FaBookOpen, FaTree, FaGlobeAsia
 } from 'react-icons/fa'
 
 export const getCategoryIcon = (category) => {
-  switch(category) {
-    case 'Edukasi': return FaBookOpen
-    case 'Tips': return FaLeaf
-    case 'Gaya Hidup': return FaSeedling
-    case 'Kreatif': return FaRecycle
-    case 'Lingkungan': return FaTree
-    default: return FaGlobeAsia
+  const map = {
+    'Tips':       FaLeaf,
+    'Edukasi':    FaBookOpen,
+    'Gaya Hidup': FaSeedling,
+    'Kreatif':    FaRecycle,
+    'Lingkungan': FaTree,
   }
+  return map[category] || FaGlobeAsia
 }
 
-export const formatDate = (date) => {
-  const options = { year: 'numeric', month: 'long', day: 'numeric' }
-  return new Date(date).toLocaleDateString('id-ID', options)
-}
-
-export const calculateReadTime = (text) => {
-  const wordsPerMinute = 200
-  const wordCount = text.split(/\s+/).length
-  const readTime = Math.ceil(wordCount / wordsPerMinute)
-  return `${readTime} menit`
+export const getCategoryColor = (category) => {
+  const map = {
+    'Tips':       'bg-emerald-100 text-emerald-700',
+    'Edukasi':    'bg-blue-100 text-blue-700',
+    'Gaya Hidup': 'bg-teal-100 text-teal-700',
+    'Kreatif':    'bg-orange-100 text-orange-700',
+    'Lingkungan': 'bg-green-100 text-green-700',
+  }
+  return map[category] || 'bg-gray-100 text-gray-700'
 }

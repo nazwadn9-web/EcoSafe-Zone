@@ -12,7 +12,6 @@ import Footer from './components/Footer'
 // Game Pages
 import PilahSampah from './pages/games/PilahSampah'
 import TebakSampah from './pages/games/TebakSampah'
-// import DaurUlang from './pages/games/DaurUlang'
 
 // Layanan Sub-pages
 import Edukasi from './pages/layanan/Edukasi'
@@ -48,7 +47,6 @@ const AnimatedRoutes = () => {
         {/* Individual Game Pages */}
         <Route path="/games/pilah-sampah" element={<PilahSampah />} />
         <Route path="/games/tebak-sampah" element={<TebakSampah />} />
-        {/* <Route path="/games/daur-ulang" element={<DaurUlang />} /> */}
       </Routes>
     </AnimatePresence>
   )
