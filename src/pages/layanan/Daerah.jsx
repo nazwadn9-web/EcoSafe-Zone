@@ -395,7 +395,7 @@ const LayananWilayah = () => {
             Layanan <span className="text-green-600">Wilayah</span>
           </h1>
           <p className="text-sm text-gray-500 max-w-xl mx-auto">
-            Temukan cabang dan layanan PilahPintar di 34 provinsi seluruh Indonesia
+            Temukan cabang dan layanan PilahPintar di 24 provinsi seluruh Indonesia
           </p>
         </div>
 
