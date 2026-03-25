@@ -59,8 +59,8 @@ const Navbar = () => {
       dropdownItems: [
         { path: '/layanan/edukasi', label: 'Edukasi', icon: FaBookOpen },
         { path: '/layanan/bank-sampah', label: 'Bank Sampah', icon: FaRecycle },
-        { path: '/layanan/pengaduan', label: 'Form Pengaduan', icon: FaHandHoldingHeart },
-        { path: '/layanan/wilayah', label: 'Wilayah', icon: FaMapMarkedAlt },
+        { path: '/layanan/form-pengajuan', label: 'Form Pengaduan', icon: FaHandHoldingHeart },
+        { path: '/layanan/daerah', label: 'Daerah', icon: FaMapMarkedAlt },
         { path: '/games', label: 'Games', icon: FaGamepad },
       ]
     },

@@ -295,20 +295,6 @@ const Games = () => {
           </div>
         </motion.div>
 
-        {/* Category Filter */}
-        <div className="flex justify-center gap-2 sm:gap-3 mt-6 sm:mt-8 flex-wrap">
-          {['Semua', 'Pilah Sampah', 'Tebak Sampah', 'Daur Ulang'].map((filter, idx) => (
-            <button
-              key={idx}
-              className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all
-                        ${idx === 0 
-                          ? 'bg-green-600 text-white shadow-md' 
-                          : 'bg-white text-gray-600 hover:bg-green-50 border border-gray-200'}`}
-            >
-              {filter}
-            </button>
-          ))}
-        </div>
       </div>
     </motion.div>
   )

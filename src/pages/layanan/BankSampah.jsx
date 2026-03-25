@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { 
   FaArrowRight, FaRecycle, FaTrash, FaUsers,
-  FaCalendarAlt, FaClock, FaMapMarkerAlt, FaPhone,
+  FaCalendarAlt, FaClock, FaMapMarkerAlt,
   FaEnvelope, FaWhatsapp, FaTrophy, FaStar, 
   FaCoins, FaWallet, FaExchangeAlt, FaBalanceScale, 
   FaTruck, FaBoxOpen, FaCheckCircle, FaInfoCircle,
@@ -36,37 +36,37 @@ const BankSampah = () => {
   ]
 
   const lokasi = [
-    {
-      id: 1,
-      nama: 'Bank Sampah Pusat — Jakarta Selatan',
-      alamat: 'Jl. Raya Pasar Minggu No. 17, Pancoran, Jakarta Selatan',
-      jam: 'Senin–Sabtu, 08.00–16.00 WIB',
-      telepon: '(021) 7884-2210',
-      whatsapp: '0812-9988-7712',
-      fasilitas: ['Timbangan Digital', 'Area Parkir', 'Ruang Edukasi', 'Kantin'],
-      gambar: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=600&auto=format'
-    },
-    {
-      id: 2,
-      nama: 'Bank Sampah Bandung — Cicendo',
-      alamat: 'Jl. Pajajaran No. 82, Cicendo, Kota Bandung',
-      jam: 'Senin–Jumat, 09.00–17.00 WIB',
-      telepon: '(022) 6034-8821',
-      whatsapp: '0821-4433-6678',
-      fasilitas: ['Timbangan Digital', 'Drop Box 24 Jam', 'Komunitas Aktif'],
-      gambar: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778bdf?w=600&auto=format'
-    },
-    {
-      id: 3,
-      nama: 'Bank Sampah Surabaya — Gubeng',
-      alamat: 'Jl. Raya Gubeng No. 33, Gubeng, Kota Surabaya',
-      jam: 'Senin–Sabtu, 08.30–15.30 WIB',
-      telepon: '(031) 5023-9910',
-      whatsapp: '0831-7722-4490',
-      fasilitas: ['Timbangan Digital', 'Area Parkir Luas', 'Kafe Daur Ulang'],
-      gambar: 'https://images.unsplash.com/photo-1528323273322-d81458248d40?w=600&auto=format'
-    }
-  ]
+  {
+    id: 1,
+    nama: 'Bank Sampah Pusat — Jakarta Selatan',
+    alamat: 'Jl. Raya Pasar Minggu No. 17, Pancoran, Jakarta Selatan',
+    maps: 'https://maps.google.com/?q=Jl.+Raya+Pasar+Minggu+No.+17+Jakarta+Selatan',
+    jam: 'Senin–Sabtu, 08.00–16.00 WIB',
+    whatsapp: '0821-3411-7789',
+    fasilitas: ['Timbangan Digital', 'Area Parkir', 'Ruang Edukasi', 'Kantin'],
+    gambar: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=600&auto=format'
+  },
+  {
+    id: 2,
+    nama: 'Bank Sampah Bandung — Cicendo',
+    alamat: 'Jl. Pajajaran No. 82, Cicendo, Kota Bandung',
+    maps: 'https://maps.google.com/?q=Jl.+Pajajaran+No.+82+Bandung',
+    jam: 'Senin–Jumat, 09.00–17.00 WIB',
+    whatsapp: '0858-1146-3202',
+    fasilitas: ['Timbangan Digital', 'Drop Box 24 Jam', 'Komunitas Aktif'],
+    gambar: 'https://images.unsplash.com/photo-1503596476-1c12a8ba09a9?w=600&auto=format&fit=crop&q=80'
+  },
+  {
+    id: 3,
+    nama: 'Bank Sampah Surabaya — Gubeng',
+    alamat: 'Jl. Raya Gubeng No. 33, Gubeng, Kota Surabaya',
+    maps: 'https://maps.google.com/?q=Jl.+Raya+Gubeng+No.+33+Surabaya',
+    jam: 'Senin–Sabtu, 08.30–15.30 WIB',
+    whatsapp: '0821-3411-7789',
+    fasilitas: ['Timbangan Digital', 'Area Parkir Luas', 'Kafe Daur Ulang'],
+    gambar: 'https://images.unsplash.com/photo-1528323273322-d81458248d40?w=600&auto=format'
+  }
+]
 
   const keuntungan = [
     { icon: FaCoins, title: 'Poin Tunai', desc: 'Setor sampah, kumpulkan poin yang bisa dicairkan' },
@@ -309,9 +309,14 @@ const BankSampah = () => {
                   <FaCheckCircle className="inline text-green-500 mr-1 text-xs" />
                   Pendaftaran 100% gratis — langsung datangi cabang terdekat
                 </p>
-                <button className="bg-green-600 text-white px-4 py-1.5 rounded-full text-xs font-semibold shadow hover:bg-green-700 transition inline-flex items-center gap-1">
-                  <FaWhatsapp className="text-xs" /> Konsultasi via WhatsApp
-                </button>
+                <a
+  href="https://wa.me/082134117789"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="bg-green-600 text-white px-4 py-1.5 rounded-full text-xs font-semibold shadow hover:bg-green-700 transition inline-flex items-center gap-1"
+>
+  <FaWhatsapp className="text-xs" /> Konsultasi via WhatsApp
+</a>
               </div>
             </div>
           </div>
@@ -375,7 +380,7 @@ const BankSampah = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-1 text-[10px] text-gray-600 mb-2">
                       <p className="flex items-start gap-1"><FaMapMarkerAlt className="text-green-600 text-[10px] mt-0.5 flex-shrink-0" />{loc.alamat}</p>
                       <p className="flex items-center gap-1"><FaClock className="text-green-600 text-[10px]" />{loc.jam}</p>
-                      <p className="flex items-center gap-1"><FaPhone className="text-green-600 text-[10px]" />{loc.telepon}</p>
+                     
                       <p className="flex items-center gap-1"><FaWhatsapp className="text-green-600 text-[10px]" />{loc.whatsapp}</p>
                     </div>
                     <div className="flex flex-wrap gap-1 mb-2">
@@ -396,12 +401,22 @@ const BankSampah = () => {
                         className="mt-2 pt-2 border-t border-gray-100"
                       >
                         <div className="flex gap-2">
-                          <button className="flex-1 bg-green-600 text-white py-1.5 rounded-lg text-[10px] font-semibold hover:bg-green-700 transition">
-                            Chat WhatsApp
-                          </button>
-                          <button className="flex-1 bg-blue-600 text-white py-1.5 rounded-lg text-[10px] font-semibold hover:bg-blue-700 transition">
-                            Buka Google Maps
-                          </button>
+                          <a
+  href={`https://wa.me/${loc.whatsapp.replace(/[^0-9]/g, '')}?text=Halo%20saya%20ingin%20bertanya%20tentang%20Bank%20Sampah`}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="flex-1 bg-green-600 text-white py-1.5 rounded-lg text-[10px] font-semibold hover:bg-green-700 transition text-center"
+>
+  Chat WhatsApp
+</a>
+                         <a
+  href={loc.maps}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="flex-1 bg-blue-600 text-white py-1.5 rounded-lg text-[10px] font-semibold hover:bg-blue-700 transition text-center"
+>
+  Buka Google Maps
+</a>
                         </div>
                       </motion.div>
                     )}
@@ -497,14 +512,27 @@ const BankSampah = () => {
         >
           <h2 className="text-base font-bold mb-1">Siap Menjadi Nasabah?</h2>
           <p className="text-xs mb-3 opacity-90">Daftar sekarang dan mulai ubah sampah menjadi tabungan bermanfaat</p>
-          <div className="flex justify-center gap-2">
-            <button className="bg-white text-green-600 px-5 py-1.5 rounded-full text-xs font-bold shadow hover:scale-105 transition">
-              Daftar Sekarang
-            </button>
-            <button className="border border-white text-white px-5 py-1.5 rounded-full text-xs font-bold hover:bg-white/10 transition flex items-center gap-1">
-              <FaWhatsapp className="text-xs" /> Hubungi CS
-            </button>
-          </div>
+         <div className="flex justify-center gap-2">
+
+  {/* Tombol Daftar Sekarang */}
+  <Link
+    to="/tentang"
+    className="bg-white text-green-600 px-5 py-1.5 rounded-full text-xs font-bold shadow hover:scale-105 transition"
+  >
+    Daftar Sekarang
+  </Link>
+
+  {/* Tombol Hubungi CS */}
+  <a
+    href="https://wa.me/082134117789"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="border border-white text-white px-5 py-1.5 rounded-full text-xs font-bold hover:bg-white/10 transition flex items-center gap-1"
+  >
+    <FaWhatsapp className="text-xs" /> Hubungi CS
+  </a>
+
+</div>
         </motion.div>
       </div>
     </motion.div>
