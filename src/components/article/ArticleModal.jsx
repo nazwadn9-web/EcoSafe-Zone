@@ -31,13 +31,14 @@ const ArticleModal = ({ showModal, selectedArticle, closeModal, openShareModal, 
           >
             <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl w-full h-full flex flex-col overflow-hidden">
 
-              {/* Mobile back bar */}
-              <div className="sm:hidden flex items-center px-4 py-3 border-b border-gray-100 flex-shrink-0">
+              {/* Mobile close bar — tampil di HP untuk semua artikel, tersembunyi di desktop */}
+              <div className="sm:hidden flex items-center justify-end px-4 py-3 border-b border-gray-100 flex-shrink-0">
                 <button
                   onClick={closeModal}
-                  className="flex items-center gap-1.5 text-green-600 font-medium text-sm"
+                  className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center
+                             text-gray-600 hover:bg-gray-200 transition-colors"
                 >
-                  <FaArrowLeft className="text-xs" /> Kembali
+                  <FaTimes className="text-sm" />
                 </button>
               </div>
 
@@ -94,7 +95,7 @@ const ArticleHero = ({ article, closeModal, openShareModal }) => {
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
 
-      {/* Close — desktop only */}
+      {/* Close — desktop only, hidden on mobile (mobile pakai bar di atas) */}
       <button
         onClick={closeModal}
         className="hidden sm:flex absolute top-4 right-4
@@ -105,11 +106,11 @@ const ArticleHero = ({ article, closeModal, openShareModal }) => {
         <FaTimes className="text-sm" />
       </button>
 
-      {/* Share button */}
+      {/* Share button — di HP posisi right-4, di desktop right-16 */}
       <motion.button
         onClick={(e) => openShareModal(e, article)}
         whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
-        className="absolute top-4 right-16 sm:right-16
+        className="absolute top-4 right-4 sm:right-16
                    w-9 h-9 sm:w-10 sm:h-10 bg-green-500 rounded-full
                    flex items-center justify-center shadow-lg
                    hover:bg-green-600 transition-colors z-20"
