@@ -319,10 +319,9 @@ Proyek ini dilisensikan di bawah **MIT License** — lihat file [LICENSE](LICENS
 
 **EcoCare / PilahPintar**
 
-- 🌐 Website: [pilahpintar.id](#)
-- 📧 Email: info@pilahpintar.id
-- 📱 WhatsApp: +62 812-3456-7890
-- 📍 Alamat: Jl. Hijau Lestari No. 123, Jakarta Selatan
+- 🌐 Website: [ecosafezone.netlify.app](#)
+- 📧 Email: nazwadn9@gmail.com
+- 📱 WhatsApp: +62 821-3411-7789
 
 ---
 

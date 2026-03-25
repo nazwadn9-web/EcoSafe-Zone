@@ -30,16 +30,16 @@ const Footer = () => {
   ]
 
   const socialLinks = [
-    { icon: FaFacebookF, href: '#' },
-    { icon: FaTwitter, href: '#' },
-    { icon: FaInstagram, href: '#' },
-    { icon: FaYoutube, href: '#' },
+    { icon: FaFacebookF, href: 'https://www.facebook.com/profile.php?id=61578554922812', label: 'Facebook' },
+    { icon: FaTwitter, href: 'https://x.com/mucitra61802', label: 'Twitter' },
+    { icon: FaInstagram, href: 'https://www.instagram.com/nasukacheese/', label: 'Instagram' },
+    { icon: FaYoutube, href: 'https://www.youtube.com/@Mecha-y6', label: 'YouTube' },
   ]
 
   const contactInfo = [
-    { icon: FaMapMarkerAlt, text: 'Jl. Hijau Lestari No. 123, Jakarta' },
-    { icon: FaEnvelope, text: 'support@ecocare.id' },
-    { icon: FaPhoneAlt, text: '+62 812 3456 7890' },
+    { icon: FaMapMarkerAlt, text: 'JL. DARUN NAIM, KARANGDUREN TENGARAN KAB. SEMARANG, Karangduren, Kec. Tengaran, Kab. Semarang, Jawa Tengah' },
+    { icon: FaEnvelope, text: 'nazwadn9@gmail.com' },
+    { icon: FaPhoneAlt, text: '085811463202' },
   ]
 
   return (
@@ -78,8 +78,11 @@ const Footer = () => {
                 <motion.a
                   key={i}
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileHover={{ y: -3 }}
                   className="w-8 sm:w-10 h-8 sm:h-10 bg-green-50 rounded-lg sm:rounded-xl flex items-center justify-center text-green-600 hover:bg-gradient-to-r hover:from-green-500 hover:to-emerald-500 hover:text-white transition-all duration-300 border border-green-200"
+                  aria-label={social.label}
                 >
                   <social.icon className="text-xs sm:text-sm" />
                 </motion.a>
@@ -127,7 +130,7 @@ const Footer = () => {
               {contactInfo.map((contact, i) => (
                 <li key={i} className="flex items-start gap-2 sm:gap-3 text-gray-600 justify-center sm:justify-start">
                   <contact.icon className="text-green-600 text-xs sm:text-sm mt-0.5 flex-shrink-0" />
-                  <span className="text-xs sm:text-sm hover:text-gray-900 transition-colors cursor-default">
+                  <span className="text-xs sm:text-sm hover:text-gray-900 transition-colors cursor-default text-left break-words">
                     {contact.text}
                   </span>
                 </li>

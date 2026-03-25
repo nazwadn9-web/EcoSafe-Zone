@@ -4,7 +4,8 @@ import {
   FaLeaf, FaHands, FaHeart, FaTree, FaUsers, FaAward,
   FaHandHoldingHeart, FaEnvelope, FaWhatsapp, FaInstagram,
   FaYoutube, FaMapMarkerAlt, FaPhone, FaClock, FaPlay,
-  FaTimes, FaSync, FaArrowDown, FaCheckCircle, FaBullseye
+  FaTimes, FaSync, FaArrowDown, FaCheckCircle, FaBullseye,
+  FaFacebook, FaTwitter
 } from 'react-icons/fa'
 import { GiEarthAmerica } from 'react-icons/gi'
 
@@ -40,17 +41,16 @@ const Tentang = () => {
   ]
 
   const contactInfo = [
-    { icon: FaMapMarkerAlt, title: 'Alamat', info: 'Jl. Hijau No. 123, Jakarta Selatan' },
-    { icon: FaPhone, title: 'Telepon', info: '(021) 1234-5678' },
-    { icon: FaEnvelope, title: 'Email', info: 'info@ecocare.id' },
+    { icon: FaMapMarkerAlt, title: 'Alamat', info: 'JL. DARUN NAIM, KARANGDUREN TENGARAN KAB. SEMARANG, Karangduren, Kec. Tengaran, Kab. Semarang, Jawa Tengah' },
+    { icon: FaEnvelope, title: 'Email', info: 'nazwadn9a@gmail.com' },
     { icon: FaClock, title: 'Jam Operasional', info: 'Senin - Jumat, 08.00 - 17.00' },
   ]
 
   const socialMedia = [
-    { icon: FaInstagram, name: 'Instagram', color: 'bg-gradient-to-br from-purple-500 to-pink-500', link: 'https://instagram.com/ecocare' },
-    { icon: FaWhatsapp, name: 'WhatsApp', color: 'bg-green-500', link: 'https://wa.me/62123456789' },
-    { icon: FaYoutube, name: 'YouTube', color: 'bg-red-500', link: 'https://youtube.com/ecocare' },
-    { icon: FaUsers, name: 'Komunitas', color: 'bg-blue-500', link: '#komunitas' },
+    { icon: FaInstagram, name: 'Instagram', color: 'bg-gradient-to-br from-purple-500 to-pink-500', link: 'https://www.instagram.com/nasukacheese/' },
+    { icon: FaFacebook, name: 'Facebook', color: 'bg-blue-600', link: 'https://www.facebook.com/profile.php?id=61578554922812' },
+    { icon: FaTwitter, name: 'X / Twitter', color: 'bg-gray-900', link: 'https://x.com/mucitra61802' },
+    { icon: FaYoutube, name: 'YouTube', color: 'bg-red-500', link: 'https://www.youtube.com/@Mecha-y6' },
   ]
 
   const misiItems = [
@@ -239,7 +239,6 @@ const Tentang = () => {
               className="relative group">
               <div className="absolute inset-0 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl translate-x-1.5 translate-y-1.5 group-hover:translate-x-2.5 group-hover:translate-y-2.5 transition-transform duration-300" />
               <div className="relative bg-white rounded-2xl p-5 sm:p-6 md:p-8 border border-green-100 h-full">
-                {/* Card header */}
                 <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-5">
                   <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-md flex-shrink-0">
                     <FaBullseye className="text-white text-xl sm:text-2xl" />
@@ -273,7 +272,6 @@ const Tentang = () => {
               className="relative group">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl translate-x-1.5 translate-y-1.5 group-hover:translate-x-2.5 group-hover:translate-y-2.5 transition-transform duration-300" />
               <div className="relative bg-white rounded-2xl p-5 sm:p-6 md:p-8 border border-blue-100 h-full">
-                {/* Card header */}
                 <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-5">
                   <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-md flex-shrink-0">
                     <FaHands className="text-white text-xl sm:text-2xl" />
@@ -422,6 +420,8 @@ const Tentang = () => {
       {/* CONTACT */}
       <div className="container-custom mb-12 px-4">
         <div className="grid lg:grid-cols-2 gap-4 sm:gap-6">
+
+          {/* Contact Info Card */}
           <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}
             className="bg-white rounded-2xl sm:rounded-[30px] p-4 sm:p-6 shadow-lg hover:shadow-xl transition-all">
             <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-3 sm:mb-4 flex items-center gap-2">
@@ -433,23 +433,23 @@ const Tentang = () => {
                 <motion.div key={idx} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.1 }}
                   className="flex items-start gap-2 sm:gap-3 p-1.5 sm:p-2 rounded-lg hover:bg-green-50 transition-colors">
-                  <div className="w-7 h-7 sm:w-8 sm:h-8 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
                     <item.icon className="text-xs sm:text-sm text-green-600" />
                   </div>
                   <div>
                     <h3 className="text-xs sm:text-sm font-semibold text-gray-700">{item.title}</h3>
-                    <p className="text-[10px] sm:text-xs text-gray-600">{item.info}</p>
+                    <p className="text-[10px] sm:text-xs text-gray-600 break-words">{item.info}</p>
                   </div>
                 </motion.div>
               ))}
             </div>
             <div className="flex gap-2">
-              <motion.a href="https://wa.me/62123456789" target="_blank" rel="noopener noreferrer"
+              <motion.a href="https://wa.me/6285811463202" target="_blank" rel="noopener noreferrer"
                 whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
                 className="flex-1 bg-green-600 text-white py-2 sm:py-2.5 rounded-lg font-semibold text-xs sm:text-sm hover:bg-green-700 transition-all flex items-center justify-center gap-1.5">
                 <FaWhatsapp className="text-sm" /> WhatsApp
               </motion.a>
-              <motion.a href="mailto:info@ecocare.id"
+              <motion.a href="mailto:nazwadn9a@gmail.com"
                 whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
                 className="flex-1 bg-blue-600 text-white py-2 sm:py-2.5 rounded-lg font-semibold text-xs sm:text-sm hover:bg-blue-700 transition-all flex items-center justify-center gap-1.5">
                 <FaEnvelope className="text-sm" /> Email
@@ -457,6 +457,7 @@ const Tentang = () => {
             </div>
           </motion.div>
 
+          {/* Community / Social Card */}
           <motion.div id="komunitas" initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             className="bg-gradient-to-br from-green-600 to-emerald-600 rounded-2xl sm:rounded-[30px] p-4 sm:p-6 shadow-xl text-white relative overflow-hidden scroll-mt-20">
@@ -470,30 +471,36 @@ const Tentang = () => {
               ))}
             </div>
             <div className="relative z-10">
-              <h2 className="text-xl sm:text-2xl font-bold mb-1">Bergabung dengan</h2>
-              <p className="text-2xl sm:text-3xl font-black mb-3 sm:mb-4 text-yellow-300">Komunitas Kami</p>
+              <h2 className="text-xl sm:text-2xl font-bold mb-1">Ikuti Kami di</h2>
+              <p className="text-2xl sm:text-3xl font-black mb-3 sm:mb-4 text-yellow-300">Media Sosial</p>
               <p className="text-white/90 mb-4 text-xs sm:text-sm">
-                Ikuti kami di media sosial untuk mendapatkan update terbaru dan bergabung dengan ribuan relawan lainnya!
+                Ikuti kami untuk mendapatkan update terbaru dan bergabung dengan ribuan relawan lainnya!
               </p>
+
+              {/* Social Media Grid */}
               <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-4 sm:mb-5">
                 {socialMedia.map((social, idx) => (
                   <motion.a key={idx} href={social.link}
-                    target={social.name !== 'Komunitas' ? '_blank' : undefined}
-                    rel={social.name !== 'Komunitas' ? 'noopener noreferrer' : undefined}
+                    target="_blank" rel="noopener noreferrer"
                     whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.97 }}
                     className={`${social.color} p-2 sm:p-3 rounded-lg sm:rounded-xl text-white flex items-center justify-center gap-1.5 shadow-md hover:shadow-lg transition-all text-xs sm:text-sm`}>
-                    <social.icon className="text-sm sm:text-lg" />
-                    <span>{social.name}</span>
+                    <social.icon className="text-sm sm:text-lg flex-shrink-0" />
+                    <span className="truncate">{social.name}</span>
                   </motion.a>
                 ))}
               </div>
-              <motion.button onClick={() => window.open('https://chat.whatsapp.com/ecocare-community', '_blank')}
-                whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
-                className="w-full bg-white text-green-700 py-2 sm:py-3 rounded-lg sm:rounded-xl font-bold text-xs sm:text-sm shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 group">
-                <FaUsers className="group-hover:rotate-12 transition-transform" />
-                Gabung Komunitas
-                <FaHands className="group-hover:translate-x-1 transition-transform" />
-              </motion.button>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col gap-2">
+                {/* Join WhatsApp Community */}
+                <motion.a href="https://wa.me/6285811463202" target="_blank" rel="noopener noreferrer"
+                  whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
+                  className="w-full bg-white text-green-700 py-2 sm:py-3 rounded-lg sm:rounded-xl font-bold text-xs sm:text-sm shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 group">
+                  <FaWhatsapp className="text-green-600 group-hover:rotate-12 transition-transform" />
+                  Gabung Komunitas Kami
+                </motion.a>
+              </div>
+
               <div className="mt-3 sm:mt-4 flex items-center justify-center gap-2 text-white/80 text-[10px] sm:text-xs">
                 <FaUsers className="text-yellow-300" />
                 <span className="font-semibold">5.000+ anggota aktif</span>
