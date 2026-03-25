@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   FaLeaf, FaTint, FaSun, FaBug, FaRecycle, FaClock, FaBoxOpen,
-  FaTimes, FaShare
+  FaShare
 } from 'react-icons/fa'
 import { GiPlantRoots, GiEarthAmerica, GiGrowth } from 'react-icons/gi'
 import ShareModal from './ShareModal'
@@ -12,7 +12,6 @@ const KomposDetail = ({ article, onClose }) => {
   const [showShareModal, setShowShareModal] = useState(false)
 
   const handleShare = (platform, articleData) => {
-    // Share logic akan ditangani oleh ShareModal
     console.log('Sharing to:', platform, articleData)
   }
 
@@ -20,9 +19,8 @@ const KomposDetail = ({ article, onClose }) => {
     <>
       <div className="space-y-6 sm:space-y-8">
 
-        {/* Header dengan tombol close dan share */}
+        {/* Header — hanya tombol share */}
         <div className="flex justify-end gap-2">
-          {/* Share Button */}
           <button
             onClick={() => setShowShareModal(true)}
             className="w-9 h-9 sm:w-10 sm:h-10 bg-white/90 backdrop-blur-sm rounded-full
@@ -31,22 +29,11 @@ const KomposDetail = ({ article, onClose }) => {
           >
             <FaShare className="text-sm" />
           </button>
-
-          {/* Close Button */}
-          <button
-            onClick={onClose}
-            className="w-9 h-9 sm:w-10 sm:h-10 bg-white/90 backdrop-blur-sm rounded-full
-                       flex items-center justify-center text-gray-600
-                       hover:bg-white shadow-lg border border-gray-200 transition-all"
-          >
-            <FaTimes className="text-sm" />
-          </button>
         </div>
 
         {/* Hero Section */}
         <div className="relative bg-gradient-to-br from-green-600 to-emerald-700
                        rounded-2xl sm:rounded-3xl p-5 sm:p-7 text-white overflow-hidden">
-          {/* Background leaves */}
           <div className="absolute inset-0 opacity-[0.06]">
             {[...Array(8)].map((_, i) => (
               <div key={i} className="absolute"
@@ -57,7 +44,6 @@ const KomposDetail = ({ article, onClose }) => {
           </div>
 
           <div className="relative z-10 flex flex-col md:flex-row items-center gap-5 sm:gap-7">
-            {/* Left */}
             <div className="flex-1 text-center md:text-left">
               <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white/20 backdrop-blur-sm rounded-full
                              flex items-center justify-center mx-auto md:mx-0 mb-3">
@@ -71,13 +57,12 @@ const KomposDetail = ({ article, onClose }) => {
               </p>
             </div>
 
-            {/* Stats grid */}
             <div className="flex-1 grid grid-cols-2 gap-2 sm:gap-3">
               {[
-                { icon: GiGrowth, value: '100%', label: 'Organik', color: 'text-yellow-300' },
-                { icon: FaTint,   value: '70%',  label: 'Retensi Air', color: 'text-blue-300' },
-                { icon: FaSun,    value: '+50%', label: 'Nutrisi', color: 'text-yellow-300' },
-                { icon: FaBug,    value: '+80%', label: 'Bioaktivitas', color: 'text-green-300' },
+                { icon: GiGrowth, value: '100%', label: 'Organik',      color: 'text-yellow-300' },
+                { icon: FaTint,   value: '70%',  label: 'Retensi Air',  color: 'text-blue-300'   },
+                { icon: FaSun,    value: '+50%', label: 'Nutrisi',      color: 'text-yellow-300' },
+                { icon: FaBug,    value: '+80%', label: 'Bioaktivitas', color: 'text-green-300'  },
               ].map((s, i) => (
                 <div key={i} className="bg-white/10 backdrop-blur-sm rounded-xl p-3 text-center">
                   <s.icon className={`text-xl sm:text-2xl mx-auto mb-1 ${s.color}`} />
@@ -93,8 +78,8 @@ const KomposDetail = ({ article, onClose }) => {
         <div className="flex flex-wrap gap-2 border-b border-gray-100 pb-3">
           {[
             { id: 'manfaat', label: '🌱 Manfaat' },
-            { id: 'cara', label: '📝 Cara Membuat' },
-            { id: 'tips', label: '💡 Tips' },
+            { id: 'cara',    label: '📝 Cara Membuat' },
+            { id: 'tips',    label: '💡 Tips' },
           ].map(tab => (
             <button
               key={tab.id}
@@ -112,15 +97,13 @@ const KomposDetail = ({ article, onClose }) => {
         {/* Tab content */}
         <AnimatePresence mode="wait">
           {activeTab === 'manfaat' && <ManfaatTab key="manfaat" />}
-          {activeTab === 'cara' && <CaraTab key="cara" />}
-          {activeTab === 'tips' && <TipsTab key="tips" />}
+          {activeTab === 'cara'    && <CaraTab    key="cara"    />}
+          {activeTab === 'tips'    && <TipsTab    key="tips"    />}
         </AnimatePresence>
 
-        {/* Progress visual */}
         <ProgressionVisual />
       </div>
 
-      {/* Share Modal */}
       <ShareModal
         showShareModal={showShareModal}
         selectedArticle={article}
@@ -139,13 +122,13 @@ const ManfaatTab = () => (
     className="grid sm:grid-cols-2 gap-4"
   >
     {[
-      { icon: FaLeaf, title: 'Menyuburkan Tanah', iconBg: 'bg-green-500',
+      { icon: FaLeaf,        title: 'Menyuburkan Tanah',       iconBg: 'bg-green-500',
         text: 'Kompos meningkatkan kandungan bahan organik tanah, memperbaiki struktur tanah, dan meningkatkan kemampuan tanah menyimpan air hingga 70%.' },
-      { icon: GiEarthAmerica, title: 'Nutrisi Lengkap', iconBg: 'bg-blue-500',
+      { icon: GiEarthAmerica, title: 'Nutrisi Lengkap',         iconBg: 'bg-blue-500',
         text: 'Mengandung unsur hara makro (N, P, K) dan mikro yang dibutuhkan tanaman secara lengkap dan seimbang.' },
-      { icon: FaBug, title: 'Aktivitas Mikroorganisme', iconBg: 'bg-yellow-500',
+      { icon: FaBug,         title: 'Aktivitas Mikroorganisme', iconBg: 'bg-yellow-500',
         text: 'Menjadi makanan bagi mikroorganisme tanah yang membantu proses dekomposisi dan menyuburkan tanah.' },
-      { icon: FaRecycle, title: 'Ramah Lingkungan', iconBg: 'bg-purple-500',
+      { icon: FaRecycle,     title: 'Ramah Lingkungan',         iconBg: 'bg-purple-500',
         text: 'Mengurangi ketergantungan pada pupuk kimia yang dapat merusak lingkungan dalam jangka panjang.' },
     ].map((item, i) => (
       <motion.div
@@ -175,11 +158,11 @@ const CaraTab = () => (
     className="space-y-3"
   >
     {[
-      { step: 1, title: 'Siapkan Wadah', desc: 'Siapkan wadah atau lubang di tanah dengan ukuran yang sesuai', icon: FaBoxOpen },
-      { step: 2, title: 'Masukkan Bahan', desc: 'Masukkan sampah organik bergantian dengan tanah', icon: FaLeaf },
-      { step: 3, title: 'Siram Air', desc: 'Siram dengan air secukupnya agar tetap lembab', icon: FaTint },
-      { step: 4, title: 'Aduk Rutin', desc: 'Aduk setiap 1 minggu sekali untuk menjaga aerasi', icon: FaRecycle },
-      { step: 5, title: 'Tunggu Matang', desc: 'Tunggu 1–2 bulan hingga kompos siap digunakan', icon: FaClock },
+      { step: 1, title: 'Siapkan Wadah',  desc: 'Siapkan wadah atau lubang di tanah dengan ukuran yang sesuai', icon: FaBoxOpen  },
+      { step: 2, title: 'Masukkan Bahan', desc: 'Masukkan sampah organik bergantian dengan tanah',              icon: FaLeaf     },
+      { step: 3, title: 'Siram Air',      desc: 'Siram dengan air secukupnya agar tetap lembab',               icon: FaTint     },
+      { step: 4, title: 'Aduk Rutin',     desc: 'Aduk setiap 1 minggu sekali untuk menjaga aerasi',            icon: FaRecycle  },
+      { step: 5, title: 'Tunggu Matang',  desc: 'Tunggu 1–2 bulan hingga kompos siap digunakan',               icon: FaClock    },
     ].map((step) => (
       <div key={step.step} className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-white rounded-xl shadow-sm border border-gray-100">
         <div className="w-9 h-9 sm:w-10 sm:h-10 bg-green-100 rounded-full flex items-center justify-center font-bold text-green-700 text-sm">
@@ -203,12 +186,12 @@ const TipsTab = () => (
     className="grid grid-cols-2 sm:grid-cols-3 gap-3"
   >
     {[
-      { tip: 'Jangan gunakan daging atau tulang', icon: '🚫' },
-      { tip: 'Pastikan kelembaban terjaga', icon: '💧' },
-      { tip: 'Potong bahan menjadi kecil-kecil', icon: '✂️' },
+      { tip: 'Jangan gunakan daging atau tulang',    icon: '🚫' },
+      { tip: 'Pastikan kelembaban terjaga',           icon: '💧' },
+      { tip: 'Potong bahan menjadi kecil-kecil',     icon: '✂️' },
       { tip: 'Campur bahan kering dan basah bergantian', icon: '🔄' },
-      { tip: 'Tutup wadah untuk menghindari hama', icon: '🔒' },
-      { tip: 'Aduk secara teratur tiap minggu', icon: '🌿' },
+      { tip: 'Tutup wadah untuk menghindari hama',   icon: '🔒' },
+      { tip: 'Aduk secara teratur tiap minggu',      icon: '🌿' },
     ].map((item, i) => (
       <div key={i} className="bg-gradient-to-br from-yellow-50 to-orange-50 p-3 sm:p-4 rounded-xl border border-yellow-200">
         <span className="text-xl sm:text-2xl mb-2 block">{item.icon}</span>
@@ -225,10 +208,10 @@ const ProgressionVisual = () => (
     </h3>
     <div className="grid grid-cols-4 gap-2 mb-4">
       {[
-        { week: 'Minggu 1', label: 'Mulai', color: 'bg-gray-200' },
-        { week: 'Minggu 2', label: 'Aktif', color: 'bg-green-300' },
-        { week: 'Minggu 4', label: 'Proses', color: 'bg-green-400' },
-        { week: 'Minggu 8', label: 'Matang', color: 'bg-green-600' },
+        { week: 'Minggu 1', label: 'Mulai',  color: 'bg-gray-200'   },
+        { week: 'Minggu 2', label: 'Aktif',  color: 'bg-green-300'  },
+        { week: 'Minggu 4', label: 'Proses', color: 'bg-green-400'  },
+        { week: 'Minggu 8', label: 'Matang', color: 'bg-green-600'  },
       ].map((stage, i) => (
         <div key={i} className="text-center">
           <div className={`w-10 h-10 sm:w-12 sm:h-12 ${stage.color} rounded-full flex items-center justify-center mx-auto mb-1.5 shadow-sm`}>
