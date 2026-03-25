@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
-  FaApple,  FaBatteryFull,  FaRecycle,  FaLeaf, 
-  FaNewspaper,  FaLightbulb,  FaClock, FaTrophy, 
-  FaRedo,  FaArrowLeft
+  FaApple, FaBatteryFull, FaRecycle, FaLeaf, 
+  FaNewspaper, FaLightbulb, FaClock, FaTrophy, 
+  FaRedo, FaArrowLeft
 } from 'react-icons/fa'
 import { 
   GiSkullCrossedBones, 
@@ -24,8 +24,8 @@ const PilahSampah = () => {
   ])
 
   const [score, setScore] = useState(0)
-  const [message, setMessage] = useState('🤚 Seret sampah ke tong yang benar!')
-  const [draggedItem, setDraggedItem] = useState(null)
+  const [message, setMessage] = useState('🤚 Tap sampah, lalu tap tong yang sesuai!')
+  const [selectedItem, setSelectedItem] = useState(null)
   const [gameCompleted, setGameCompleted] = useState(false)
   const [timeLeft, setTimeLeft] = useState(60)
 
@@ -35,65 +35,105 @@ const PilahSampah = () => {
       name: 'Organik', 
       icon: GiPlantSeed, 
       color: 'from-orange-400 to-orange-600',
-      examples: 'Apel, Daun'
+      bgColor: 'bg-orange-500'
     },
     { 
       category: 'anorganik', 
       name: 'Anorganik', 
       icon: FaRecycle, 
       color: 'from-blue-400 to-blue-600',
-      examples: 'Botol, Koran'
+      bgColor: 'bg-blue-500'
     },
     { 
       category: 'b3', 
-      name: 'B3 / Beracun', 
+      name: 'B3', 
       icon: GiSkullCrossedBones, 
       color: 'from-red-400 to-red-600',
-      examples: 'Baterai, Lampu'
+      bgColor: 'bg-red-500'
     },
   ]
 
-  const handleDragStart = (e, item) => {
-    setDraggedItem(item)
-    e.dataTransfer.setData('text/plain', item.category)
+  // Timer effect
+  useEffect(() => {
+    if (gameCompleted || items.length === 0) return
+    const timer = setInterval(() => {
+      setTimeLeft(prev => {
+        if (prev <= 1) {
+          clearInterval(timer)
+          setGameCompleted(true)
+          setMessage('⏰ Waktu habis! Tekan Reset untuk main lagi')
+          return 0
+        }
+        return prev - 1
+      })
+    }, 1000)
+    return () => clearInterval(timer)
+  }, [gameCompleted, items.length])
+
+  // Touch/Click handler untuk memilih sampah
+  const handleItemClick = (item) => {
+    if (gameCompleted) return
+    setSelectedItem(item)
+    setMessage(`📍 ${item.name} dipilih. Sekarang tap tong yang sesuai!`)
+    
+    // Animasi getar pada item yang dipilih
+    const element = document.getElementById(`item-${item.id}`)
+    if (element) {
+      element.classList.add('animate-pulse')
+      setTimeout(() => {
+        element.classList.remove('animate-pulse')
+      }, 500)
+    }
   }
 
-  const handleDragOver = (e) => {
-    e.preventDefault()
-  }
-
-  const handleDrop = (e, binCategory) => {
-    e.preventDefault()
-    const itemCategory = e.dataTransfer.getData('text/plain')
-
-    if (!draggedItem) {
-      setMessage('❓ Tidak ada sampah yang dipilih')
+  // Touch/Click handler untuk tong
+  const handleBinClick = (binCategory) => {
+    if (gameCompleted) {
+      setMessage('🎮 Game selesai! Tekan Reset untuk main lagi')
+      return
+    }
+    
+    if (!selectedItem) {
+      setMessage('👆 Tap sampah dulu ya!')
       return
     }
 
-    if (itemCategory === binCategory) {
-      setItems(prev => prev.filter(item => item.id !== draggedItem.id))
-      setScore(prev => prev + (draggedItem.difficulty === 'sulit' ? 20 : 10))
-      setMessage(`✅ Benar! +${draggedItem.difficulty === 'sulit' ? '20' : '10'}`)
+    if (selectedItem.category === binCategory) {
+      // Benar
+      setItems(prev => prev.filter(item => item.id !== selectedItem.id))
+      setScore(prev => prev + (selectedItem.difficulty === 'sulit' ? 20 : 10))
+      setMessage(`✅ Benar! +${selectedItem.difficulty === 'sulit' ? '20' : '10'} poin`)
+      setSelectedItem(null)
       
       if (items.length === 1) {
         setGameCompleted(true)
-        setMessage('🎉 SELAMAT! Game Selesai!')
+        setMessage('🎉 SELAMAT! Kamu berhasil memilah semua sampah!')
       }
     } else {
-      setMessage(`❌ Salah! Bukan ${binCategory}`)
+      // Salah
+      setMessage(`❌ Salah! ${selectedItem.name} bukan sampah ${binCategory}`)
       setScore(prev => Math.max(0, prev - 5))
       
-      const element = document.getElementById(`item-${draggedItem.id}`)
+      // Animasi shake pada item yang salah
+      const element = document.getElementById(`item-${selectedItem.id}`)
       if (element) {
         element.classList.add('animate-wiggle')
         setTimeout(() => {
           element.classList.remove('animate-wiggle')
         }, 500)
       }
+      
+      // Animasi shake pada tong
+      const binElement = document.getElementById(`bin-${binCategory}`)
+      if (binElement) {
+        binElement.classList.add('animate-shake')
+        setTimeout(() => {
+          binElement.classList.remove('animate-shake')
+        }, 500)
+      }
     }
     
-    setDraggedItem(null)
+    setSelectedItem(null)
   }
 
   const resetGame = () => {
@@ -106,9 +146,10 @@ const PilahSampah = () => {
       { id: 6, name: 'Lampu Neon', category: 'b3', icon: FaLightbulb, color: 'text-yellow-500', difficulty: 'sulit' },
     ])
     setScore(0)
-    setMessage('✨ Game direset! Ayo main lagi!')
+    setMessage('✨ Game direset! Tap sampah, lalu tap tong yang sesuai!')
     setGameCompleted(false)
     setTimeLeft(60)
+    setSelectedItem(null)
   }
 
   return (
@@ -116,47 +157,48 @@ const PilahSampah = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="min-h-screen pt-16 sm:pt-20 pb-6 sm:pb-10 px-3 sm:px-4"
+      className="min-h-screen pt-16 sm:pt-20 pb-6 sm:pb-10 px-3 sm:px-4 bg-gradient-to-b from-green-50 to-white"
     >
       <div className="container-custom max-w-5xl mx-auto">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-3 mb-3 sm:mb-4">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-3 mb-4 sm:mb-5">
           <Link to="/games" className="flex items-center gap-1 text-green-600 hover:text-green-700 text-xs sm:text-sm">
             <FaArrowLeft className="text-xs" /> 
             <span>Kembali</span>
           </Link>
           
           <div className="flex items-center gap-2 w-full sm:w-auto">
-            <div className="bg-yellow-100 px-2.5 sm:px-3 py-1 rounded-full flex items-center gap-1 flex-1 sm:flex-none justify-center">
-              <FaTrophy className="text-yellow-600 text-xs" />
-              <span className="font-bold text-yellow-700 text-xs">{score}</span>
+            <div className="bg-yellow-100 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full flex items-center gap-1.5 flex-1 sm:flex-none justify-center">
+              <FaTrophy className="text-yellow-600 text-sm sm:text-base" />
+              <span className="font-bold text-yellow-700 text-sm sm:text-base">{score}</span>
             </div>
-            <div className="bg-blue-100 px-2.5 sm:px-3 py-1 rounded-full flex items-center gap-1 flex-1 sm:flex-none justify-center">
-              <FaClock className="text-blue-600 text-xs" />
-              <span className="font-bold text-blue-700 text-xs">{timeLeft}s</span>
+            <div className="bg-blue-100 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full flex items-center gap-1.5 flex-1 sm:flex-none justify-center">
+              <FaClock className="text-blue-600 text-sm sm:text-base" />
+              <span className="font-bold text-blue-700 text-sm sm:text-base">{timeLeft}s</span>
             </div>
           </div>
         </div>
 
         {/* Game Title */}
-        <div className="text-center mb-3 sm:mb-4">
-          <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800">
+        <div className="text-center mb-4 sm:mb-6">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800">
             Game <span className="text-green-600">Pilah Sampah</span>
           </h1>
-          <p className="text-xs text-gray-600 max-w-2xl mx-auto">
-            Seret sampah ke tong yang sesuai!
+          <p className="text-xs sm:text-sm text-gray-500 max-w-2xl mx-auto mt-1">
+            {gameCompleted ? 'Game selesai! Tekan Reset untuk bermain lagi' : 'Tap sampah, lalu tap tong yang sesuai!'}
           </p>
         </div>
 
         {/* Game Area */}
         <div className="max-w-4xl mx-auto">
           {/* Items to sort */}
-          <div className="bg-white/50 backdrop-blur-sm rounded-lg sm:rounded-xl p-2 sm:p-3 mb-3 sm:mb-4 border border-green-200">
-            <h3 className="text-xs sm:text-sm font-bold text-gray-700 mb-1 sm:mb-2">Sampah:</h3>
-            <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 min-h-[60px] sm:min-h-[70px]">
+          <div className="bg-white/80 backdrop-blur-sm rounded-xl sm:rounded-2xl p-3 sm:p-4 mb-4 sm:mb-5 border border-green-200 shadow-sm">
+            <h3 className="text-xs sm:text-sm font-bold text-gray-700 mb-2 sm:mb-3">Sampah yang harus dipilah:</h3>
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-3 min-h-[80px] sm:min-h-[100px]">
               <AnimatePresence>
                 {items.map((item) => {
                   const Icon = item.icon
+                  const isSelected = selectedItem?.id === item.id
                   return (
                     <motion.div
                       key={item.id}
@@ -165,15 +207,15 @@ const PilahSampah = () => {
                       animate={{ scale: 1 }}
                       exit={{ scale: 0 }}
                       whileHover={{ scale: 1.02 }}
-                      draggable={!gameCompleted}
-                      onDragStart={(e) => handleDragStart(e, item)}
-                      className={`cursor-grab active:cursor-grabbing ${gameCompleted ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => handleItemClick(item)}
+                      className={`cursor-pointer transition-all ${gameCompleted ? 'opacity-50 cursor-not-allowed' : ''} ${isSelected ? 'ring-2 ring-green-500 ring-offset-2' : ''}`}
                     >
-                      <div className="bg-white px-2 py-1 sm:px-3 sm:py-1.5 rounded-full shadow-sm border border-white flex items-center gap-1">
-                        <Icon className={`text-xs sm:text-sm ${item.color}`} />
-                        <span className="font-medium text-gray-700 text-[10px] sm:text-xs">{item.name}</span>
+                      <div className={`bg-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-full shadow-sm border ${isSelected ? 'border-green-500 bg-green-50' : 'border-gray-200'} flex items-center gap-1.5 sm:gap-2`}>
+                        <Icon className={`text-sm sm:text-base ${item.color}`} />
+                        <span className="font-medium text-gray-700 text-xs sm:text-sm">{item.name}</span>
                         {item.difficulty === 'sulit' && (
-                          <span className="text-[8px] sm:text-[10px] bg-yellow-100 text-yellow-700 px-1 py-0.5 rounded-full">20</span>
+                          <span className="text-[8px] sm:text-[10px] bg-yellow-100 text-yellow-700 px-1.5 py-0.5 rounded-full">+20</span>
                         )}
                       </div>
                     </motion.div>
@@ -184,68 +226,76 @@ const PilahSampah = () => {
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="text-center py-2 sm:py-3"
+                  className="text-center py-4 sm:py-6"
                 >
-                  <GiGlassCelebration className="text-xl sm:text-2xl text-green-500 mx-auto" />
-                  <p className="text-xs text-green-600 font-bold">Selesai!</p>
+                  <GiGlassCelebration className="text-3xl sm:text-4xl text-green-500 mx-auto mb-2" />
+                  <p className="text-sm sm:text-base text-green-600 font-bold">Semua sampah sudah terpilah!</p>
                 </motion.div>
               )}
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-1.5 sm:gap-2 mb-3 sm:mb-4">
+          {/* Bins */}
+          <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-4 sm:mb-5">
             {bins.map((bin) => {
               const Icon = bin.icon
               return (
                 <motion.div
                   key={bin.category}
+                  id={`bin-${bin.category}`}
                   whileHover={{ scale: 1.02 }}
-                  onDragOver={handleDragOver}
-                  onDrop={(e) => handleDrop(e, bin.category)}
-                  className={`bg-gradient-to-br ${bin.color} rounded-lg p-2 text-white text-center
-                            shadow-sm border border-white/30 min-h-[70px] sm:min-h-[80px] 
-                            flex flex-col items-center justify-between`}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => handleBinClick(bin.category)}
+                  className={`bg-gradient-to-br ${bin.color} rounded-xl sm:rounded-2xl p-3 sm:p-4 text-white text-center
+                            shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer
+                            border-2 border-white/30 min-h-[90px] sm:min-h-[110px] flex flex-col items-center justify-between
+                            ${selectedItem ? 'hover:scale-105' : ''}`}
                 >
-                  <Icon className="text-base sm:text-lg" />
-                  <h3 className="text-[10px] sm:text-xs font-bold leading-tight">{bin.name}</h3>
-                  <span className="text-[7px] sm:text-[8px] bg-white/20 rounded-full px-1.5 py-0.5">
-                    {bin.examples}
-                  </span>
+                  <Icon className="text-2xl sm:text-3xl" />
+                  <h3 className="text-xs sm:text-sm font-bold mt-1">{bin.name}</h3>
                 </motion.div>
               )
             })}
           </div>
 
+          {/* Message & Reset */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="bg-white rounded-lg p-2 shadow-sm flex items-center justify-between gap-2"
+            className={`bg-white rounded-xl p-3 sm:p-4 shadow-md flex items-center justify-between gap-2
+                       ${message.includes('✅') ? 'border-l-4 border-l-green-500' : ''}
+                       ${message.includes('❌') ? 'border-l-4 border-l-red-500' : ''}`}
           >
-            <div className="flex items-center gap-1.5 min-w-0 flex-1">
-              <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${
+            <div className="flex items-center gap-2 min-w-0 flex-1">
+              <div className={`w-2 h-2 rounded-full flex-shrink-0 ${
                 message.includes('✅') ? 'bg-green-500' : 
                 message.includes('❌') ? 'bg-red-500' : 
-                'bg-blue-500'
+                message.includes('📍') ? 'bg-blue-500' :
+                'bg-gray-400'
               }`} />
-              <span className="text-[10px] sm:text-xs text-gray-700 truncate">{message}</span>
+              <span className="text-xs sm:text-sm text-gray-700 truncate">{message}</span>
             </div>
             
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={resetGame}
-              className="bg-green-600 text-white px-2.5 py-1 rounded-full text-[10px] sm:text-xs
-                       hover:bg-green-700 transition-colors shadow-sm flex items-center gap-1 flex-shrink-0"
+              className="bg-green-600 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm
+                       hover:bg-green-700 transition-colors shadow-sm flex items-center gap-1.5 flex-shrink-0"
             >
-              <FaRedo className="text-[8px] sm:text-[10px]" /> 
+              <FaRedo className="text-xs sm:text-sm" /> 
               <span>Reset</span>
             </motion.button>
           </motion.div>
 
-          <div className="mt-2 sm:mt-3 bg-blue-50 rounded-lg p-2 border border-blue-200">
-            <h4 className="font-bold text-blue-800 text-[10px] sm:text-xs mb-0.5">📋 Aturan:</h4>
-            <div className="text-blue-700 text-[8px] sm:text-[10px] leading-tight">
-              <span>+10/+20 poin | Salah -5 poin</span>
+          {/* Game Rules */}
+          <div className="mt-3 sm:mt-4 bg-blue-50 rounded-xl p-3 sm:p-4 border border-blue-200">
+            <h4 className="font-bold text-blue-800 text-xs sm:text-sm mb-1">📋 Cara Bermain:</h4>
+            <div className="text-blue-700 text-[10px] sm:text-xs space-y-0.5">
+              <p>1. Tap sampah yang ingin dipilah</p>
+              <p>2. Tap tong yang sesuai</p>
+              <p>3. Sampah mudah: +10 poin | Sampah sulit: +20 poin</p>
+              <p>4. Salah tempat: -5 poin</p>
             </div>
           </div>
         </div>
@@ -254,11 +304,26 @@ const PilahSampah = () => {
       <style jsx>{`
         @keyframes wiggle {
           0%, 100% { transform: rotate(0deg); }
-          25% { transform: rotate(-3deg); }
-          75% { transform: rotate(3deg); }
+          25% { transform: rotate(-5deg); }
+          75% { transform: rotate(5deg); }
+        }
+        @keyframes shake {
+          0%, 100% { transform: translateX(0); }
+          25% { transform: translateX(-5px); }
+          75% { transform: translateX(5px); }
         }
         .animate-wiggle {
-          animation: wiggle 0.2s ease-in-out;
+          animation: wiggle 0.3s ease-in-out;
+        }
+        .animate-shake {
+          animation: shake 0.3s ease-in-out;
+        }
+        .animate-pulse {
+          animation: pulse 0.5s ease-in-out;
+        }
+        @keyframes pulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.05); background-color: #f0fdf4; }
         }
       `}</style>
     </motion.div>
