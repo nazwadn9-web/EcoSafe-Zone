@@ -20,7 +20,7 @@
 
 ## 🏆 JUDUL KARYA
 
-**PilahPintar — Platform Peduli Lingkungan**
+**Ruang Aman untuk Bumi dalam Peduli Lingkungan**
 *Website Edukasi dan Layanan Lingkungan Hidup Terintegrasi*
 
 ---
@@ -71,7 +71,7 @@ Proyek ini mengangkat subtema **"Teknologi Digital untuk Lingkungan Hidup Berkel
 
 ## 📖 Tentang Proyek
 
-**PilahPintar** adalah platform digital berbasis web yang dirancang untuk meningkatkan kesadaran dan aksi nyata masyarakat Indonesia terhadap lingkungan hidup. Dengan antarmuka yang modern, responsif, dan mudah digunakan, PilahPintar menyatukan berbagai layanan lingkungan — mulai dari edukasi, bank sampah, hingga pengaduan pencemaran — dalam satu ekosistem digital yang terintegrasi.
+**Ecosafe-Zone** adalah platform digital berbasis web yang dirancang untuk meningkatkan kesadaran dan aksi nyata masyarakat Indonesia terhadap lingkungan hidup. Dengan antarmuka yang modern, responsif, dan mudah digunakan, PilahPintar menyatukan berbagai layanan lingkungan — mulai dari edukasi, bank sampah, hingga pengaduan pencemaran — dalam satu ekosistem digital yang terintegrasi.
 
 ---
 
@@ -375,7 +375,7 @@ Proyek ini dilisensikan di bawah **MIT License** — lihat *file* [LICENSE](LICE
 
 ## 📞 Kontak
 
-**EcoCare / PilahPintar**
+**EcoSafe / Zone**
 
 - 🌐 *Website*: [https://ecosafezone.my.id](https://ecosafezone.my.id)
 - 📧 *Email*: nazwadn9@gmail.com
@@ -387,6 +387,6 @@ Proyek ini dilisensikan di bawah **MIT License** — lihat *file* [LICENSE](LICE
 
 Dibuat dengan 🌍 untuk bumi yang lebih baik
 
-**PilahPintar** — *Pilah Sampah, Pintar Lingkungan*
+*EcoSafe-Zone** — *Ruang Aman untuk Bumi dalam Peduli Lingkungan*
 
 </div>
