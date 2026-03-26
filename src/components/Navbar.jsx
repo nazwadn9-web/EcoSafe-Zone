@@ -99,7 +99,7 @@ const Navbar = () => {
                   <FaRecycle />
                 </motion.div>
                 <span className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-green-700 drop-shadow-sm">
-                  PilahPintar
+                  EcosafeZone 
                 </span>
               </Link>
 
