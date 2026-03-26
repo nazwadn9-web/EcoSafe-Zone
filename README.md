@@ -1,24 +1,3 @@
-# PilahPintar — Platform Peduli Lingkungan
-
-## Institusi
-Ge-debug Pisang
-
-## Anggota Tim
-- **Ketua:** Nazwa Dwi Noviyanti
-- **Anggota 1:** Siti Mutiara Nur Hidayati
-
-## Deskripsi Karya
-
-**PilahPintar** hadir sebagai respons atas meningkatnya permasalahan sampah dan rendahnya kesadaran masyarakat terhadap pengelolaan lingkungan hidup di Indonesia. Latar belakang pembuatan platform ini berakar dari kebutuhan nyata akan sebuah ekosistem digital terpadu yang mampu menjembatani edukasi, aksi komunitas, dan layanan daur ulang dalam satu wadah yang mudah diakses oleh seluruh lapisan masyarakat.
-
-**Tujuan** dari platform ini adalah mengedukasi masyarakat tentang pengelolaan sampah secara bijak, memfasilitasi akses ke layanan bank sampah di 34 provinsi Indonesia, membangun komunitas hijau yang aktif dan terkoneksi, serta menyediakan kanal pengaduan pencemaran lingkungan yang cepat dan terstruktur.
-
-**Manfaat** yang dihadirkan meliputi kemudahan warga dalam melaporkan masalah lingkungan, peningkatan literasi ekologi melalui artikel dan mini game edukatif, serta terbukanya peluang ekonomi kreatif berbasis daur ulang melalui program pelatihan yang tersedia di platform.
-
-**Subtema** yang dipilih adalah *Lingkungan Hidup dan Pengelolaan Sampah*, dengan pendekatan teknologi web modern berbasis React yang responsif dan ramah pengguna, guna mendorong partisipasi aktif masyarakat Indonesia menuju gaya hidup yang lebih hijau dan berkelanjutan.
-
----
-
 # 🌿 PilahPintar — Platform Peduli Lingkungan
 
 <div align="center">
@@ -33,23 +12,66 @@ Ge-debug Pisang
 
 **Website multifungsi bertema lingkungan hidup yang menggabungkan edukasi, komunitas, dan layanan daur ulang dalam satu platform.**
 
-[Demo](#) · [Dokumentasi](#) · [Kontribusi](#-kontribusi) · [Laporan Bug](#)
+[Demo](https://ecosafezone.my.id) · [Dokumentasi](#) · [Kontribusi](#-kontribusi) · [Laporan Bug](#)
 
 </div>
+
+---
+
+## 🏆 JUDUL KARYA
+
+**PilahPintar — Platform Peduli Lingkungan**
+*Website Edukasi dan Layanan Lingkungan Hidup Terintegrasi*
+
+---
+
+## 🏫 Institusi
+
+**Ge-debug Pisang**
+
+---
+
+## 👥 Anggota Tim
+
+| Peran | Nama |
+|-------|------|
+| 👑 Ketua | Nazwa Dwi Noviyanti |
+| 👤 Anggota 1 | Siti Mutiara Nur Hidayati |
+
+---
+
+## 📝 Deskripsi Karya
+
+### Latar Belakang
+
+Indonesia menghadapi tantangan serius dalam pengelolaan sampah dan pelestarian lingkungan hidup. Minimnya kesadaran masyarakat, keterbatasan akses informasi, dan tidak adanya platform terpadu yang menghubungkan masyarakat dengan layanan lingkungan menjadi hambatan nyata dalam mewujudkan Indonesia yang bersih dan hijau. Di sisi lain, penetrasi internet yang terus meningkat membuka peluang besar untuk memanfaatkan teknologi digital sebagai jembatan antara masyarakat dan gerakan peduli lingkungan.
+
+### Tujuan
+
+**PilahPintar** hadir sebagai solusi digital berbasis web yang bertujuan untuk:
+
+- Mengedukasi masyarakat tentang pengelolaan sampah dan pelestarian lingkungan secara interaktif
+- Memfasilitasi akses mudah ke layanan bank sampah di seluruh 34 provinsi Indonesia
+- Membangun komunitas hijau yang aktif, terhubung, dan berdampak nyata
+- Menyediakan kanal pengaduan pencemaran lingkungan yang cepat dan terstruktur
+- Menyajikan informasi dan artikel lingkungan yang aktual dan terpercaya
+
+### Manfaat
+
+- **Bagi Masyarakat Umum** — Mendapatkan akses mudah terhadap informasi lingkungan, layanan bank sampah, dan kanal pengaduan pencemaran dalam satu platform
+- **Bagi Pelajar & Generasi Muda** — Belajar tentang lingkungan secara menyenangkan melalui artikel edukatif dan mini game interaktif
+- **Bagi Komunitas Lingkungan** — Memperluas jangkauan program penghijauan dan daur ulang melalui platform digital
+- **Bagi Pemerintah & Pemangku Kepentingan** — Mendapatkan data laporan pencemaran lingkungan yang terstruktur dari masyarakat
+
+### Pemilihan Subtema
+
+Proyek ini mengangkat subtema **"Teknologi Digital untuk Lingkungan Hidup Berkelanjutan"**. Pemilihan subtema ini dilandasi oleh keyakinan bahwa transformasi digital dapat menjadi katalisator perubahan perilaku masyarakat terhadap lingkungan. Dengan menggabungkan teknologi web modern (React, Vite, Tailwind CSS) dan desain yang ramah pengguna, PilahPintar dirancang untuk menjawab kebutuhan nyata masyarakat akan platform lingkungan yang komprehensif, mudah diakses, dan menyenangkan untuk digunakan.
 
 ---
 
 ## 📖 Tentang Proyek
 
 **PilahPintar** adalah platform digital berbasis web yang dirancang untuk meningkatkan kesadaran dan aksi nyata masyarakat Indonesia terhadap lingkungan hidup. Dengan antarmuka yang modern, responsif, dan mudah digunakan, PilahPintar menyatukan berbagai layanan lingkungan — mulai dari edukasi, bank sampah, hingga pengaduan pencemaran — dalam satu ekosistem digital yang terintegrasi.
-
-### 🎯 Tujuan Platform
-
-- Mengedukasi masyarakat tentang pengelolaan sampah dan pelestarian lingkungan
-- Memfasilitasi akses mudah ke layanan bank sampah di seluruh Indonesia
-- Membangun komunitas hijau yang aktif dan terkoneksi
-- Menyediakan kanal pengaduan lingkungan yang cepat dan terstruktur
-- Menyajikan informasi dan artikel lingkungan yang aktual dan terpercaya
 
 ---
 
@@ -355,7 +377,7 @@ Proyek ini dilisensikan di bawah **MIT License** — lihat *file* [LICENSE](LICE
 
 **EcoCare / PilahPintar**
 
-- 🌐 *Website*: [ecosafezone.my.id](#)
+- 🌐 *Website*: [https://ecosafezone.my.id](https://ecosafezone.my.id)
 - 📧 *Email*: nazwadn9@gmail.com
 - 📱 *WhatsApp*: +62 821-3411-7789
 
