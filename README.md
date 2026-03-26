@@ -355,7 +355,7 @@ Proyek ini dilisensikan di bawah **MIT License** — lihat *file* [LICENSE](LICE
 
 **EcoCare / PilahPintar**
 
-- 🌐 *Website*: [https://ecosafezone.my.id](#)
+- 🌐 *Website*: [ecosafezone.my.id](#)
 - 📧 *Email*: nazwadn9@gmail.com
 - 📱 *WhatsApp*: +62 821-3411-7789
 
