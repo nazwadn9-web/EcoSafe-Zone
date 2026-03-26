@@ -48,7 +48,7 @@ Indonesia menghadapi tantangan serius dalam pengelolaan sampah dan pelestarian l
 
 ### Tujuan
 
-**PilahPintar** hadir sebagai solusi digital berbasis web yang bertujuan untuk:
+**Ecosafe-Zone** hadir sebagai solusi digital berbasis web yang bertujuan untuk:
 
 - Mengedukasi masyarakat tentang pengelolaan sampah dan pelestarian lingkungan secara interaktif
 - Memfasilitasi akses mudah ke layanan bank sampah di seluruh 34 provinsi Indonesia
@@ -65,7 +65,7 @@ Indonesia menghadapi tantangan serius dalam pengelolaan sampah dan pelestarian l
 
 ### Pemilihan Subtema
 
-Proyek ini mengangkat subtema **"Teknologi Digital untuk Lingkungan Hidup Berkelanjutan"**. Pemilihan subtema ini dilandasi oleh keyakinan bahwa transformasi digital dapat menjadi katalisator perubahan perilaku masyarakat terhadap lingkungan. Dengan menggabungkan teknologi web modern (React, Vite, Tailwind CSS) dan desain yang ramah pengguna, PilahPintar dirancang untuk menjawab kebutuhan nyata masyarakat akan platform lingkungan yang komprehensif, mudah diakses, dan menyenangkan untuk digunakan.
+Proyek ini mengangkat subtema **"Teknologi Digital untuk Lingkungan Hidup Berkelanjutan"**. Pemilihan subtema ini dilandasi oleh keyakinan bahwa transformasi digital dapat menjadi katalisator perubahan perilaku masyarakat terhadap lingkungan. Dengan menggabungkan teknologi web modern (React, Vite, Tailwind CSS) dan desain yang ramah pengguna, Ecosafe-Zone dirancang untuk menjawab kebutuhan nyata masyarakat akan platform lingkungan yang komprehensif, mudah diakses, dan menyenangkan untuk digunakan.
 
 ---
 
