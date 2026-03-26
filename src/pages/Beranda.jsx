@@ -4,6 +4,7 @@ import Hero from '../components/Hero'
 import Stats from '../components/Stats'
 import EducationCards from '../components/EducationCards'
 
+
 const Beranda = () => {
   return (
     <motion.div

@@ -98,7 +98,34 @@ const EducationCards = () => {
   }
 
   return (
-    <section ref={ref} className="py-16 lg:py-20 bg-gradient-to-b from-white via-green-50/20 to-white">
+    <section ref={ref} className="relative py-16 lg:py-20 overflow-hidden">
+      {/* Background Hero Style */}
+<div className="absolute inset-0 -z-10">
+  <div className="absolute inset-0 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50" />
+
+  {/* Soft blobs */}
+  <div className="absolute top-0 left-[5%] w-72 h-72 bg-green-200/30 rounded-full blur-3xl" />
+  <div className="absolute bottom-10 right-[5%] w-[500px] h-[500px] bg-emerald-200/30 rounded-full blur-3xl" />
+  <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-teal-200/20 rounded-full blur-3xl" />
+
+  {/* Subtle grid */}
+  <svg
+    className="absolute inset-0 w-full h-full opacity-[0.03]"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs>
+      <pattern id="grid-education" width="40" height="40" patternUnits="userSpaceOnUse">
+        <path
+          d="M 40 0 L 0 0 0 40"
+          fill="none"
+          stroke="green"
+          strokeWidth="0.5"
+        />
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#grid-education)" />
+  </svg>
+</div>
       <div className="container-custom max-w-7xl mx-auto px-4">
         {/* Header dengan dekorasi */}
         <motion.div
