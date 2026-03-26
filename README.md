@@ -1,4 +1,4 @@
-# 🌿 PilahPintar — Platform Peduli Lingkungan
+# 🌿 Ruang Aman untuk Bumi dalam Peduli Lingkungan
 
 <div align="center">
 
@@ -21,9 +21,6 @@
 ## 🏆 JUDUL KARYA
 
 **Ruang Aman untuk Bumi dalam Peduli Lingkungan**
-*Website Edukasi dan Layanan Lingkungan Hidup Terintegrasi*
-
----
 
 ## 🏫 Institusi
 
@@ -387,6 +384,6 @@ Proyek ini dilisensikan di bawah **MIT License** — lihat *file* [LICENSE](LICE
 
 Dibuat dengan 🌍 untuk bumi yang lebih baik
 
-*EcoSafe-Zone** — *Ruang Aman untuk Bumi dalam Peduli Lingkungan*
+*EcoSafe-Zone* — *Ruang Aman untuk Bumi dalam Peduli Lingkungan*
 
 </div>
