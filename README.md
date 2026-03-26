@@ -1,4 +1,25 @@
-ngene cloud e # 🌿 PilahPintar — Platform Peduli Lingkungan
+# PilahPintar — Platform Peduli Lingkungan
+
+## Institusi
+Ge-debug Pisang
+
+## Anggota Tim
+- **Ketua:** Nazwa Dwi Noviyanti
+- **Anggota 1:** Siti Mutiara Nur Hidayati
+
+## Deskripsi Karya
+
+**PilahPintar** hadir sebagai respons atas meningkatnya permasalahan sampah dan rendahnya kesadaran masyarakat terhadap pengelolaan lingkungan hidup di Indonesia. Latar belakang pembuatan platform ini berakar dari kebutuhan nyata akan sebuah ekosistem digital terpadu yang mampu menjembatani edukasi, aksi komunitas, dan layanan daur ulang dalam satu wadah yang mudah diakses oleh seluruh lapisan masyarakat.
+
+**Tujuan** dari platform ini adalah mengedukasi masyarakat tentang pengelolaan sampah secara bijak, memfasilitasi akses ke layanan bank sampah di 34 provinsi Indonesia, membangun komunitas hijau yang aktif dan terkoneksi, serta menyediakan kanal pengaduan pencemaran lingkungan yang cepat dan terstruktur.
+
+**Manfaat** yang dihadirkan meliputi kemudahan warga dalam melaporkan masalah lingkungan, peningkatan literasi ekologi melalui artikel dan mini game edukatif, serta terbukanya peluang ekonomi kreatif berbasis daur ulang melalui program pelatihan yang tersedia di platform.
+
+**Subtema** yang dipilih adalah *Lingkungan Hidup dan Pengelolaan Sampah*, dengan pendekatan teknologi web modern berbasis React yang responsif dan ramah pengguna, guna mendorong partisipasi aktif masyarakat Indonesia menuju gaya hidup yang lebih hijau dan berkelanjutan.
+
+---
+
+# 🌿 PilahPintar — Platform Peduli Lingkungan
 
 <div align="center">
 
@@ -175,10 +196,10 @@ Pastikan sudah terinstal:
 
 ```bash
 # 1. Clone repositori
-git clone https://github.com/username/pilahpintar.git
+git clone https://github.com/nazwadn9-web/EcoSafe-Zone.git
 
 # 2. Masuk ke direktori proyek
-cd pilahpintar
+cd EcoSafe-Zone
 
 # 3. Install dependensi
 npm install
@@ -213,7 +234,7 @@ npm run lint       # Cek kode dengan ESLint
 ## 📁 Struktur Proyek
 
 ```
-pilahpintar/
+EcoSafe-Zone/
 ├── public/
 │   └── favicon.ico
 ├── src/
@@ -334,7 +355,7 @@ Proyek ini dilisensikan di bawah **MIT License** — lihat *file* [LICENSE](LICE
 
 **EcoCare / PilahPintar**
 
-- 🌐 *Website*: [ecosafezone.netlify.app](#)
+- 🌐 *Website*: [https://ecosafezone.my.id](#)
 - 📧 *Email*: nazwadn9@gmail.com
 - 📱 *WhatsApp*: +62 821-3411-7789
 
